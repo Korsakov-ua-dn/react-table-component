@@ -1,0 +1,26 @@
+.Article {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+.Article__item {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: right;
+}
+.Article__item_name {
+    text-align: left;
+}
+.Article:not(:last-child) {
+    border-bottom: 1px solid #b7b7b7;
+}
+.Article__item_checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Article__item_checkbox input {
+   width: 20px;
+   height: 20px;
+}

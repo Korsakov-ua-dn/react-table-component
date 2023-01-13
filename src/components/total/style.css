@@ -1,0 +1,25 @@
+.Total {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+}
+.Total .Total__wrapper {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 230px 230px 1fr;
+    gap: 20px;
+    padding: 0 20px;
+    overflow-y: auto;
+}
+.Total__item {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 700;
+}
+.Total__item:last-of-type {
+    justify-self: flex-end;
+}

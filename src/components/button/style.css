@@ -1,0 +1,9 @@
+.MuiButtonBase-root.MuiButton-outlinedPrimary:hover,
+.MuiButtonBase-root.MuiButton-outlinedPrimary {
+    border: 2px solid #007FFF;
+    color: #007FFF;
+}
+.MuiButtonBase-root.MuiButton-outlinedPrimary.Mui-disabled {
+    border: 2px solid #b7b7b7;
+    color: #b7b7b7;
+}
