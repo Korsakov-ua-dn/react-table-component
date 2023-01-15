@@ -2,14 +2,14 @@ import React, { useMemo, MouseEvent, ChangeEvent, ForwardedRef } from "react";
 import { Transaction } from "../../api";
 import "./style.scss";
 
-import TextField from '@mui/material/TextField';
-import Input from '@mui/material/Input';
-import InputAdornment from '@mui/material/InputAdornment';
-import AccountCircle from '@mui/icons-material/AccountCircle';
+import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import SearchIcon from "@mui/icons-material/Search";
 
 type PropsType = {
+  searchValue?: string;
   // onSort: (e: MouseEvent<HTMLSpanElement>) => void;
-  // onSearch: (e: ChangeEvent<HTMLInputElement>) => void;
+  onSearch: (e: ChangeEvent<HTMLInputElement>) => void;
   // clearSearch: (e: ChangeEvent<HTMLInputElement>) => void;
   // onSelectAll: (e: ChangeEvent<HTMLInputElement>) => void;
 };
@@ -21,19 +21,20 @@ const TableControls: React.FC<PropsType> = (props) => {
         Показывать <select name="perpage" id="page"></select>
       </div>
       <div>
-        {/* <Input id="table-search" label="Поиск" variant="standard" /> */}
         <TextField
-        id="table-search"
-        label="Поиск"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <AccountCircle />
-            </InputAdornment>
-          ),
-        }}
-        variant="standard"
-      />
+          value={props.searchValue}
+          onChange={props.onSearch}
+          id="table-search"
+          label="Поиск"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+          variant="standard"
+        />
       </div>
     </div>
   );

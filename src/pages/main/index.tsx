@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Layout from "../../components/layout";
-import TableContainer from "../../containers/table-container";
+import Transactions from "../../containers/transactions";
 import { useAppDispatch } from "../../hooks";
 import { fetchAllTransactions } from "../../store/transaction-slice";
 
@@ -13,7 +13,7 @@ const Main:React.FC = () => {
 
   return (
     <Layout>
-      <TableContainer/>
+      <Transactions/>
     </Layout>
   );
 };

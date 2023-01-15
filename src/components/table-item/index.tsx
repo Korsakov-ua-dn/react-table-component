@@ -4,7 +4,7 @@ import "./style.css";
 
 type PropsType = {
   data: { [key: string]: any };
-  dateFormatScheme?: any;
+  viewDataFormatScheme: DataFormatScheme;
   className?: string;
 };
 
@@ -12,7 +12,7 @@ const TabelItem: React.FC<PropsType> = (props) => {
   let td = [];
   for (let key in props.data) {
     // Если схема не передана или в схеме не найден ключ рендерит строку
-    switch (props.dateFormatScheme ? props.dateFormatScheme[key] : "string") {
+    switch (props.viewDataFormatScheme[key]) {
       case "price":
         td.push(<td key={key}>{numberFormat(props.data[key])} ₽</td>);
         break;
@@ -39,7 +39,6 @@ const TabelItem: React.FC<PropsType> = (props) => {
         break;
         
       case "string":
-      default:
         td.push(<td key={key}>{props.data[key]}</td>);
     }
   }
@@ -48,3 +47,8 @@ const TabelItem: React.FC<PropsType> = (props) => {
 };
 
 export default React.memo(TabelItem);
+
+//types
+export type DataFormatScheme = {
+  [key: string]: "price" | "date" | "number" | "string";
+}
