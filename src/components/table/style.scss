@@ -14,11 +14,11 @@
   }
   &::-webkit-scrollbar-thumb {
     position: fixed;
-    background: #e5e6e9;
+    background: var(--color-light-grey);
     border-radius: 4px;
   }
   &::-webkit-scrollbar-thumb:hover {
-    background: #b3b3b3;
+    background: var(--color-dark-grey);
   }
 
   & table {
@@ -31,21 +31,31 @@
   }
   & thead {
     background-color: rgba(0, 0, 0, 0.87);
-    color: #eeeeee;
+    color: #ffffff;
   }
   & tbody {
   }
   & tr:not(:last-of-type) {
-    border-bottom: 1px solid #b3b3b3;
+    border-bottom: 1px solid var(--color-dark-grey);
   }
   &.Table_zebra tr:nth-child(2) {
-    background-color: #eeeeee;
+    background-color: var(--color-light-grey);
   }
   & th, td {
     height: 50px;
-    padding: 5px;
+    padding: 10px;
     text-align: center;
     overflow: hidden;
     white-space: nowrap;
+  }
+
+  & th div {
+    display: flex;
+    justify-content: center;
+    color: #ffffff;
+    & img {
+      margin-right: 5px;
+      height: 14px;
+    }
   }
 }

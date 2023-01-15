@@ -17,7 +17,10 @@ type PropsType = {
 
 const Table = React.forwardRef(
   (props: PropsType, ref: ForwardedRef<HTMLTableElement | null>) => {
-    const classN = `Table ${props.colorScheme === "zebra" ? "Table_zebra" : ""}`;
+    const classN = `Table ${
+      props.colorScheme === "zebra" ? "Table_zebra" : ""
+    }`;
+    const arrow = require("../../assets/images/arrow-sort.svg").default;
 
     return (
       <div className={classN}>
@@ -25,13 +28,16 @@ const Table = React.forwardRef(
           <thead>
             <tr>
               {props.headerOptions.map((option) => (
-                <th key={option.title}>{option.title}</th>
+                <th key={option.title}>
+                  <div>
+                    <img src={arrow} alt="sort" />
+                    {option.title}
+                  </div>
+                </th>
               ))}
             </tr>
           </thead>
-          <tbody>
-            { props.items.map( item => props.renderItem(item)) }
-          </tbody>
+          <tbody>{props.items.map((item) => props.renderItem(item))}</tbody>
         </table>
       </div>
     );
@@ -45,4 +51,4 @@ type ColorScheme = "mono" | "zebra";
 type HeaderOption = {
   title: string;
   sort: boolean;
-}
+};

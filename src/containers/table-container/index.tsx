@@ -13,6 +13,7 @@ import Table from "../../components/table";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { transactionActions, Sort } from "../../store/transaction-slice";
 import { sortByKey } from "../../utils/sort-by-key";
+import TableControls from "../../components/table-controls";
 
 const TableContainer: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -26,6 +27,52 @@ const TableContainer: React.FC = () => {
   }));
 
   const tableRef = useRef<HTMLTableElement>(null);
+  const [search, setSearch] = useState<Search>(null);
+
+  const callbacks = {
+
+    // onSort: useCallback((e: MouseEvent<HTMLSpanElement>) => {
+    //   const searchParam = (e.currentTarget.getAttribute('data-key')) as SortType;
+    //   dispatch(articlesActions.setSort(searchParam))
+    // }, [dispatch]),
+
+    onSearch: useCallback((e: ChangeEvent<HTMLInputElement>) => {
+      const string = e.currentTarget.value
+      const field = e.currentTarget.getAttribute('data-field') as OptionsType
+      field && setSearch({ string, field })
+    }, []),
+
+    // clearSearch: useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    //   const field = e.currentTarget.getAttribute('data-field') as OptionsType
+    //   if (search?.field !== field) {
+    //     setSearch(null)
+    //   }
+    // }, [search?.field]),
+
+    // onResize: useCallback(() => {
+    //   if (tableRef.current) {
+    //     let maxHeight = window.innerHeight - tableRef.current.offsetTop * 2
+    //     tableRef.current.style.maxHeight = `${maxHeight}px`;
+    //   }
+    // }, [])
+  
+  };
+
+  // Отфильтрованный массив транзакций для рендера
+  const filteredTransactions = useMemo<Transaction[]>(() => {
+    if (search) {
+      // Поиск не чувствительный к регистру
+      const regex = new RegExp(`${search.string}`, 'i' )
+      return select.transactions.filter(item => regex.test(String(item[search.field])))
+      // Поиск чувствительный к регистру
+      // return select.articles.filter(item => String(item[search.field]).includes(search.string))
+    } else return select.transactions
+  }, [search, select.transactions])
+
+  // Отсортированный массив транзакций для рендера
+  // const sortTransactions = useMemo<Transaction[]>(() => {
+  //   return sortByKey(select.transactions, select.sort)
+  // }, [select.sort, select.transactions])
 
   const renders = {
     transaction: useCallback((transaction: Transaction) => {
@@ -76,22 +123,33 @@ const TableContainer: React.FC = () => {
       {select.error && select.error}
 
       {!!select.transactions.length && (
-        <Table
-          headerOptions={options.tableHeader}
-          items={select.transactions}
-          // sort={select.sort}
-          // search={search}
-          renderItem={renders.transaction}
-          // onSort={callbacks.onSort}
-          // onSearch={callbacks.onSearch}
-          // clearSearch={callbacks.clearSearch}
-          // onSelectAll={callbacks.onSelectAll}
-          colorScheme="zebra"
-          ref={tableRef}
-        />
+        <>
+          <TableControls />
+          <Table
+            headerOptions={options.tableHeader}
+            items={filteredTransactions}
+            // sort={select.sort}
+            // search={search}
+            renderItem={renders.transaction}
+            // onSort={callbacks.onSort}
+            // onSearch={callbacks.onSearch}
+            // clearSearch={callbacks.clearSearch}
+            // onSelectAll={callbacks.onSelectAll}
+            colorScheme="zebra"
+            ref={tableRef}
+          />
+        </>
       )}
     </>
   );
 };
 
 export default React.memo(TableContainer);
+
+// types
+type OptionsType = keyof Transaction
+
+export type Search = { 
+  string: string, 
+  field: OptionsType
+} | null

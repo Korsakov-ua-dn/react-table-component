@@ -1,5 +1,5 @@
 import React from "react";
-import "./style.css";
+import "./style.scss";
 import Button from '@mui/material/Button';
 
 type PropsType = {
@@ -9,7 +9,6 @@ type PropsType = {
 };
 
 const CustomButton: React.FC<PropsType> = (props) => {
-
   return (
     <Button disabled={props.disabled} onClick={props.onClick} variant="outlined">
      { props.children }
