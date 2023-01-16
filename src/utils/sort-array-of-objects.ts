@@ -1,7 +1,17 @@
-export function sortArrayOfObjects<T>(array: T[], field: keyof T, direction: Direction, format: FormatData) {
+export function sortArrayOfObjects<T>(
+  array: T[],
+  field: keyof T,
+  direction: Direction,
+  format: FormatData
+) {
+  
+  if (direction === "none") return array;
+
   switch (format) {
     case "string":
-      return [...array].sort((a, b) => String(a[field]).localeCompare(String(b[field])));
+      return [...array].sort((a, b) =>
+        String(a[field]).localeCompare(String(b[field]))
+      );
     case "number":
     case "price":
       return [...array].sort((a, b) => Number(a[field]) - Number(b[field]));
@@ -11,11 +21,11 @@ export function sortArrayOfObjects<T>(array: T[], field: keyof T, direction: Dir
           new Date(String(a[field])).getTime() -
           new Date(String(b[field])).getTime()
       );
-    default: return array;
+    default:
+      return array;
   }
-};
+}
 
 //types
 export type FormatData = "string" | "number" | "date" | "price";
-type Direction = "ascending" | "descending" | "none";
-
+export type Direction = "ascending" | "descending" | "none";

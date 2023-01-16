@@ -1,5 +1,4 @@
-import React, { useMemo, MouseEvent, ChangeEvent, ForwardedRef } from "react";
-import { Transaction } from "../../api";
+import React, { ChangeEvent } from "react";
 import "./style.scss";
 
 import TextField from "@mui/material/TextField";

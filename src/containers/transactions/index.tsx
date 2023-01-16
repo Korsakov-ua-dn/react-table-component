@@ -22,7 +22,7 @@ const Transactions: React.FC = () => {
       (): DataFormatScheme => ({
         name: { format: "string", title: "Транспорт", sort: true },
         date: { format: "date", title: "Дата", sort: true },
-        card: { format: "number", title: "Карта", sort: false },
+        card: { format: "string", title: "Карта", sort: false },
         point: { format: "string", title: "АЗС", sort: false },
         address: { format: "string", title: "Адрес", sort: true },
         fuelName: { format: "string", title: "Тип топлива", sort: false },

@@ -1,4 +1,5 @@
 import React, { MouseEvent } from "react";
+import { Direction } from "../../utils/sort-array-of-objects";
 import TableHeader from "../table-header";
 import TabelItem, { DataFormatScheme } from "../table-item";
 import "./style.scss";
@@ -7,24 +8,23 @@ type PropsType = {
   viewDataFormatScheme: DataFormatScheme;
   items: any[];
   colorScheme: ColorScheme;
-  // sort: SortType;
-  // search: SearchType;
+  activeField: any;
+  direction: Direction;
   onSort: (e: MouseEvent<HTMLSpanElement>) => void;
-  // onSearch: (e: ChangeEvent<HTMLInputElement>) => void;
-  // clearSearch: (e: ChangeEvent<HTMLInputElement>) => void;
-  // onSelectAll: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
 const Table: React.FC<PropsType> = (props) => {
-  const classN = `Table ${props.colorScheme === "zebra" ? "Table_zebra" : ""}`;
+  const classTable = `Table ${props.colorScheme === "zebra" ? "Table_zebra" : ""}`;
 
   return (
-    <div className={classN}>
+    <div className={classTable}>
       <table id="table">
         <thead>
           <TableHeader
             viewDataFormatScheme={props.viewDataFormatScheme}
             onSort={props.onSort}
+            activeField={props.activeField}
+            direction={props.direction}
           />
         </thead>
         <tbody>
@@ -32,7 +32,6 @@ const Table: React.FC<PropsType> = (props) => {
             <TabelItem
               key={item._id}
               data={item}
-              className="Transaction"
               viewDataFormatScheme={props.viewDataFormatScheme}
             />
           ))}
