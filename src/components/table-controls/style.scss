@@ -3,3 +3,17 @@
   justify-content: space-between;
   margin-bottom: 20px;
 }
+
+.Table-controls__search {
+  .MuiFormControl-root {
+    margin: 0 !important;
+    margin-right: 10px !important;
+  
+    & em {
+      font-style: normal;
+    }
+  }
+}
+.Table-controls-selec-field-option {
+  font-style: normal;
+}
