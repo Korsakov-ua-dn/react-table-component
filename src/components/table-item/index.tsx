@@ -1,6 +1,6 @@
 import React from "react";
-import numberFormat from "../../utils/number-format";
-import "./style.css";
+import { Format, formatDataToView } from "../../utils/format-data-to-view";
+import "./style.scss";
 
 type PropsType = {
   data: { [key: string]: any };
@@ -10,36 +10,14 @@ type PropsType = {
 
 const TabelItem: React.FC<PropsType> = (props) => {
   let td = [];
+
   for (let key in props.data) {
-    // Если схема не передана или в схеме не найден ключ рендерит строку
-    switch (props.viewDataFormatScheme[key]) {
-      case "price":
-        td.push(<td key={key}>{numberFormat(props.data[key])} ₽</td>);
-        break;
-
-      case "date":
-        const date = new Date(props.data[key]);
-        td.push(
-          <td key={key}>
-            {date
-              .toLocaleString([], {
-                year: "numeric",
-                month: "numeric",
-                day: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-              })
-              .replace(",", "")}
-          </td>
-        );
-        break;
-
-      case "number":
-        td.push(<td key={key}>{numberFormat(props.data[key])}</td>);
-        break;
-        
-      case "string":
-        td.push(<td key={key}>{props.data[key]}</td>);
+    // Узнаю какого формата текущее поле согласно схемы
+    const format = props.viewDataFormatScheme[key]?.format;
+    // Если в схеме отсутствует поле с таким ключем => рендер не производится
+    if (format !== undefined) {
+      const renderFunction = formatDataToView[format];
+      td.push(<td key={key}>{renderFunction(props.data[key])}</td>);
     }
   }
 
@@ -49,6 +27,9 @@ const TabelItem: React.FC<PropsType> = (props) => {
 export default React.memo(TabelItem);
 
 //types
-export type DataFormatScheme = {
-  [key: string]: "price" | "date" | "number" | "string";
+type Data = {
+  format: Format;
+  title: string;
+  sort: boolean;
 }
+export type DataFormatScheme = Record<string, Data>;

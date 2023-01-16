@@ -18,33 +18,19 @@ const Transactions: React.FC = () => {
   }));
 
   const options = {
-    tableHeader: useMemo(
-      () => [
-        { field: "name", format: "string", title: "Транспорт", sort: true },
-        { field: "date", format: "date", title: "Дата", sort: true },
-        { field: "card", format: "number", title: "Карта", sort: false },
-        { field: "point", format: "string", title: "АЗС", sort: false },
-        { field: "address", format: "string", title: "Адрес", sort: true },
-        { field: "fuelName", format: "string", title: "Тип топлива", sort: false },
-        { field: "fuelCount", format: "number", title: "Количество", sort: true },
-        { field: "coast", format: "number", title: "Стоимость", sort: true },
-      ] as any[],
-      []
-    ),
-
     viewDataFormatScheme: useMemo(
-      () => ({
-        name: "string",
-        date: "date",
-        card: "string",
-        point: "string",
-        address: "string",
-        fuelName: "string",
-        fuelCount: "number",
-        coast: "price",
-      }) as DataFormatScheme,
+      (): DataFormatScheme => ({
+        name: { format: "string", title: "Транспорт", sort: true },
+        date: { format: "date", title: "Дата", sort: true },
+        card: { format: "number", title: "Карта", sort: false },
+        point: { format: "string", title: "АЗС", sort: false },
+        address: { format: "string", title: "Адрес", sort: true },
+        fuelName: { format: "string", title: "Тип топлива", sort: false },
+        fuelCount: {format: "number", title: "Количество", sort: true },
+        coast: { format: "price", title: "Стоимость", sort: true },
+      }),
       []
-    ), // Исключает отрисовку полей "_id" и "__v"
+    ), // Данная схема исключает отрисовку полей "_id" и "__v"
   };
 
   return (
@@ -55,7 +41,6 @@ const Transactions: React.FC = () => {
 
       {!!select.transactions.length && (
           <TableContainer
-            headerOptions={options.tableHeader}
             items={select.transactions}
             colorScheme="zebra"
             viewDataFormatScheme={options.viewDataFormatScheme}

@@ -5,28 +5,19 @@ import React, {
   MouseEvent,
   ChangeEvent,
 } from "react";
-import TabelItem, { DataFormatScheme } from "../../components/table-item";
+import { DataFormatScheme } from "../../components/table-item";
 import Table, { ColorScheme } from "../../components/table";
 import { sortArrayOfObjects, FormatData } from "../../utils/sort-array-of-objects";
 import TableControls from "../../components/table-controls";
 
 function TableContainer<T, F extends keyof T>(props: {
   items: T[];
-  headerOptions: {
-    field: F;
-    format: FormatData;
-    title: string;
-    sort: boolean;
-  }[];
   colorScheme: ColorScheme;
   viewDataFormatScheme: DataFormatScheme;
 }) {
   
   const [search, setSearch] = useState<string>("");
-  const [sort, setSort] = useState<{ field: F; format: FormatData }>({
-    field: props.headerOptions[0].field,
-    format: props.headerOptions[0].format,
-  });
+  const [sort, setSort] = useState<{ field: F; format: FormatData } | null>(null);
 
   const callbacks = {
     onSort: useCallback((e: MouseEvent<HTMLSpanElement>) => {
@@ -43,7 +34,7 @@ function TableContainer<T, F extends keyof T>(props: {
 
   // Отфильтрованный массив транзакций для рендера
   const filteredItems = useMemo<T[]>(() => {
-    if (search) {
+    if (search && sort) {
       // Поиск не чувствительный к регистру
       const regex = new RegExp(`${search}`, "i");
       return props.items.filter((item) =>
@@ -54,34 +45,22 @@ function TableContainer<T, F extends keyof T>(props: {
       //   String(item[sort.field]).includes(search)
       // );
     } else return props.items;
-  }, [search, props.items, sort?.field]);
+  }, [search, sort, props.items]);
 
   // Отсортированный массив транзакций для рендера
   const sortItems = useMemo<T[]>(() => {
-    return sortArrayOfObjects(filteredItems, sort.field, "ascending", sort.format);
-  }, [filteredItems, sort.field, sort.format]);
-
-  const renders = {
-    items: useCallback((item: any) => {
-      return (
-        <TabelItem
-          key={item._id}
-          data={item}
-          className="Transaction"
-          viewDataFormatScheme={props.viewDataFormatScheme}
-        />
-      );
-    }, [props.viewDataFormatScheme]),
-  };
+    if (sort) {
+      return sortArrayOfObjects(filteredItems, sort.field, "ascending", sort.format);
+    } else return filteredItems;
+  }, [filteredItems, sort]);
 
   return (
     <>
       <TableControls searchValue={search} onSearch={callbacks.onSearch} />
       <Table
-        headerOptions={props.headerOptions}
+        viewDataFormatScheme={props.viewDataFormatScheme}
         items={sortItems}
         // sort={select.sort}
-        renderItem={renders.items}
         onSort={callbacks.onSort}
         // clearSearch={callbacks.clearSearch}
         colorScheme="zebra"
