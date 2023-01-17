@@ -5,8 +5,8 @@ const instance = axios.create({
 });
 
 export const transactionsApi = {
-  getAll() {
-    return instance.get('/api/transactions');
+  getAll(limit?: number, skip?: number) {
+    return instance.get(`/api/transactions?limit=${limit}&skip=${skip}`);
   },
 };
 

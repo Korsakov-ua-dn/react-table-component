@@ -14,12 +14,11 @@
   }
   &::-webkit-scrollbar-thumb {
     position: fixed;
-    background: var(--color-light-grey);
     background: var(--color-dark-grey);
-    border-radius: 4px;
+    border-radius: 12px;
   }
   &::-webkit-scrollbar-thumb:hover {
-    background: var(--color-flower-blue);
+    background: var(--color-active);
   }
 
   & table {

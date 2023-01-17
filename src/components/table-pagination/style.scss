@@ -1,0 +1,18 @@
+.Table-pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+.css-10by3a5-MuiButtonBase-root-MuiMenuItem-root-MuiTablePagination-menuItem.Mui-selected {
+  background-color: var(--color-active)!important;
+  color: #ffffff;
+}
+.css-10by3a5-MuiButtonBase-root-MuiMenuItem-root-MuiTablePagination-menuItem {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.css-levciy-MuiTablePagination-displayedRows,
+.css-pdct74-MuiTablePagination-selectLabel {
+  font-size: 14px !important;
+}

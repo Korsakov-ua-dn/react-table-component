@@ -10,11 +10,16 @@ import Table, { ColorScheme } from "../../components/table";
 import { sortArrayOfObjects, FormatData, Direction } from "../../utils/sort-array-of-objects";
 import TableControls from "../../components/table-controls";
 import { SelectChangeEvent } from '@mui/material/Select';
+import TablePagination from "../../components/table-pagination";
 
 function TableContainer<T, F extends keyof T>(props: {
   items: T[];
-  colorScheme: ColorScheme;
+  limit: number;
+  page: number;
   viewDataFormatScheme: DataFormatScheme;
+  colorScheme: ColorScheme;
+  setLimit: (limit: number) => void;
+  setPage: (page: number) => void;
 }) {
   
   const [search, setSearch] = useState<{field: F, value: string} | null>(null);
@@ -27,7 +32,7 @@ function TableContainer<T, F extends keyof T>(props: {
       setSort(prev => {
 
         if (prev?.field !== field) {
-          return { field, format, direction: "none" }
+          return { field, format, direction: "ascending" }
         }
         if (prev?.direction === "none") {
           return { field, format, direction: "ascending" }
@@ -88,11 +93,20 @@ function TableContainer<T, F extends keyof T>(props: {
       <Table
         viewDataFormatScheme={props.viewDataFormatScheme}
         items={sortItems}
+        limit={props.limit}
+        page={props.page}
         activeField={sort?.field}
         direction={sort?.direction || "none"}
         onSort={callbacks.onSort}
         // clearSearch={callbacks.clearSearch}
         colorScheme="zebra"
+      />
+      <TablePagination 
+        count={props.items.length}
+        limit={props.limit}
+        page={props.page}
+        setLimit={props.setLimit}
+        setPage={props.setPage}
       />
     </>
   );

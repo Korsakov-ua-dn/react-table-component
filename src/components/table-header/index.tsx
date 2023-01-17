@@ -16,10 +16,12 @@ const TabelHeader: React.FC<PropsType> = (props) => {
   let th = [];
 
   for (let key in props.viewDataFormatScheme) {
+    const isSort = props.viewDataFormatScheme[key].sort;
+    
     th.push(
       <th
         key={key}
-        onClick={props.onSort}
+        onClick={isSort ? props.onSort : ()=>{}}
         data-field={key}
         data-format={props.viewDataFormatScheme[key].format}
         className={

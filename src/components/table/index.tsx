@@ -7,6 +7,8 @@ import "./style.scss";
 type PropsType = {
   viewDataFormatScheme: DataFormatScheme;
   items: any[];
+  limit: number;
+  page: number;
   colorScheme: ColorScheme;
   activeField: any;
   direction: Direction;
@@ -15,6 +17,21 @@ type PropsType = {
 
 const Table: React.FC<PropsType> = (props) => {
   const classTable = `Table ${props.colorScheme === "zebra" ? "Table_zebra" : ""}`;
+  
+  const tbody = props.items.map((item, i) => {
+    if ( 
+      i < props.limit * (props.page + 1) &&
+      i >= props.limit * props.page
+    ) {
+      return (
+        <TabelItem
+          key={item._id}
+          data={item}
+          viewDataFormatScheme={props.viewDataFormatScheme}
+        />
+      )
+    } else return false
+  })
 
   return (
     <div className={classTable}>
@@ -28,13 +45,7 @@ const Table: React.FC<PropsType> = (props) => {
           />
         </thead>
         <tbody>
-          {props.items.map((item) => (
-            <TabelItem
-              key={item._id}
-              data={item}
-              viewDataFormatScheme={props.viewDataFormatScheme}
-            />
-          ))}
+          { tbody }
         </tbody>
       </table>
     </div>

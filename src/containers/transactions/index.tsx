@@ -1,9 +1,10 @@
 import React, {
   useMemo,
+  useCallback,
 } from "react";
 import { DataFormatScheme } from "../../components/table-item";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-// import { transactionActions, Sort } from "../../store/transaction-slice";
+import { transactionActions } from "../../store/transaction-slice";
 import TableContainer from "../table-container";
 
 const Transactions: React.FC = () => {
@@ -12,10 +13,21 @@ const Transactions: React.FC = () => {
   const select = useAppSelector((state) => ({
     transactions: state.transactions.data,
     sort: state.transactions.sort,
+    limit: state.transactions.limit,
+    page: state.transactions.page,
     selected: state.transactions.limit,
     loading: state.transactions.loading,
     error: state.transactions.error,
   }));
+
+  const callbacks = {
+    setLimit: useCallback((limit: number) => {
+      dispatch(transactionActions.setLimit(limit))
+    }, [dispatch]),
+    setPage: useCallback((page: number) => {
+      dispatch(transactionActions.setPage(page))
+    }, [dispatch]),
+  };
 
   const options = {
     viewDataFormatScheme: useMemo(
@@ -42,8 +54,12 @@ const Transactions: React.FC = () => {
       {!!select.transactions.length && (
           <TableContainer
             items={select.transactions}
-            colorScheme="zebra"
+            limit={select.limit}
+            page={select.page}
             viewDataFormatScheme={options.viewDataFormatScheme}
+            colorScheme="zebra"
+            setLimit={callbacks.setLimit}
+            setPage={callbacks.setPage}
           />
       )}
     </>

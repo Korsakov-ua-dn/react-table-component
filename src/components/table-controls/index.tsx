@@ -23,7 +23,8 @@ const TableControls: React.FC<PropsType> = (props) => {
   return (
     <div className="Table-controls">
       <div>
-        Показывать <select name="perpage" id="page"></select>
+        <button>PDF</button>
+        <button>XLS</button>
       </div>
 
       <div className="Table-controls__search">
