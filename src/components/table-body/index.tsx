@@ -19,6 +19,7 @@ const TableBody: React.FC<PropsType> = (props) => {
         <TabelItem
           key={item._id}
           data={item}
+          painted={i % 2 === 0}
           viewDataFormatScheme={props.viewDataFormatScheme}
         />
       )

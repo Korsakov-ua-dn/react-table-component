@@ -11,6 +11,7 @@ import { sortArrayOfObjects, FormatData, Direction } from "../../utils/sort-arra
 import TableControls from "../../components/table-controls";
 import { SelectChangeEvent } from '@mui/material/Select';
 import TablePagination from "../../components/table-pagination";
+import useTranslation from "../../hooks/use-translate";
 
 function TableContainer<T, F extends keyof T>(props: {
   items: T[];
@@ -18,9 +19,13 @@ function TableContainer<T, F extends keyof T>(props: {
   page: number;
   viewDataFormatScheme: DataFormatScheme;
   colorScheme: ColorScheme;
+  locale: string;
   setLimit: (limit: number) => void;
   setPage: (page: number) => void;
 }) {
+  
+  const t = useTranslation('table', props.locale);
+  console.log(t("search"));
   
   const [search, setSearch] = useState<{field: F, value: string} | null>(null);
   const [sort, setSort] = useState<{ field: F; format: FormatData, direction: Direction} | null>(null);

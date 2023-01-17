@@ -57,6 +57,7 @@ const Transactions: React.FC = () => {
             page={select.page}
             viewDataFormatScheme={options.viewDataFormatScheme}
             colorScheme="zebra"
+            locale={"ru"}
             setLimit={callbacks.setLimit}
             setPage={callbacks.setPage}
           />

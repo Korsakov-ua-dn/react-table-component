@@ -7,6 +7,7 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 type PropsType = {
   data: { [key: string]: any };
   viewDataFormatScheme: DataFormatScheme;
+  painted: boolean;
 };
 
 const TabelItem: React.FC<PropsType> = (props) => {
@@ -15,12 +16,16 @@ const TabelItem: React.FC<PropsType> = (props) => {
     setExpanded((prev) => !prev);
   }, []);
 
-  const ClassNameRow = `Table__body-row ${isExpanded ? "Table__body-row_expanded" : ""}`;
+  const ClassNameRow = `
+  Table__body-row 
+  ${isExpanded ? "Table__body-row_expanded" : ""}
+  ${props.painted ? "Table__body-row_painted" : ""}
+  `;
 
   let td = [
     <td className="Table__body-item_expand" key={"arrow"} onClick={expandRowHandler}>
       <ArrowRightIcon />
-    </td>,
+    </td>
   ];
 
   for (let key in props.data) {
@@ -42,6 +47,11 @@ const TabelItem: React.FC<PropsType> = (props) => {
       <tr className={ClassNameRow}>
         {td}
       </tr>
+      { isExpanded && <tr className={"Expanding-content"}>
+        <td colSpan={Object.keys(props.data).length}>
+          <span className=""> Детальная информация о транзакции </span>
+        </td>
+      </tr>}
     </>
   );
 };

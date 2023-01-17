@@ -33,12 +33,7 @@
     background-color: rgba(0, 0, 0, 0.87);
     color: #ffffff;
   }
-  & tbody {
-  }
   & tr:not(:last-of-type) {
     border-bottom: 1px solid var(--color-dark-grey);
-  }
-  &.Table_zebra tr:nth-of-type(2n) {
-    background-color: var(--color-light-grey);
   }
 }
