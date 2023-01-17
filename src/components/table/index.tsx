@@ -1,7 +1,8 @@
 import React, { MouseEvent } from "react";
 import { Direction } from "../../utils/sort-array-of-objects";
+import TableBody from "../table-body";
 import TableHeader from "../table-header";
-import TabelItem, { DataFormatScheme } from "../table-item";
+import { DataFormatScheme } from "../table-item";
 import "./style.scss";
 
 type PropsType = {
@@ -17,21 +18,6 @@ type PropsType = {
 
 const Table: React.FC<PropsType> = (props) => {
   const classTable = `Table ${props.colorScheme === "zebra" ? "Table_zebra" : ""}`;
-  
-  const tbody = props.items.map((item, i) => {
-    if ( 
-      i < props.limit * (props.page + 1) &&
-      i >= props.limit * props.page
-    ) {
-      return (
-        <TabelItem
-          key={item._id}
-          data={item}
-          viewDataFormatScheme={props.viewDataFormatScheme}
-        />
-      )
-    } else return false
-  })
 
   return (
     <div className={classTable}>
@@ -45,7 +31,12 @@ const Table: React.FC<PropsType> = (props) => {
           />
         </thead>
         <tbody>
-          { tbody }
+          <TableBody
+            items={props.items}
+            limit={props.limit}
+            page={props.page}
+            viewDataFormatScheme={props.viewDataFormatScheme}
+          />
         </tbody>
       </table>
     </div>

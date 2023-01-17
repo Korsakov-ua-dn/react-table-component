@@ -56,8 +56,7 @@ export const fetchAllTransactions = createAsyncThunk<
 // slice
 const initialState: TransactionState = {
   data: [],
-  sort: "",
-  limit: 1,
+  limit: 5,
   page: 0,
   loading: false,
   error: null,
@@ -67,9 +66,6 @@ const transactionsSlice = createSlice({
   name: "transactions",
   initialState,
   reducers: {
-    // setSort(state, action: PayloadAction<Sort>) {
-    //   state.sort = action.payload
-    // },
     setLimit(state, action: PayloadAction<number>) {
       state.limit = action.payload
     },
@@ -104,22 +100,21 @@ function isError(action: AnyAction) {
 // types
 type TransactionState = {
   data: Transaction[];
-  sort: Sort;
   limit: number;
   page: number;
   loading: boolean;
   error: string | null;
 };
 
-export type Sort =
-  | ""
-  | "name"
-  | "date"
-  | "card"
-  | "point"
-  | "address"
-  | "fuelName"
-  | "fuelCount"
-  | "coast"; //@todo partial type
+// export type Sort =
+//   | ""
+//   | "name"
+//   | "date"
+//   | "card"
+//   | "point"
+//   | "address"
+//   | "fuelName"
+//   | "fuelCount"
+//   | "coast"; //@todo partial type
 
 // export type Limit = 1 | 5 | 10 | 25;

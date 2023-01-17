@@ -1,0 +1,37 @@
+.Table__body-row {
+    position: relative;
+}
+.Table__body-row_expanded {
+    height: 134px;
+    & svg {
+        transform: rotate(90deg);
+    }
+}
+.Table__body-item {
+    height: 34px;
+    padding: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: top;
+}
+.Table__body-item_expand {
+    display: flex;
+    align-items: flex-start;
+    padding: 8px 0;
+    cursor: pointer;
+    & svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+.Table__body-row_expanded::after {
+    content: "Детальная информация о транзакции";
+    position: absolute;
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100px;
+    padding: 5px 20px;
+    border-top: 1px solid var(--color-dark-grey);
+}

@@ -13,7 +13,8 @@ type PropsType = {
 const TabelHeader: React.FC<PropsType> = (props) => {
   const arrow = require("../../assets/images/arrow-sort.svg").default;
 
-  let th = [];
+  //Первая th в массиве нужна т.к. в tbody есть дополнительный элемент стрелка детализации строки
+  let th = [<th key={"firstTH"}></th>,];
 
   for (let key in props.viewDataFormatScheme) {
     const isSort = props.viewDataFormatScheme[key].sort;

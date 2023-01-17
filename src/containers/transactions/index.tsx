@@ -12,7 +12,6 @@ const Transactions: React.FC = () => {
 
   const select = useAppSelector((state) => ({
     transactions: state.transactions.data,
-    sort: state.transactions.sort,
     limit: state.transactions.limit,
     page: state.transactions.page,
     selected: state.transactions.limit,

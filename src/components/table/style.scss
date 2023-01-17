@@ -38,14 +38,7 @@
   & tr:not(:last-of-type) {
     border-bottom: 1px solid var(--color-dark-grey);
   }
-  &.Table_zebra tr:nth-child(2n) {
+  &.Table_zebra tr:nth-of-type(2n) {
     background-color: var(--color-light-grey);
-  }
-  & th, td {
-    height: 50px;
-    padding: 10px;
-    text-align: center;
-    overflow: hidden;
-    white-space: nowrap;
   }
 }

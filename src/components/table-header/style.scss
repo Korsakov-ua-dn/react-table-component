@@ -6,6 +6,9 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  padding: 10px;
+  overflow: hidden;
+  white-space: nowrap;
 
   & div {
     display: flex;

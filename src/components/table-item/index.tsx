@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { Format, formatDataToView } from "../../utils/format-data-to-view";
 import "./style.scss";
+// From MUI
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
 type PropsType = {
   data: { [key: string]: any };
   viewDataFormatScheme: DataFormatScheme;
-  className?: string;
 };
 
 const TabelItem: React.FC<PropsType> = (props) => {
-  let td = [];
+  const [isExpanded, setExpanded] = useState<boolean>(false);
+  const expandRowHandler = useCallback(() => {
+    setExpanded((prev) => !prev);
+  }, []);
+
+  const ClassNameRow = `Table__body-row ${isExpanded ? "Table__body-row_expanded" : ""}`;
+
+  let td = [
+    <td className="Table__body-item_expand" key={"arrow"} onClick={expandRowHandler}>
+      <ArrowRightIcon />
+    </td>,
+  ];
 
   for (let key in props.data) {
     // Узнаю какого формата текущее поле согласно схемы
@@ -17,11 +29,21 @@ const TabelItem: React.FC<PropsType> = (props) => {
     // Если в схеме отсутствует поле с таким ключем => рендер не производится
     if (format !== undefined) {
       const renderFunction = formatDataToView[format];
-      td.push(<td key={key}>{renderFunction(props.data[key])}</td>);
+      td.push(
+        <td className="Table__body-item" key={key}>
+          {renderFunction(props.data[key])}
+        </td>
+      );
     }
   }
 
-  return <tr className={`Table__item ${props.className}`}>{td}</tr>;
+  return (
+    <>
+      <tr className={ClassNameRow}>
+        {td}
+      </tr>
+    </>
+  );
 };
 
 export default React.memo(TabelItem);
@@ -31,5 +53,5 @@ type Data = {
   format: Format;
   title: string;
   sort: boolean;
-}
+};
 export type DataFormatScheme = Record<string, Data>;
