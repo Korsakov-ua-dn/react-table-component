@@ -7,9 +7,9 @@ import { fetchAllTransactions } from "../../store/transaction-slice";
 const Main:React.FC = () => {
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(fetchAllTransactions())
-  }, [dispatch])
+  // useEffect(() => {
+  //   dispatch(fetchAllTransactions())
+  // }, [dispatch])
 
   return (
     <Layout>

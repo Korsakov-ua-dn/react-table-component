@@ -1,15 +1,17 @@
 import React, {
   useMemo,
   useCallback,
+  useLayoutEffect,
 } from "react";
+import Layout from "../../components/layout";
 import { DataFormatScheme } from "../../components/table-item";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { transactionActions } from "../../store/transaction-slice";
+import { fetchAllTransactions, transactionActions } from "../../store/transaction-slice";
 import TableContainer from "../table-container";
 
 const Transactions: React.FC = () => {
   const dispatch = useAppDispatch();
-
+  
   const select = useAppSelector((state) => ({
     transactions: state.transactions.data,
     limit: state.transactions.limit,
@@ -18,6 +20,7 @@ const Transactions: React.FC = () => {
     loading: state.transactions.loading,
     error: state.transactions.error,
   }));
+  console.log("Render Tran: ", select);
 
   const callbacks = {
     setLimit: useCallback((limit: number) => {
@@ -43,9 +46,13 @@ const Transactions: React.FC = () => {
       []
     ), // Данная схема исключает отрисовку полей "_id" и "__v"
   };
+  
+  useLayoutEffect(() => {
+    dispatch(fetchAllTransactions())
+  }, [dispatch])
 
   return (
-    <>
+    <Layout>
       {select.loading && "Загрузка информации..."}
 
       {select.error && select.error}
@@ -62,7 +69,7 @@ const Transactions: React.FC = () => {
             setPage={callbacks.setPage}
           />
       )}
-    </>
+    </Layout>
   );
 };
 

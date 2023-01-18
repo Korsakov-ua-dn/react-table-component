@@ -25,7 +25,7 @@ function TableContainer<T, F extends keyof T>(props: {
 }) {
   
   const t = useTranslation('table', props.locale);
-  console.log(t("search"));
+  // console.log(t("search"));
   
   const [search, setSearch] = useState<{field: F, value: string} | null>(null);
   const [sort, setSort] = useState<{ field: F; format: FormatData, direction: Direction} | null>(null);
