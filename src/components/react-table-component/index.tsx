@@ -11,10 +11,9 @@ import { sortArrayOfObjects, FormatData, Direction } from "./utils/sort-array-of
 import TableControls from "./table-controls";
 import TablePagination from "./table-pagination";
 import useTranslation, { Locale } from "./translate/use-translate";
-import { useReactToPrint } from "react-to-print";
-import { getPageStylesForPrint } from "./utils/get-page-styles-for-print";
 //From MUI
 import { SelectChangeEvent } from '@mui/material/Select';
+import { usePrintPdf } from "./utils/usePrintPdf";
 
 function TableContainer<T, F extends keyof T>(props: {
   items: T[];
@@ -29,31 +28,9 @@ function TableContainer<T, F extends keyof T>(props: {
   
   const t = useTranslation(props.locale);
 
-  // Строки таблицы разворачиваются по клику и меняют высоту таблицы.
-  // Перед выполнением печати необходимо актуализировать высоту таблицы 
-  // и вмонтировать тег <style> со стилями для печати
   const tableWrapperRef = useRef<HTMLDivElement | null>(null);
   const tableRef = useRef<HTMLTableElement | null>(null);
-  const onPrintPdf = useReactToPrint({
-    content: () => tableWrapperRef.current,
-    documentTitle: "table",
-    onBeforeGetContent: () => {
-      if (tableRef.current) {
-        const style = document.createElement('style')
-        style.textContent = getPageStylesForPrint(
-          tableRef.current.offsetWidth, 
-          tableRef.current.offsetHeight
-        );
-        tableWrapperRef.current?.appendChild(style);
-      }
-    },
-    onAfterPrint: () => {
-      if (tableWrapperRef.current?.lastChild) {
-        tableWrapperRef.current?.removeChild(tableWrapperRef.current?.lastChild);
-      }
-    },
-    removeAfterPrint: true,
-  });
+  const onPrintPdf = usePrintPdf(tableWrapperRef.current, tableRef.current);
 
   const [search, setSearch] = useState<{field: F, value: string} | null>(null);
   const [sort, setSort] = useState<{ field: F; format: FormatData, direction: Direction} | null>(null);
