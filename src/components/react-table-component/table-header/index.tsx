@@ -1,5 +1,5 @@
 import React, { MouseEvent } from "react";
-import { Direction } from "../../utils/sort-array-of-objects";
+import { Direction } from "../utils/sort-array-of-objects";
 import { DataFormatScheme } from "../table-item";
 import "./style.scss";
 
@@ -11,7 +11,7 @@ type PropsType = {
 };
 
 const TabelHeader: React.FC<PropsType> = (props) => {
-  const arrow = require("../../assets/images/arrow-sort.svg").default;
+  const arrow = require("../assets/images/arrow-sort.svg").default;
 
   //Первая th в массиве нужна т.к. в tbody есть дополнительный элемент стрелка детализации строки
   let th = [<th key={"firstTH"}></th>,];
@@ -30,7 +30,7 @@ const TabelHeader: React.FC<PropsType> = (props) => {
         }
       >
         <div>
-          <img className="Direction-arrow" data-direction={props.direction} src={arrow} alt="sort" />
+          <img className="Direction-arrow" data-direction={props.direction} src={arrow} alt="sort arrow" />
           {props.viewDataFormatScheme[key].title}
         </div>
       </th>

@@ -58,7 +58,7 @@ const initialState: TransactionState = {
   data: [],
   limit: 5,
   page: 0,
-  loading: true,
+  loading: false,
   error: null,
 };
 

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useCallback } from "react";
 import "./style.scss";
 // From MUI
 import TablePagination from '@mui/material/TablePagination';
+import { Key, Wordbook } from "../translate/use-translate";
 
 type PropsType = {
   count: number;
@@ -9,22 +10,24 @@ type PropsType = {
   page: number;
   setLimit: (limit: number) => void;
   setPage: (page: number) => void;
+  t: (key: Key) => Wordbook;
 };
 
 const Pagination: React.FC<PropsType> = (props) => {
 
-  const handleChangePage = (
+  const handleChangePage = useCallback((
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number,
   ) => {
     props.setPage(newPage)
-  };
+  }, [props.setPage]);
 
-  const handleChangeRowsPerPage = (
+  const handleChangeRowsPerPage = useCallback((
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     props.setLimit(Number(event.target.value))
-  };
+    props.setPage(0)
+  }, [props.setPage, props.setLimit]);
 
   return (
     <div className="Table-pagination">
@@ -35,12 +38,12 @@ const Pagination: React.FC<PropsType> = (props) => {
         onPageChange={handleChangePage}
         rowsPerPage={props.limit}
         rowsPerPageOptions={[1,5,10,25]}
-        labelRowsPerPage={"Показывать"}
+        labelRowsPerPage={props.t("show")}
         onRowsPerPageChange={handleChangeRowsPerPage}
         showFirstButton
         showLastButton
         labelDisplayedRows={(paginationInfo) => {
-          return `страница ${paginationInfo.page + 1} из ${paginationInfo.count/props.limit}`
+          return `${props.t("page")} ${paginationInfo.page + 1} ${props.t("of")} ${Math.ceil(paginationInfo.count/props.limit)}`
         }}
       />
     </div>
@@ -48,4 +51,3 @@ const Pagination: React.FC<PropsType> = (props) => {
 };
 
 export default React.memo(Pagination);
-// {from: 1, to: 5, count: 5, page: 0}

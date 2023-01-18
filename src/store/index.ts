@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import transactionReducer from "./transaction-slice";
+import appReducer from "./app-slice";
 
 const rootReducer = combineReducers({
   transactions: transactionReducer,
+  app: appReducer,
 });
 
 export const store = configureStore({

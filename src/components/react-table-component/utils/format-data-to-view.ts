@@ -1,5 +1,3 @@
-import numberFormat from "./number-format";
-
 export const formatDataToView:Record<Format, FormatFunc> = {
   string: (data: any) => data,
   number: (data: any) => numberFormat(data),
@@ -17,6 +15,10 @@ export const formatDataToView:Record<Format, FormatFunc> = {
       .replace(",", "");
   },
 };
+
+export default function numberFormat(value: number, options = {}){
+  return new Intl.NumberFormat('ru-RU', options).format(value)
+}
 
 //types
 export type Format = "price" | "date" | "number" | "string";

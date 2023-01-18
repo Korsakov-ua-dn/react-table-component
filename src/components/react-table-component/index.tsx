@@ -3,15 +3,14 @@ import React, {
   useState,
   useMemo,
   MouseEvent,
-  ChangeEvent,
 } from "react";
-import { DataFormatScheme } from "../../components/table-item";
-import Table, { ColorScheme } from "../../components/table";
-import { sortArrayOfObjects, FormatData, Direction } from "../../utils/sort-array-of-objects";
-import TableControls from "../../components/table-controls";
+import { DataFormatScheme } from "./table-item";
+import Table, { ColorScheme } from "./table";
+import { sortArrayOfObjects, FormatData, Direction } from "./utils/sort-array-of-objects";
+import TableControls from "./table-controls";
 import { SelectChangeEvent } from '@mui/material/Select';
-import TablePagination from "../../components/table-pagination";
-import useTranslation from "../../hooks/use-translate";
+import TablePagination from "./table-pagination";
+import useTranslation, { Locale } from "./translate/use-translate";
 
 function TableContainer<T, F extends keyof T>(props: {
   items: T[];
@@ -19,14 +18,13 @@ function TableContainer<T, F extends keyof T>(props: {
   page: number;
   viewDataFormatScheme: DataFormatScheme;
   colorScheme: ColorScheme;
-  locale: string;
+  locale: Locale;
   setLimit: (limit: number) => void;
   setPage: (page: number) => void;
 }) {
   
-  const t = useTranslation('table', props.locale);
-  // console.log(t("search"));
-  
+  const t = useTranslation(props.locale);
+
   const [search, setSearch] = useState<{field: F, value: string} | null>(null);
   const [sort, setSort] = useState<{ field: F; format: FormatData, direction: Direction} | null>(null);
 
@@ -53,10 +51,8 @@ function TableContainer<T, F extends keyof T>(props: {
       });
     }, []),
 
-    onSearch: useCallback((e: ChangeEvent<HTMLInputElement>) => {
-      const value = e.currentTarget.value;
+    onSearch: useCallback((value: string) => {
       setSearch(prev => prev ? {...prev, value} : null);
-      // setSort(prev => (prev ? { ...prev, search: value } : null))
     }, []),
 
     onSelectField: useCallback((e: SelectChangeEvent) => {
@@ -73,9 +69,9 @@ function TableContainer<T, F extends keyof T>(props: {
       return props.items.filter((item) =>
         regex.test(String(item[search.field]))
       );
-      // Поиск чувствительный к регистру
+      //Поиск чувствительный к регистру
       // return props.items.filter((item) =>
-      //   String(item[sort.field]).includes(search)
+      //   String(item[search.field]).includes(search.value)
       // );
     } else return props.items;
   }, [search, props.items]);
@@ -94,6 +90,7 @@ function TableContainer<T, F extends keyof T>(props: {
         search={search} 
         onSearch={callbacks.onSearch}
         onSelectField={callbacks.onSelectField}
+        t={t}
       />
       <Table
         viewDataFormatScheme={props.viewDataFormatScheme}
@@ -103,7 +100,6 @@ function TableContainer<T, F extends keyof T>(props: {
         activeField={sort?.field}
         direction={sort?.direction || "none"}
         onSort={callbacks.onSort}
-        // clearSearch={callbacks.clearSearch}
         colorScheme="zebra"
       />
       <TablePagination 
@@ -112,6 +108,7 @@ function TableContainer<T, F extends keyof T>(props: {
         page={props.page}
         setLimit={props.setLimit}
         setPage={props.setPage}
+        t={t}
       />
     </>
   );

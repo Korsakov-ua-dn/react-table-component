@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { Format, formatDataToView } from "../../utils/format-data-to-view";
+import { Format, formatDataToView } from "../utils/format-data-to-view";
 import "./style.scss";
 // From MUI
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";

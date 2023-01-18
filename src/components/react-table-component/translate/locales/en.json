@@ -1,0 +1,9 @@
+{
+  "field": "Field",
+  "search": "Search",
+  "show": "Show",
+  "page": "page",
+  "of": "of",
+  "search-error": "Field must be selected",
+  "1": [1,2]
+}

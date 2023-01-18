@@ -1,5 +1,5 @@
 import React, { MouseEvent } from "react";
-import { Direction } from "../../utils/sort-array-of-objects";
+import { Direction } from "../utils/sort-array-of-objects";
 import TableBody from "../table-body";
 import TableHeader from "../table-header";
 import { DataFormatScheme } from "../table-item";

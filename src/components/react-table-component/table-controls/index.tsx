@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useCallback, useState } from "react";
 import "./style.scss";
 // From MUI
 import TextField from "@mui/material/TextField";
@@ -9,17 +9,40 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import { DataFormatScheme } from "../table-item";
+import { Key, Wordbook } from "../translate/use-translate";
 
 type PropsType = {
   viewDataFormatScheme: DataFormatScheme;
   search: any;
-  // onSort: (e: MouseEvent<HTMLSpanElement>) => void;
-  onSearch: (e: ChangeEvent<HTMLInputElement>) => void;
-  // clearSearch: (e: ChangeEvent<HTMLInputElement>) => void;
+  onSearch: (value: string) => void;
   onSelectField: (e: SelectChangeEvent) => void;
+  t: (key: Key) => Wordbook;
 };
 
 const TableControls: React.FC<PropsType> = (props) => {
+
+  const [error, setError] = useState(false);
+
+  const onSelectFieldHandler = useCallback((
+    event: SelectChangeEvent,
+  ) => {
+    props.onSelectField(event);
+    setError(false);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.onSelectField]);
+
+  const onSearchHandler = useCallback((
+    event: ChangeEvent<HTMLInputElement>,
+  ) => {
+    if (!props.search) {
+      setError(true);
+    } else {
+      setError(false);
+      props.onSearch(event.target.value);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.onSearch, props.search]);
+
   return (
     <div className="Table-controls">
       <div>
@@ -29,12 +52,12 @@ const TableControls: React.FC<PropsType> = (props) => {
 
       <div className="Table-controls__search">
         <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id="demo-simple-select-standard-label">Поле</InputLabel>
+          <InputLabel id="demo-simple-select-standard-label">{props.t("field")}</InputLabel>
           <Select
             labelId="demo-simple-select-standard-label"
             id="demo-simple-select-standard"
             value={props.search ? props.search.field : ""}
-            onChange={props.onSelectField}
+            onChange={onSelectFieldHandler}
             label="Поле"
           >
             {Object.entries(props.viewDataFormatScheme).map((field) => (
@@ -47,9 +70,11 @@ const TableControls: React.FC<PropsType> = (props) => {
 
         <TextField
           value={props.search ? props.search.value : ""}
-          onChange={props.onSearch}
+          onChange={onSearchHandler}
           id="table-search"
-          label="Поиск"
+          label={props.t("search")}
+          helperText={error ? props.t("search-error") : " "}
+          error={error}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">

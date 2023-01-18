@@ -3,11 +3,10 @@ import React, {
   useCallback,
   useLayoutEffect,
 } from "react";
-import Layout from "../../components/layout";
-import { DataFormatScheme } from "../../components/table-item";
+import { DataFormatScheme } from "../../components/react-table-component/table-item";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchAllTransactions, transactionActions } from "../../store/transaction-slice";
-import TableContainer from "../table-container";
+import TableContainer from "../../components/react-table-component";
 
 const Transactions: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -19,8 +18,8 @@ const Transactions: React.FC = () => {
     selected: state.transactions.limit,
     loading: state.transactions.loading,
     error: state.transactions.error,
+    locale: state.app.locale,
   }));
-  console.log("Render Tran: ", select);
 
   const callbacks = {
     setLimit: useCallback((limit: number) => {
@@ -52,7 +51,7 @@ const Transactions: React.FC = () => {
   }, [dispatch])
 
   return (
-    <Layout>
+    <>
       {select.loading && "Загрузка информации..."}
 
       {select.error && select.error}
@@ -64,12 +63,12 @@ const Transactions: React.FC = () => {
             page={select.page}
             viewDataFormatScheme={options.viewDataFormatScheme}
             colorScheme="zebra"
-            locale={"ru"}
+            locale={select.locale}
             setLimit={callbacks.setLimit}
             setPage={callbacks.setPage}
           />
       )}
-    </Layout>
+    </>
   );
 };
 
