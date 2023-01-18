@@ -1,9 +1,10 @@
 :root {
   --border-radius: 4px;
-  --background: #e7feff;
+  --background: #ffffff;
 
   --color-dark-grey: #b3b3b3;
   --color-light-grey: #dcdcdc;
+  --color-light-yellow: #fffeee;
   --color-active: cornflowerblue;
 
   --font: "Roboto", -apple-system, BlinkMacSystemFont, sans-serif;

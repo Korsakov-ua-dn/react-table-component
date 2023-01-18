@@ -1,4 +1,6 @@
 import React, { ChangeEvent, useCallback, useState } from "react";
+import { DataFormatScheme } from "../table-item";
+import { Key, Wordbook } from "../translate/use-translate";
 import "./style.scss";
 // From MUI
 import TextField from "@mui/material/TextField";
@@ -8,19 +10,18 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-import { DataFormatScheme } from "../table-item";
-import { Key, Wordbook } from "../translate/use-translate";
 
 type PropsType = {
   viewDataFormatScheme: DataFormatScheme;
   search: any;
   onSearch: (value: string) => void;
   onSelectField: (e: SelectChangeEvent) => void;
+  onPrintPdf: () => void;
   t: (key: Key) => Wordbook;
 };
 
 const TableControls: React.FC<PropsType> = (props) => {
-
+  
   const [error, setError] = useState(false);
 
   const onSelectFieldHandler = useCallback((
@@ -45,9 +46,12 @@ const TableControls: React.FC<PropsType> = (props) => {
 
   return (
     <div className="Table-controls">
-      <div>
-        <button>PDF</button>
-        <button>XLS</button>
+      <div className="Table-controls__print-wrapper">
+        {/* <IconButton onClick={props.onPrint} aria-label="print pdf">
+          <PictureAsPdfIcon />
+        </IconButton> */}
+        <button className="Table-controls__btn-print Table-controls__btn-print_pdf" onClick={props.onPrintPdf}></button>
+        <button className="Table-controls__btn-print Table-controls__btn-print_xls" ></button>
       </div>
 
       <div className="Table-controls__search">

@@ -20,6 +20,7 @@ const Pagination: React.FC<PropsType> = (props) => {
     newPage: number,
   ) => {
     props.setPage(newPage)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.setPage]);
 
   const handleChangeRowsPerPage = useCallback((
@@ -27,6 +28,7 @@ const Pagination: React.FC<PropsType> = (props) => {
   ) => {
     props.setLimit(Number(event.target.value))
     props.setPage(0)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.setPage, props.setLimit]);
 
   return (

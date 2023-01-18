@@ -1,4 +1,4 @@
-import React, { MouseEvent } from "react";
+import React, { MouseEvent, ForwardedRef } from "react";
 import { Direction } from "../utils/sort-array-of-objects";
 import TableBody from "../table-body";
 import TableHeader from "../table-header";
@@ -6,6 +6,7 @@ import { DataFormatScheme } from "../table-item";
 import "./style.scss";
 
 type PropsType = {
+  tableRef: ForwardedRef<HTMLTableElement | null>;
   viewDataFormatScheme: DataFormatScheme;
   items: any[];
   limit: number;
@@ -16,12 +17,13 @@ type PropsType = {
   onSort: (e: MouseEvent<HTMLSpanElement>) => void;
 };
 
-const Table: React.FC<PropsType> = (props) => {
+const Table = React.forwardRef((props: PropsType, ref: ForwardedRef<HTMLDivElement | null>) => {
+  
   const classTable = `Table ${props.colorScheme === "zebra" ? "Table_zebra" : ""}`;
 
   return (
-    <div className={classTable}>
-      <table id="table">
+    <div className={classTable} ref={ref}>
+      <table id="table" ref={props.tableRef}>
         <thead>
           <TableHeader
             viewDataFormatScheme={props.viewDataFormatScheme}
@@ -41,7 +43,7 @@ const Table: React.FC<PropsType> = (props) => {
       </table>
     </div>
   );
-};
+});
 
 export default React.memo(Table);
 
