@@ -11,7 +11,7 @@ import { sortArrayOfObjects, FormatData, Direction } from "./utils/sort-array-of
 import TableControls from "./table-controls";
 import TablePagination from "./table-pagination";
 import useTranslation, { Locale } from "./translate/use-translate";
-import { getPageStylesForPrint, usePrintPdf } from "./utils/usePrintPdf";
+import { getPageStylesForPrint, getPrintSettings, usePrintPdf } from "./utils/usePrintPdf";
 import { onDownloadXls } from "./utils/on-download-xls";
 //From MUI
 import { SelectChangeEvent } from '@mui/material/Select';
@@ -38,26 +38,7 @@ function TableContainer<T, F extends keyof T>(props: {
   //   tableRef.current,
   //   [tableWrapperRef.current, tableRef.current]
   //   );
-  const onPrintPdf = useReactToPrint({
-    content: () => tableWrapperRef.current,
-    documentTitle: "table",
-    onBeforeGetContent: () => {
-      if (tableRef.current) {
-        const style = document.createElement("style");
-        style.textContent = getPageStylesForPrint(
-          tableRef.current.offsetWidth,
-          tableRef.current.offsetHeight
-        );
-        tableWrapperRef.current?.appendChild(style); // вмонтирую <style> в DOM перед печатью
-      }
-    },
-    onAfterPrint: () => {
-      if (tableWrapperRef.current?.lastChild) {
-        tableWrapperRef.current.removeChild(tableWrapperRef.current.lastChild);
-      }
-    }, // удаляю <style> из DOM после печати
-    removeAfterPrint: true,
-  });
+  const onPrintPdf = useReactToPrint(getPrintSettings(tableWrapperRef.current, tableRef.current));
 
   const [search, setSearch] = useState<{field: F, value: string} | null>(null);
   const [sort, setSort] = useState<{ field: F; format: FormatData, direction: Direction} | null>(null);
@@ -96,7 +77,7 @@ function TableContainer<T, F extends keyof T>(props: {
     }, [props.items, props.viewDataFormatScheme]),
   };
 
-  // Отфильтрованный массив транзакций для рендера
+  // Отфильтрованный массив элементов для рендера
   const filteredItems = useMemo<T[]>(() => {
     if (search) {
       // Поиск не чувствительный к регистру
@@ -111,7 +92,7 @@ function TableContainer<T, F extends keyof T>(props: {
     } else return props.items;
   }, [search, props.items]);
 
-  // Отсортированный массив транзакций для рендера
+  // Отсортированный массив элементов для рендера
   const sortItems = useMemo<T[]>(() => {
     if (sort) {
       return sortArrayOfObjects(filteredItems, sort.field, sort.direction, sort.format);
