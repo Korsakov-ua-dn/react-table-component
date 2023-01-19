@@ -11,11 +11,10 @@ import { sortArrayOfObjects, FormatData, Direction } from "./utils/sort-array-of
 import TableControls from "./table-controls";
 import TablePagination from "./table-pagination";
 import useTranslation, { Locale } from "./translate/use-translate";
-import { getPageStylesForPrint, usePrintPdf } from "./utils/usePrintPdf";
+import { usePrintPdf } from "./utils/usePrintPdf";
 import { onDownloadXls } from "./utils/on-download-xls";
 //From MUI
 import { SelectChangeEvent } from '@mui/material/Select';
-import { useReactToPrint } from "react-to-print";
 
 function TableContainer<T, F extends keyof T>(props: {
   items: T[];
@@ -33,27 +32,11 @@ function TableContainer<T, F extends keyof T>(props: {
 
   const tableWrapperRef = useRef<HTMLDivElement | null>(null);
   const tableRef = useRef<HTMLTableElement | null>(null);
-  // const onPrintPdf = usePrintPdf(tableWrapperRef.current, tableRef.current);
-  const onPrintPdf = useReactToPrint({
-    content: () => tableWrapperRef.current,
-    documentTitle: "table",
-    onBeforeGetContent: () => {
-      if (tableRef.current) {
-        const style = document.createElement("style");
-        style.textContent = getPageStylesForPrint(
-          tableRef.current.offsetWidth,
-          tableRef.current.offsetHeight
-        );
-        tableWrapperRef.current?.appendChild(style); // вмонтирую <style> в DOM перед печатью
-      }
-    },
-    onAfterPrint: () => {
-      if (tableWrapperRef.current?.lastChild) {
-        tableWrapperRef.current.removeChild(tableWrapperRef.current.lastChild);
-      }
-    }, // удаляю <style> из DOM после печати
-    removeAfterPrint: true,
-  });
+  const onPrintPdf = usePrintPdf(
+    tableWrapperRef.current, 
+    tableRef.current,
+    [tableWrapperRef.current, tableRef.current]
+  );
 
   const [search, setSearch] = useState<{field: F, value: string} | null>(null);
   const [sort, setSort] = useState<{ field: F; format: FormatData, direction: Direction} | null>(null);
