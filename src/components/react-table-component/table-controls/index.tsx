@@ -22,6 +22,8 @@ type PropsType = {
 };
 
 const TableControls: React.FC<PropsType> = (props) => {
+  console.log("render Controls");
+  
   
   const [error, setError] = useState(false);
 

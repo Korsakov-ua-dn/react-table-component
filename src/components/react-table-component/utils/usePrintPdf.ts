@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import { useReactToPrint } from "react-to-print";
 
 // Строки таблицы разворачиваются по клику и меняют высоту таблицы.
@@ -7,11 +6,8 @@ import { useReactToPrint } from "react-to-print";
 export const usePrintPdf = (
   tableWrapper: HTMLDivElement | null,
   table: HTMLTableElement | null,
-  dependenciesArray: any[]
 ) => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  return useCallback(
-    useReactToPrint({
+  return useReactToPrint({
       content: () => tableWrapper,
       documentTitle: "table",
       onBeforeGetContent: () => {
@@ -30,35 +26,7 @@ export const usePrintPdf = (
         }
       }, // удаляю <style> из DOM после печати
       removeAfterPrint: true,
-    }),
-    [dependenciesArray]
-  );
-};
-
-export const getPrintSettings = (
-  tableWrapper: HTMLDivElement | null,
-  table: HTMLTableElement | null
-) => {
-  return {
-      content: () => tableWrapper,
-      documentTitle: "table",
-      onBeforeGetContent: () => {
-        if (table) {
-          const style = document.createElement("style");
-          style.textContent = getPageStylesForPrint(
-            table.offsetWidth,
-            table.offsetHeight
-          );
-          tableWrapper?.appendChild(style); // вмонтирую <style> в DOM перед печатью
-        }
-      },
-      onAfterPrint: () => {
-        if (tableWrapper?.lastChild) {
-          tableWrapper.removeChild(tableWrapper.lastChild);
-        }
-      }, // удаляю <style> из DOM после печати
-      removeAfterPrint: true,
-    }
+    });
 };
 
 export const getPageStylesForPrint = (width: number, height: number): string => {
