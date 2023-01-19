@@ -15,6 +15,7 @@ import { usePrintPdf } from "./utils/usePrintPdf";
 import { onDownloadXls } from "./utils/on-download-xls";
 //From MUI
 import { SelectChangeEvent } from '@mui/material/Select';
+import { useReactToPrint } from "react-to-print";
 
 function TableContainer<T, F extends keyof T>(props: {
   items: T[];
@@ -31,8 +32,12 @@ function TableContainer<T, F extends keyof T>(props: {
   const t = useTranslation(props.locale);
 
   const tableWrapperRef = useRef<HTMLDivElement | null>(null);
-  const tableRef = useRef<HTMLTableElement | null>(null);
-  const onPrintPdf = usePrintPdf(tableWrapperRef.current, tableRef.current);
+  // const tableRef = useRef<HTMLTableElement | null>(null);
+  // const onPrintPdf = usePrintPdf(tableWrapperRef.current, tableRef.current);
+  const onPrintPdf = useReactToPrint({
+    content: () => tableWrapperRef.current,
+    documentTitle: "table",
+  });
 
   const [search, setSearch] = useState<{field: F, value: string} | null>(null);
   const [sort, setSort] = useState<{ field: F; format: FormatData, direction: Direction} | null>(null);
@@ -105,8 +110,8 @@ function TableContainer<T, F extends keyof T>(props: {
         t={t}
       />
       <Table
-        ref={tableRef}
-        tableWrapperRef={tableWrapperRef}
+        ref={tableWrapperRef}
+        // tableRef={tableRef}
         viewDataFormatScheme={props.viewDataFormatScheme}
         items={sortItems}
         limit={props.limit}
