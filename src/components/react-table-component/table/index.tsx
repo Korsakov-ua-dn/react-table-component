@@ -2,7 +2,7 @@ import React, { MouseEvent, ForwardedRef } from "react";
 import { Direction } from "../utils/sort-array-of-objects";
 import TableBody from "../table-body";
 import TableHeader from "../table-header";
-import { DataFormatScheme } from "../table-row";
+import { DataFormatScheme, ExpandingContentComponent } from "../table-row";
 import "./style.scss";
 
 type PropsType = {
@@ -15,6 +15,7 @@ type PropsType = {
   activeField: any;
   direction: Direction;
   onSort: (e: MouseEvent<HTMLSpanElement>) => void;
+  expandingContentComponent: ExpandingContentComponent;
 };
 
 const Table = React.forwardRef((props: PropsType, ref: ForwardedRef<HTMLDivElement | null>) => {
@@ -38,6 +39,7 @@ const Table = React.forwardRef((props: PropsType, ref: ForwardedRef<HTMLDivEleme
             limit={props.limit}
             page={props.page}
             viewDataFormatScheme={props.viewDataFormatScheme}
+            expandingContentComponent={props.expandingContentComponent}
           />
         </tbody>
       </table>

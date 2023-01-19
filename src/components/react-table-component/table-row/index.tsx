@@ -8,6 +8,7 @@ type PropsType = {
   row: { [key: string]: any };
   viewDataFormatScheme: DataFormatScheme;
   painted: boolean;
+  expandingContentComponent: ExpandingContentComponent;
 };
 
 const TabelRow: React.FC<PropsType> = (props) => {
@@ -50,7 +51,9 @@ const TabelRow: React.FC<PropsType> = (props) => {
       </tr>
       { isExpanded && <tr className={"Expanding-content"}>
         <td colSpan={Object.keys(props.row).length}>
-          <span className=""> Детальная информация о транзакции </span>
+          <div className="Expanding-content__Detailed-information">
+            { props.expandingContentComponent(props.row) }
+          </div>
         </td>
       </tr>}
     </>
@@ -66,3 +69,5 @@ type Data = {
   sort: boolean;
 };
 export type DataFormatScheme = Record<string, Data>;
+export type Row = { [key: string]: any }
+export type ExpandingContentComponent = (info: Row) => React.ReactElement;

@@ -5,7 +5,7 @@ import React, {
   useRef,
   MouseEvent,
 } from "react";
-import { DataFormatScheme } from "./table-row";
+import { DataFormatScheme, ExpandingContentComponent } from "./table-row";
 import Table, { ColorScheme } from "./table";
 import { sortArrayOfObjects, FormatData, Direction } from "./utils/sort-array-of-objects";
 import TableControls from "./table-controls";
@@ -25,6 +25,7 @@ function TableContainer<T, F extends keyof T>(props: {
   locale: Locale;
   setLimit: (limit: number) => void;
   setPage: (page: number) => void;
+  expandingContentComponent: ExpandingContentComponent;
 }) {
   
   const t = useTranslation(props.locale);
@@ -113,6 +114,7 @@ function TableContainer<T, F extends keyof T>(props: {
         activeField={sort?.field}
         direction={sort?.direction || "none"}
         onSort={callbacks.onSort}
+        expandingContentComponent={props.expandingContentComponent}
         colorScheme="zebra"
       />
       <TablePagination 

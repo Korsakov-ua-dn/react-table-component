@@ -7,6 +7,7 @@ import { DataFormatScheme } from "../../components/react-table-component/table-r
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchAllTransactions, transactionActions } from "../../store/transaction-slice";
 import TableContainer from "../../components/react-table-component";
+import ExpandingContent from "../../components/expanding-content";
 
 const Transactions: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -66,6 +67,7 @@ const Transactions: React.FC = () => {
             locale={select.locale}
             setLimit={callbacks.setLimit}
             setPage={callbacks.setPage}
+            expandingContentComponent={(info) => <ExpandingContent info={info} />}
           />
       )}
     </>

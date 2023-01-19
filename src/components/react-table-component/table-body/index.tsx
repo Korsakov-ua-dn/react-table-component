@@ -1,5 +1,5 @@
 import React from "react";
-import  TabelRow, { DataFormatScheme } from "../table-row";
+import  TabelRow, { DataFormatScheme, ExpandingContentComponent } from "../table-row";
 import "./style.scss";
 
 type PropsType = {
@@ -7,6 +7,7 @@ type PropsType = {
   limit: number;
   page: number;
   viewDataFormatScheme: DataFormatScheme;
+  expandingContentComponent: ExpandingContentComponent;
 };
 
 const TableBody: React.FC<PropsType> = (props) => {
@@ -21,6 +22,7 @@ const TableBody: React.FC<PropsType> = (props) => {
           row={row}
           painted={i % 2 === 0} // покрасить зеброй
           viewDataFormatScheme={props.viewDataFormatScheme}
+          expandingContentComponent={props.expandingContentComponent}
         />
       )
     } else return false
