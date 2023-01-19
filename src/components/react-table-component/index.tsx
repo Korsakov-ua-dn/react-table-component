@@ -11,11 +11,11 @@ import { sortArrayOfObjects, FormatData, Direction } from "./utils/sort-array-of
 import TableControls from "./table-controls";
 import TablePagination from "./table-pagination";
 import useTranslation, { Locale } from "./translate/use-translate";
-import { getPageStylesForPrint, usePrintPdf } from "./utils/usePrintPdf";
+import { getPageStylesForPrint } from "./utils/get-page-styles-for-print";
 import { onDownloadXls } from "./utils/on-download-xls";
+import { useReactToPrint } from "react-to-print";
 //From MUI
 import { SelectChangeEvent } from '@mui/material/Select';
-import { useReactToPrint } from "react-to-print";
 
 function TableContainer<T, F extends keyof T>(props: {
   items: T[];
@@ -33,11 +33,17 @@ function TableContainer<T, F extends keyof T>(props: {
 
   const tableWrapperRef = useRef<HTMLDivElement | null>(null);
   const tableRef = useRef<HTMLTableElement | null>(null);
-  // const onPrintPdf = usePrintPdf(tableWrapperRef.current,  tableRef.current);
-  // const printFunc = useCallback(onPrintPdf, [tableWrapperRef.current,  tableRef.current])
+  /**
+   * @todo Необходимо мемоизировать функцию onPrintPdf во избежание перерендеров TableControls
+   */
   const onPrintPdf = useReactToPrint({
     content: () => tableWrapperRef.current,
     documentTitle: "table",
+  /** 
+   * Строки таблицы разворачиваются по клику и меняют высоту таблицы.
+   * Перед выполнением печати необходимо актуализировать высоту таблицы
+   * и вмонтировать тег <style> со стилями для печати
+  */
     onBeforeGetContent: () => {
       if (tableRef.current) {
         const style = document.createElement("style");
@@ -50,9 +56,9 @@ function TableContainer<T, F extends keyof T>(props: {
     },
     onAfterPrint: () => {
       if (tableWrapperRef.current?.lastChild) {
-        tableWrapperRef.current.removeChild(tableWrapperRef.current.lastChild);
+        tableWrapperRef.current.removeChild(tableWrapperRef.current.lastChild); // удаляю <style> из DOM после печати
       }
-    }, // удаляю <style> из DOM после печати
+    },
     removeAfterPrint: true,
   });
 
