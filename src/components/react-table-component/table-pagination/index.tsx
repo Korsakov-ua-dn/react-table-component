@@ -15,21 +15,23 @@ type PropsType = {
 
 const Pagination: React.FC<PropsType> = (props) => {
 
-  const handleChangePage = useCallback((
-    event: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number,
-  ) => {
-    props.setPage(newPage)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.setPage]);
+  const callbacks = {
+    handleChangePage: useCallback((
+      e: React.MouseEvent<HTMLButtonElement> | null,
+      newPage: number,
+    ) => {
+      props.setPage(newPage)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.setPage]),
 
-  const handleChangeRowsPerPage = useCallback((
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    props.setLimit(Number(event.target.value))
-    props.setPage(0)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.setPage, props.setLimit]);
+    handleChangeRowsPerPage: useCallback((
+      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => {
+      props.setLimit(Number(e.target.value))
+      props.setPage(0)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.setPage, props.setLimit]),
+  };
 
   return (
     <div className="Table-pagination">
@@ -37,11 +39,11 @@ const Pagination: React.FC<PropsType> = (props) => {
         component="div"
         count={props.count}
         page={props.page}
-        onPageChange={handleChangePage}
+        onPageChange={callbacks.handleChangePage}
         rowsPerPage={props.limit}
-        rowsPerPageOptions={[1,5,10,25]}
+        rowsPerPageOptions={[5,10,25]}
         labelRowsPerPage={props.t("show")}
-        onRowsPerPageChange={handleChangeRowsPerPage}
+        onRowsPerPageChange={callbacks.handleChangeRowsPerPage}
         showFirstButton
         showLastButton
         labelDisplayedRows={(paginationInfo) => {

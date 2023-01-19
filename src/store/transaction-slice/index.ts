@@ -105,16 +105,3 @@ type TransactionState = {
   loading: boolean;
   error: string | null;
 };
-
-// export type Sort =
-//   | ""
-//   | "name"
-//   | "date"
-//   | "card"
-//   | "point"
-//   | "address"
-//   | "fuelName"
-//   | "fuelCount"
-//   | "coast"; //@todo partial type
-
-// export type Limit = 1 | 5 | 10 | 25;
