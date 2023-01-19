@@ -6,7 +6,7 @@ import { DataFormatScheme, ExpandingContentComponent } from "../table-row";
 import "./style.scss";
 
 type PropsType = {
-  // tableRef: ForwardedRef<HTMLTableElement | null>;
+  tableRef: ForwardedRef<HTMLTableElement | null>;
   viewDataFormatScheme: DataFormatScheme;
   items: any[];
   limit: number;
@@ -24,7 +24,7 @@ const Table = React.forwardRef((props: PropsType, ref: ForwardedRef<HTMLDivEleme
 
   return (
     <div className={classTable} ref={ref}>
-      <table id="table">
+      <table id="table" ref={props.tableRef}>
         <thead>
           <TabelHead
             viewDataFormatScheme={props.viewDataFormatScheme}

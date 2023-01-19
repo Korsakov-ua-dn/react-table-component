@@ -31,7 +31,7 @@ export const usePrintPdf = (
   return onPrintPdf;
 };
 
-const getPageStylesForPrint = (width: number, height: number): string => {
+export const getPageStylesForPrint = (width: number, height: number): string => {
   // Convert px to mm
   const coefficient = 0.2636;
   return `
