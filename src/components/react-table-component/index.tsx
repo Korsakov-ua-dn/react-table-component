@@ -33,17 +33,14 @@ function TableContainer<T, F extends keyof T>(props: {
 
   const tableWrapperRef = useRef<HTMLDivElement | null>(null);
   const tableRef = useRef<HTMLTableElement | null>(null);
-  /**
-   * @todo Необходимо мемоизировать функцию onPrintPdf во избежание перерендеров TableControls
-   */
-  const onPrintPdf = useReactToPrint({
-    content: () => tableWrapperRef.current,
-    documentTitle: "table",
   /** 
    * Строки таблицы разворачиваются по клику и меняют высоту таблицы.
    * Перед выполнением печати необходимо актуализировать высоту таблицы
    * и вмонтировать тег <style> со стилями для печати
   */
+  const onPrintPdf = useReactToPrint({
+    content: () => tableWrapperRef.current,
+    documentTitle: "table",
     onBeforeGetContent: () => {
       if (tableRef.current) {
         const style = document.createElement("style");
