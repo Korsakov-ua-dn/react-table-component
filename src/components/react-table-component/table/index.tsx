@@ -6,7 +6,7 @@ import { DataFormatScheme, ExpandingContentComponent } from "../table-row";
 import "./style.scss";
 
 type PropsType = {
-  tableRef: ForwardedRef<HTMLTableElement | null>;
+  tableWrapperRef: ForwardedRef<HTMLDivElement | null>;
   viewDataFormatScheme: DataFormatScheme;
   items: any[];
   limit: number;
@@ -18,13 +18,13 @@ type PropsType = {
   expandingContentComponent: ExpandingContentComponent;
 };
 
-const Table = React.forwardRef((props: PropsType, ref: ForwardedRef<HTMLDivElement | null>) => {
+const Table = React.forwardRef((props: PropsType, ref: ForwardedRef<HTMLTableElement | null>) => {
   
   const classTable = `Table ${props.colorScheme === "zebra" ? "Table_zebra" : ""}`;
 
   return (
-    <div className={classTable} ref={ref}>
-      <table id="table" ref={props.tableRef}>
+    <div className={classTable} ref={props.tableWrapperRef}>
+      <table id="table" ref={ref}>
         <thead>
           <TabelHead
             viewDataFormatScheme={props.viewDataFormatScheme}

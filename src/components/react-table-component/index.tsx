@@ -105,8 +105,8 @@ function TableContainer<T, F extends keyof T>(props: {
         t={t}
       />
       <Table
-        ref={tableWrapperRef}
-        tableRef={tableRef}
+        ref={tableRef}
+        tableWrapperRef={tableWrapperRef}
         viewDataFormatScheme={props.viewDataFormatScheme}
         items={sortItems}
         limit={props.limit}
