@@ -5,30 +5,31 @@ import "./style.scss";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
 type PropsType = {
-  data: { [key: string]: any };
+  row: { [key: string]: any };
   viewDataFormatScheme: DataFormatScheme;
   painted: boolean;
 };
 
-const TabelItem: React.FC<PropsType> = (props) => {
+const TabelRow: React.FC<PropsType> = (props) => {
+  // Состояние строки "развернутая" и "свернутая"
   const [isExpanded, setExpanded] = useState<boolean>(false);
   const expandRowHandler = useCallback(() => {
     setExpanded((prev) => !prev);
   }, []);
 
   const ClassNameRow = `
-  Table__body-row 
-  ${isExpanded ? "Table__body-row_expanded" : ""}
-  ${props.painted ? "Table__body-row_painted" : ""}
+    Table__body-row 
+    ${isExpanded ? "Table__body-row_expanded" : ""}
+    ${props.painted ? "Table__body-row_painted" : ""}
   `;
 
   let td = [
     <td className="Table__body-item_expand" key={"arrow"} onClick={expandRowHandler}>
       <ArrowRightIcon />
-    </td>
+    </td> // Первый элемент каждой строки - стрелка для разворачивания детальной информации
   ];
 
-  for (let key in props.data) {
+  for (let key in props.row) {
     // Узнаю какого формата текущее поле согласно схемы
     const format = props.viewDataFormatScheme[key]?.format;
     // Если в схеме отсутствует поле с таким ключем => рендер не производится
@@ -36,7 +37,7 @@ const TabelItem: React.FC<PropsType> = (props) => {
       const renderFunction = formatDataToView[format];
       td.push(
         <td className="Table__body-item" key={key}>
-          {renderFunction(props.data[key])}
+          {renderFunction(props.row[key])}
         </td>
       );
     }
@@ -48,7 +49,7 @@ const TabelItem: React.FC<PropsType> = (props) => {
         {td}
       </tr>
       { isExpanded && <tr className={"Expanding-content"}>
-        <td colSpan={Object.keys(props.data).length}>
+        <td colSpan={Object.keys(props.row).length}>
           <span className=""> Детальная информация о транзакции </span>
         </td>
       </tr>}
@@ -56,7 +57,7 @@ const TabelItem: React.FC<PropsType> = (props) => {
   );
 };
 
-export default React.memo(TabelItem);
+export default React.memo(TabelRow);
 
 //types
 type Data = {

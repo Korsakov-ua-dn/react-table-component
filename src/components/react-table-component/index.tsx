@@ -5,15 +5,16 @@ import React, {
   useRef,
   MouseEvent,
 } from "react";
-import { DataFormatScheme } from "./table-item";
+import { DataFormatScheme } from "./table-row";
 import Table, { ColorScheme } from "./table";
 import { sortArrayOfObjects, FormatData, Direction } from "./utils/sort-array-of-objects";
 import TableControls from "./table-controls";
 import TablePagination from "./table-pagination";
 import useTranslation, { Locale } from "./translate/use-translate";
+import { usePrintPdf } from "./utils/usePrintPdf";
+import { onDownloadXls } from "./utils/on-download-xls";
 //From MUI
 import { SelectChangeEvent } from '@mui/material/Select';
-import { usePrintPdf } from "./utils/usePrintPdf";
 
 function TableContainer<T, F extends keyof T>(props: {
   items: T[];
@@ -41,10 +42,7 @@ function TableContainer<T, F extends keyof T>(props: {
       const format = e.currentTarget.getAttribute("data-format") as FormatData;
       setSort(prev => {
 
-        if (prev?.field !== field) {
-          return { field, format, direction: "ascending" }
-        }
-        if (prev?.direction === "none") {
+        if (prev?.field !== field || prev?.direction === "none") {
           return { field, format, direction: "ascending" }
         }
         if (prev?.direction === "ascending") {
@@ -66,6 +64,10 @@ function TableContainer<T, F extends keyof T>(props: {
       const field = e.target.value as F;
       setSearch({field, value: ""});
     }, []),
+
+    onDownloadXls: useCallback(() => {
+      onDownloadXls(props.items, props.viewDataFormatScheme);
+    }, [props.items, props.viewDataFormatScheme]),
   };
 
   // Отфильтрованный массив транзакций для рендера
@@ -98,6 +100,7 @@ function TableContainer<T, F extends keyof T>(props: {
         onSearch={callbacks.onSearch}
         onSelectField={callbacks.onSelectField}
         onPrintPdf={onPrintPdf}
+        onDownloadXls={callbacks.onDownloadXls}
         t={t}
       />
       <Table

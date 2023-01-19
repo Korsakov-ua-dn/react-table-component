@@ -2,7 +2,7 @@ import React, { MouseEvent, ForwardedRef } from "react";
 import { Direction } from "../utils/sort-array-of-objects";
 import TableBody from "../table-body";
 import TableHeader from "../table-header";
-import { DataFormatScheme } from "../table-item";
+import { DataFormatScheme } from "../table-row";
 import "./style.scss";
 
 type PropsType = {

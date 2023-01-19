@@ -1,6 +1,6 @@
 import React, { MouseEvent } from "react";
 import { Direction } from "../utils/sort-array-of-objects";
-import { DataFormatScheme } from "../table-item";
+import { DataFormatScheme } from "../table-row";
 import "./style.scss";
 
 type PropsType = {

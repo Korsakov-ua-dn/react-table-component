@@ -3,7 +3,7 @@ import React, {
   useCallback,
   useLayoutEffect,
 } from "react";
-import { DataFormatScheme } from "../../components/react-table-component/table-item";
+import { DataFormatScheme } from "../../components/react-table-component/table-row";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchAllTransactions, transactionActions } from "../../store/transaction-slice";
 import TableContainer from "../../components/react-table-component";

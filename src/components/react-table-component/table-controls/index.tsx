@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useCallback, useState } from "react";
-import { DataFormatScheme } from "../table-item";
+import { DataFormatScheme } from "../table-row";
 import { Key, Wordbook } from "../translate/use-translate";
 import "./style.scss";
 // From MUI
@@ -17,6 +17,7 @@ type PropsType = {
   onSearch: (value: string) => void;
   onSelectField: (e: SelectChangeEvent) => void;
   onPrintPdf: () => void;
+  onDownloadXls: () => void;
   t: (key: Key) => Wordbook;
 };
 
@@ -24,34 +25,29 @@ const TableControls: React.FC<PropsType> = (props) => {
   
   const [error, setError] = useState(false);
 
-  const onSelectFieldHandler = useCallback((
-    event: SelectChangeEvent,
-  ) => {
-    props.onSelectField(event);
-    setError(false);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.onSelectField]);
-
-  const onSearchHandler = useCallback((
-    event: ChangeEvent<HTMLInputElement>,
-  ) => {
-    if (!props.search) {
-      setError(true);
-    } else {
+  const callbacks = {
+    onSelectFieldHandler: useCallback((e: SelectChangeEvent, ) => {
+      props.onSelectField(e);
       setError(false);
-      props.onSearch(event.target.value);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.onSearch, props.search]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.onSelectField]),
+
+    onSearchHandler: useCallback(( e: ChangeEvent<HTMLInputElement>) => {
+      if (!props.search) {
+        setError(true);
+      } else {
+        setError(false);
+        props.onSearch(e.target.value);
+      }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.onSearch, props.search]),
+  }
 
   return (
     <div className="Table-controls">
       <div className="Table-controls__print-wrapper">
-        {/* <IconButton onClick={props.onPrint} aria-label="print pdf">
-          <PictureAsPdfIcon />
-        </IconButton> */}
         <button className="Table-controls__btn-print Table-controls__btn-print_pdf" onClick={props.onPrintPdf}></button>
-        <button className="Table-controls__btn-print Table-controls__btn-print_xls" ></button>
+        <button className="Table-controls__btn-print Table-controls__btn-print_xls" onClick={props.onDownloadXls}></button>
       </div>
 
       <div className="Table-controls__search">
@@ -61,7 +57,7 @@ const TableControls: React.FC<PropsType> = (props) => {
             labelId="demo-simple-select-standard-label"
             id="demo-simple-select-standard"
             value={props.search ? props.search.field : ""}
-            onChange={onSelectFieldHandler}
+            onChange={callbacks.onSelectFieldHandler}
             label="Поле"
           >
             {Object.entries(props.viewDataFormatScheme).map((field) => (
@@ -74,7 +70,7 @@ const TableControls: React.FC<PropsType> = (props) => {
 
         <TextField
           value={props.search ? props.search.value : ""}
-          onChange={onSearchHandler}
+          onChange={callbacks.onSearchHandler}
           id="table-search"
           label={props.t("search")}
           helperText={error ? props.t("search-error") : " "}
