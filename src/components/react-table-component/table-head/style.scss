@@ -11,12 +11,16 @@
   white-space: nowrap;
 
   & div {
+    position: relative;
     display: flex;
-    // justify-content: center;
     color: #ffffff;
+    padding-left: 18px;
     & img {
-      margin-right: 5px;
-      height: 14px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 17px;
+      width: 14px;
     }
   }
 }

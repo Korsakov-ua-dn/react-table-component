@@ -10,11 +10,12 @@ type PropsType = {
   onSort: (e: MouseEvent<HTMLSpanElement>) => void;
 };
 
-const TabelHeader: React.FC<PropsType> = (props) => {
+const TabelHead: React.FC<PropsType> = (props) => {
   const arrow = require("../assets/images/arrow-sort.svg").default;
 
-  //Первая th в массиве нужна т.к. в tbody есть дополнительный элемент стрелка детализации строки
-  let th = [<th key={"firstTH"}></th>,];
+  // Первая th в массиве нужен т.к. в tbody есть дополнительный элемент стрелка
+  // для развертывания дополнительной информации по строке
+  let th = [<th key="firstTH"></th>];
 
   for (let key in props.viewDataFormatScheme) {
     const isSort = props.viewDataFormatScheme[key].sort;
@@ -40,4 +41,4 @@ const TabelHeader: React.FC<PropsType> = (props) => {
   return <tr>{th}</tr>;
 };
 
-export default React.memo(TabelHeader);
+export default React.memo(TabelHead);

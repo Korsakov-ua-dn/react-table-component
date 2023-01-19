@@ -1,7 +1,7 @@
 import React, { MouseEvent, ForwardedRef } from "react";
 import { Direction } from "../utils/sort-array-of-objects";
 import TableBody from "../table-body";
-import TableHeader from "../table-header";
+import TabelHead from "../table-head";
 import { DataFormatScheme, ExpandingContentComponent } from "../table-row";
 import "./style.scss";
 
@@ -26,7 +26,7 @@ const Table = React.forwardRef((props: PropsType, ref: ForwardedRef<HTMLDivEleme
     <div className={classTable} ref={ref}>
       <table id="table" ref={props.tableRef}>
         <thead>
-          <TableHeader
+          <TabelHead
             viewDataFormatScheme={props.viewDataFormatScheme}
             onSort={props.onSort}
             activeField={props.activeField}
