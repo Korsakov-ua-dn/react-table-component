@@ -25,7 +25,7 @@ export const usePrintPdf = (
         tableWrapper.removeChild(tableWrapper.lastChild);
       }
     }, // удаляю <style> из DOM после печати
-    removeAfterPrint: true,
+    // removeAfterPrint: true,
   });
 
   return onPrintPdf;
