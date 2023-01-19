@@ -33,28 +33,28 @@ function TableContainer<T, F extends keyof T>(props: {
 
   const tableWrapperRef = useRef<HTMLDivElement | null>(null);
   const tableRef = useRef<HTMLTableElement | null>(null);
-  const onPrintPdf = usePrintPdf(tableWrapperRef.current,  tableRef.current);
-  const printFunc = useCallback(onPrintPdf, [tableWrapperRef.current,  tableRef.current])
-  // const onPrintPdf = useReactToPrint({
-  //   content: () => tableWrapperRef.current,
-  //   documentTitle: "table",
-  //   onBeforeGetContent: () => {
-  //     if (tableRef.current) {
-  //       const style = document.createElement("style");
-  //       style.textContent = getPageStylesForPrint(
-  //         tableRef.current.offsetWidth,
-  //         tableRef.current.offsetHeight
-  //       );
-  //       tableWrapperRef.current?.appendChild(style); // вмонтирую <style> в DOM перед печатью
-  //     }
-  //   },
-  //   onAfterPrint: () => {
-  //     if (tableWrapperRef.current?.lastChild) {
-  //       tableWrapperRef.current.removeChild(tableWrapperRef.current.lastChild);
-  //     }
-  //   }, // удаляю <style> из DOM после печати
-  //   removeAfterPrint: true,
-  // });
+  // const onPrintPdf = usePrintPdf(tableWrapperRef.current,  tableRef.current);
+  // const printFunc = useCallback(onPrintPdf, [tableWrapperRef.current,  tableRef.current])
+  const onPrintPdf = useReactToPrint({
+    content: () => tableWrapperRef.current,
+    documentTitle: "table",
+    onBeforeGetContent: () => {
+      if (tableRef.current) {
+        const style = document.createElement("style");
+        style.textContent = getPageStylesForPrint(
+          tableRef.current.offsetWidth,
+          tableRef.current.offsetHeight
+        );
+        tableWrapperRef.current?.appendChild(style); // вмонтирую <style> в DOM перед печатью
+      }
+    },
+    onAfterPrint: () => {
+      if (tableWrapperRef.current?.lastChild) {
+        tableWrapperRef.current.removeChild(tableWrapperRef.current.lastChild);
+      }
+    }, // удаляю <style> из DOM после печати
+    removeAfterPrint: true,
+  });
 
   const [search, setSearch] = useState<{field: F, value: string} | null>(null);
   const [sort, setSort] = useState<{ field: F; format: FormatData, direction: Direction} | null>(null);
@@ -122,7 +122,7 @@ function TableContainer<T, F extends keyof T>(props: {
         search={search} 
         onSearch={callbacks.onSearch}
         onSelectField={callbacks.onSelectField}
-        onPrintPdf={printFunc}
+        onPrintPdf={onPrintPdf}
         onDownloadXls={callbacks.onDownloadXls}
         t={t}
       />
