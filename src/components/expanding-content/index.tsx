@@ -1,9 +1,8 @@
 import React from "react";
-import { Row } from "../react-table-component/table-row";
 import "./style.scss";
 
 type PropsType = {
-  info: Row;
+  info: any;
 };
 
 const ExpandingContent: React.FC<PropsType> = (props) => {

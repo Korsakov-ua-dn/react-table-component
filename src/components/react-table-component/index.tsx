@@ -17,17 +17,21 @@ import { useReactToPrint } from "react-to-print";
 //From MUI
 import { SelectChangeEvent } from '@mui/material/Select';
 
-function TableContainer<T, F extends keyof T>(props: {
+type TableProps<T> = {
   items: T[];
   limit: number;
   page: number;
-  viewDataFormatScheme: Record<F, Data>;
+  viewDataFormatScheme: ViewDataFormatScheme<T>;
   colorScheme: ColorScheme;
   locale: Locale;
   setLimit: (limit: number) => void;
   setPage: (page: number) => void;
   expandingContentComponent: ExpandingContentComponent;
-}) {
+}
+
+export type ViewDataFormatScheme<T> = Partial<Record<keyof T, Data>>;
+
+const TableContainer = <T, F extends keyof T>(props: TableProps<T>): JSX.Element => {
   
   const t = useTranslation(props.locale);
 
@@ -154,4 +158,4 @@ function TableContainer<T, F extends keyof T>(props: {
   );
 }
 
-export default React.memo(TableContainer);
+export default React.memo(TableContainer) as typeof TableContainer;

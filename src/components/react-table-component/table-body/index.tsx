@@ -1,16 +1,17 @@
 import React from "react";
-import  TabelRow, { DataFormatScheme, ExpandingContentComponent } from "../table-row";
+import { ViewDataFormatScheme } from "..";
+import  TabelRow, { ExpandingContentComponent } from "../table-row";
 import "./style.scss";
 
-type PropsType = {
-  items: any[];
+type PropsType<T> = {
+  items: T[];
   limit: number;
   page: number;
-  viewDataFormatScheme: DataFormatScheme;
+  viewDataFormatScheme: ViewDataFormatScheme<T>;
   expandingContentComponent: ExpandingContentComponent;
 };
 
-const TableBody: React.FC<PropsType> = (props) => {
+const TableBody = <T,>(props: PropsType<T>): JSX.Element => {
   const tbody = props.items.map((row, i) => {
     if ( 
       i < props.limit * (props.page + 1) &&
@@ -18,6 +19,7 @@ const TableBody: React.FC<PropsType> = (props) => {
     ) {
       return (
         <TabelRow
+          //@ts-ignore 
           key={row._id}
           row={row}
           painted={i % 2 === 0} // покрасить зеброй
@@ -32,4 +34,4 @@ const TableBody: React.FC<PropsType> = (props) => {
   return <>{tbody}</>;
 };
 
-export default React.memo(TableBody);
+export default React.memo(TableBody) as typeof TableBody;

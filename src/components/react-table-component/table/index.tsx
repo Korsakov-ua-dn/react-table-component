@@ -2,13 +2,14 @@ import React, { MouseEvent, ForwardedRef } from "react";
 import { Direction } from "../utils/sort-array-of-objects";
 import TableBody from "../table-body";
 import TabelHead from "../table-head";
-import { DataFormatScheme, ExpandingContentComponent } from "../table-row";
+import { ExpandingContentComponent } from "../table-row";
 import "./style.scss";
+import { ViewDataFormatScheme } from "..";
 
-type PropsType = {
+type PropsType<T> = {
   tableRef: ForwardedRef<HTMLTableElement | null>;
-  viewDataFormatScheme: DataFormatScheme;
-  items: any[];
+  viewDataFormatScheme: ViewDataFormatScheme<T>;
+  items: T[];
   limit: number;
   page: number;
   colorScheme: ColorScheme;
@@ -18,7 +19,7 @@ type PropsType = {
   expandingContentComponent: ExpandingContentComponent;
 };
 
-const Table = React.forwardRef((props: PropsType, ref: ForwardedRef<HTMLDivElement  | null>) => {
+const Table = React.forwardRef(<T,>(props: PropsType<T>, ref: ForwardedRef<HTMLDivElement  | null>) => {
   
   const classTable = `Table ${props.colorScheme === "zebra" ? "Table_zebra" : ""}`;
 
@@ -47,7 +48,7 @@ const Table = React.forwardRef((props: PropsType, ref: ForwardedRef<HTMLDivEleme
   );
 });
 
-export default React.memo(Table);
+export default React.memo(Table) as typeof Table;
 
 //types
 export type ColorScheme = "mono" | "zebra";

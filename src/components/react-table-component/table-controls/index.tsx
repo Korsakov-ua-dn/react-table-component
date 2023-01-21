@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useCallback, useState } from "react";
-import { DataFormatScheme } from "../table-row";
 import { Key, Wordbook } from "../translate/use-translate";
 import "./style.scss";
 // From MUI
@@ -10,9 +9,10 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+import { ViewDataFormatScheme } from "..";
 
-type PropsType = {
-  viewDataFormatScheme: DataFormatScheme;
+type PropsType<T> = {
+  viewDataFormatScheme: ViewDataFormatScheme<T>;
   search: any;
   onSearch: (value: string) => void;
   onSelectField: (e: SelectChangeEvent) => void;
@@ -21,7 +21,7 @@ type PropsType = {
   t: (key: Key) => Wordbook;
 };
 
-const TableControls: React.FC<PropsType> = (props) => {
+const TableControls = <T, F extends keyof T>(props: PropsType<T>): JSX.Element => {
   
   const [error, setError] = useState(false);
 
@@ -62,6 +62,7 @@ const TableControls: React.FC<PropsType> = (props) => {
           >
             {Object.entries(props.viewDataFormatScheme).map((field) => (
               <MenuItem key={field[0]} value={field[0]}>
+                {/* @ts-ignore */}
                 <em className="Table-controls-selec-field-option">{field[1].title}</em>
               </MenuItem>
             ))}
@@ -89,4 +90,4 @@ const TableControls: React.FC<PropsType> = (props) => {
   );
 };
 
-export default React.memo(TableControls);
+export default React.memo(TableControls) as typeof TableControls;

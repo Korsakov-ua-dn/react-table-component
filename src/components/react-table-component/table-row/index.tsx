@@ -1,17 +1,20 @@
 import React, { useCallback, useState } from "react";
-import { Format, formatDataToView } from "../utils/format-data-to-view";
+import { formatDataToView } from "../utils/format-data-to-view";
+import { ViewDataFormatScheme } from "..";
 import "./style.scss";
 // From MUI
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
-type PropsType = {
-  row: { [key: string]: any };
-  viewDataFormatScheme: DataFormatScheme;
+type PropsType<T> = {
+  row: Row<T>;
+  viewDataFormatScheme: ViewDataFormatScheme<T>;
   painted: boolean;
   expandingContentComponent: ExpandingContentComponent;
 };
+export type Row<T> = T
+export type ExpandingContentComponent = <T>(info: Row<T>) => React.ReactElement;
 
-const TabelRow: React.FC<PropsType> = (props) => {
+const TabelRow = <T,>(props: PropsType<T>): JSX.Element => {
   // Состояние строки "развернутая" и "свернутая"
   const [isExpanded, setExpanded] = useState<boolean>(false);
   const expandRowHandler = useCallback(() => {
@@ -31,6 +34,7 @@ const TabelRow: React.FC<PropsType> = (props) => {
   ];
 
   for (let key in props.viewDataFormatScheme) {
+    //@ts-ignore
     const format = props.viewDataFormatScheme[key].format;
     const renderFunction = formatDataToView[format];
     
@@ -47,6 +51,7 @@ const TabelRow: React.FC<PropsType> = (props) => {
         {td}
       </tr>
       { isExpanded && <tr className={"Expanding-content"}>
+        {/* @ts-ignore */}
         <td colSpan={Object.keys(props.row).length}>
           <div className="Expanding-content__Detailed-information">
             { props.expandingContentComponent(props.row) }
@@ -57,14 +62,15 @@ const TabelRow: React.FC<PropsType> = (props) => {
   );
 };
 
-export default React.memo(TabelRow);
+export default React.memo(TabelRow) as typeof TabelRow;
 
 //types
+export type Format = "price" | "date" | "number" | "string";
 export type Data = {
   format: Format;
   title: string;
   sort: boolean;
 };
-export type DataFormatScheme = Record<string, Data>;
-export type Row = { [key: string]: any }
-export type ExpandingContentComponent = (info: Row) => React.ReactElement;
+// export type DataFormatScheme = Record<string, Data>;
+// export type Row = { [key: string]: any }
+// export type ExpandingContentComponent = (info: Row) => React.ReactElement;

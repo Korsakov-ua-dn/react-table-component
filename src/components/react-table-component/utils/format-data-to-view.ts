@@ -1,3 +1,5 @@
+import { Format } from "../table-row";
+
 export const formatDataToView:Record<Format, FormatFunc> = {
   string: (data: any) => data,
   number: (data: any) => numberFormat(data),
@@ -21,5 +23,4 @@ export default function numberFormat(value: number, options = {}){
 }
 
 //types
-export type Format = "price" | "date" | "number" | "string";
 type FormatFunc = (data: any) => number | string 
