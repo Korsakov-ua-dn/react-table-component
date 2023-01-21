@@ -7,6 +7,8 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchAllTransactions, transactionActions } from "../../store/transaction-slice";
 import TableContainer from "../../components/react-table-component";
 import ExpandingContent from "../../components/expanding-content";
+import { Data } from "../../components/react-table-component/table-row";
+import { Transaction } from "../../api";
 
 const Transactions: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -32,7 +34,7 @@ const Transactions: React.FC = () => {
 
   const options = {
     viewDataFormatScheme: useMemo(
-      () => ({
+      (): Record<keyof Omit<Transaction, '_id' | '__v'>, Data> => ({
         name: { format: "string", title: "Транспорт", sort: true },
         date: { format: "date", title: "Дата", sort: true },
         card: { format: "string", title: "Карта", sort: false },

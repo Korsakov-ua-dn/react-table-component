@@ -56,7 +56,7 @@ export const fetchAllTransactions = createAsyncThunk<
 // slice
 const initialState: TransactionState = {
   data: [],
-  limit: 1,
+  limit: 5,
   page: 0,
   loading: false,
   error: null,
