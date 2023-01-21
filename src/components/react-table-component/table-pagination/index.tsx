@@ -41,7 +41,7 @@ const Pagination: React.FC<PropsType> = (props) => {
         page={props.page}
         onPageChange={callbacks.handleChangePage}
         rowsPerPage={props.limit}
-        rowsPerPageOptions={[5,10,25]}
+        rowsPerPageOptions={[1,5,10,25]}
         labelRowsPerPage={props.t("show")}
         onRowsPerPageChange={callbacks.handleChangeRowsPerPage}
         showFirstButton

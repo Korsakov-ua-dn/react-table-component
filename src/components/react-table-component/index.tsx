@@ -5,7 +5,7 @@ import React, {
   useRef,
   MouseEvent,
 } from "react";
-import { DataFormatScheme, ExpandingContentComponent } from "./table-row";
+import { Data, ExpandingContentComponent } from "./table-row";
 import Table, { ColorScheme } from "./table";
 import { sortArrayOfObjects, FormatData, Direction } from "./utils/sort-array-of-objects";
 import TableControls from "./table-controls";
@@ -21,7 +21,7 @@ function TableContainer<T, F extends keyof T>(props: {
   items: T[];
   limit: number;
   page: number;
-  viewDataFormatScheme: DataFormatScheme;
+  viewDataFormatScheme: Record<F, Data>;
   colorScheme: ColorScheme;
   locale: Locale;
   setLimit: (limit: number) => void;

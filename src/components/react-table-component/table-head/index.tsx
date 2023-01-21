@@ -31,8 +31,8 @@ const TabelHead: React.FC<PropsType> = (props) => {
         }
       >
         <div>
-          <img className="Direction-arrow" data-direction={props.direction} src={arrow} alt="sort arrow" />
           {props.viewDataFormatScheme[key].title}
+          <img className="Direction-arrow" data-direction={props.direction} src={arrow} alt="sort arrow" />
         </div>
       </th>
     );

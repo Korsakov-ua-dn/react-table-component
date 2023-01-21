@@ -30,18 +30,15 @@ const TabelRow: React.FC<PropsType> = (props) => {
     </td> // Первый элемент каждой строки - стрелка для разворачивания детальной информации
   ];
 
-  for (let key in props.row) {
-    // Узнаю какого формата текущее поле согласно схемы
-    const format = props.viewDataFormatScheme[key]?.format;
-    // Если в схеме отсутствует поле с таким ключем => рендер не производится
-    if (format !== undefined) {
-      const renderFunction = formatDataToView[format];
-      td.push(
-        <td className="Table__body-item" key={key}>
-          {renderFunction(props.row[key])}
-        </td>
-      );
-    }
+  for (let key in props.viewDataFormatScheme) {
+    const format = props.viewDataFormatScheme[key].format;
+    const renderFunction = formatDataToView[format];
+    
+    td.push(
+      <td className="Table__body-item" key={key}>
+        {renderFunction(props.row[key])}
+      </td>
+    );
   }
 
   return (
@@ -63,7 +60,7 @@ const TabelRow: React.FC<PropsType> = (props) => {
 export default React.memo(TabelRow);
 
 //types
-type Data = {
+export type Data = {
   format: Format;
   title: string;
   sort: boolean;

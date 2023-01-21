@@ -11,13 +11,14 @@
   white-space: nowrap;
 
   & div {
+    width: fit-content;
     position: relative;
     display: flex;
     color: #ffffff;
-    padding-left: 18px;
-    & img {
+    padding-right: 18px;
+    & .Direction-arrow {
       position: absolute;
-      left: 0;
+      right: 0;
       top: 0;
       height: 17px;
       width: 14px;
