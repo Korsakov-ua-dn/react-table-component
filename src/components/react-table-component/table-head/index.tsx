@@ -5,7 +5,7 @@ import "./style.scss";
 
 type PropsType<T> = {
   viewDataFormatScheme: ViewDataFormatScheme<T>;
-  activeField: any;
+  activeField: any | undefined;
   direction: Direction;
   onSort: (e: MouseEvent<HTMLSpanElement>) => void;
 };

@@ -1,4 +1,4 @@
-import React, { MouseEvent, ForwardedRef } from "react";
+import React, { MouseEvent, Ref } from "react";
 import { Direction } from "../utils/sort-array-of-objects";
 import TableBody from "../table-body";
 import TabelHead from "../table-head";
@@ -7,24 +7,25 @@ import "./style.scss";
 import { ViewDataFormatScheme } from "..";
 
 type PropsType<T> = {
-  tableRef: ForwardedRef<HTMLTableElement | null>;
+  tableWrapperRef: Ref<HTMLDivElement>;
+  tableRef: Ref<HTMLTableElement>;
   viewDataFormatScheme: ViewDataFormatScheme<T>;
   items: T[];
   limit: number;
   page: number;
   colorScheme: ColorScheme;
-  activeField: any;
+  activeField: keyof T | undefined;
   direction: Direction;
   onSort: (e: MouseEvent<HTMLSpanElement>) => void;
   expandingContentComponent: ExpandingContentComponent;
 };
 
-const Table = React.forwardRef(<T,>(props: PropsType<T>, ref: ForwardedRef<HTMLDivElement  | null>) => {
+const Table = <T,>(props: PropsType<T>) => {
   
   const classTable = `Table ${props.colorScheme === "zebra" ? "Table_zebra" : ""}`;
 
   return (
-    <div className={classTable} ref={ref}>
+    <div className={classTable} ref={props.tableWrapperRef}>
       <table id="table" ref={props.tableRef}>
         <thead>
           <TabelHead
@@ -46,7 +47,7 @@ const Table = React.forwardRef(<T,>(props: PropsType<T>, ref: ForwardedRef<HTMLD
       </table>
     </div>
   );
-});
+};
 
 export default React.memo(Table) as typeof Table;
 

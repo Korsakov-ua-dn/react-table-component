@@ -134,7 +134,7 @@ const TableContainer = <T, F extends keyof T>(props: TableProps<T>): JSX.Element
         t={t}
       />
       <Table
-        ref={tableWrapperRef}
+        tableWrapperRef={tableWrapperRef}
         tableRef={tableRef}
         viewDataFormatScheme={props.viewDataFormatScheme}
         items={sortItems}
