@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useState } from "react";
+import React, { ChangeEvent, useCallback, useState, useMemo } from "react";
 import { Key, Wordbook } from "../translate/use-translate";
 import "./style.scss";
 // From MUI
@@ -13,7 +13,7 @@ import { ViewDataFormatScheme } from "..";
 
 type PropsType<T> = {
   viewDataFormatScheme: ViewDataFormatScheme<T>;
-  search: any;
+  search: {field: keyof T, value: string} | null;
   onSearch: (value: string) => void;
   onSelectField: (e: SelectChangeEvent) => void;
   onPrintPdf: () => void;
@@ -21,7 +21,7 @@ type PropsType<T> = {
   t: (key: Key) => Wordbook;
 };
 
-const TableControls = <T, F extends keyof T>(props: PropsType<T>): JSX.Element => {
+const TableControls = <T,>(props: PropsType<T>): JSX.Element => {
   
   const [error, setError] = useState(false);
 
@@ -43,6 +43,21 @@ const TableControls = <T, F extends keyof T>(props: PropsType<T>): JSX.Element =
     }, [props.onSearch, props.search]),
   }
 
+  const options = {
+    menuItems: useMemo(() => {
+      let menuItems = [];
+
+      for (let key in props.viewDataFormatScheme) {
+        menuItems.push(
+          <MenuItem key={key} value={key}>
+            <em className="Table-controls-selec-field-option">{props.viewDataFormatScheme[key]?.title}</em>
+          </MenuItem>
+        )
+      }
+      return menuItems;
+    }, [props.viewDataFormatScheme])
+  }
+  
   return (
     <div className="Table-controls">
       <div className="Table-controls__print-wrapper">
@@ -56,16 +71,11 @@ const TableControls = <T, F extends keyof T>(props: PropsType<T>): JSX.Element =
           <Select
             labelId="demo-simple-select-standard-label"
             id="demo-simple-select-standard"
-            value={props.search ? props.search.field : ""}
+            value={props.search ? String(props.search.field) : ""}
             onChange={callbacks.onSelectFieldHandler}
             label="Поле"
           >
-            {Object.entries(props.viewDataFormatScheme).map((field) => (
-              <MenuItem key={field[0]} value={field[0]}>
-                {/* @ts-ignore */}
-                <em className="Table-controls-selec-field-option">{field[1].title}</em>
-              </MenuItem>
-            ))}
+            { options.menuItems }
           </Select>
         </FormControl>
 
