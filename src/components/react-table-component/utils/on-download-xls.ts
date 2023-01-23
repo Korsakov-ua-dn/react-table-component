@@ -1,13 +1,14 @@
 import * as XLSX from "xlsx";
+import { ViewDataFormatScheme } from "..";
 
-export const onDownloadXls = (items: any[], scheme: {}) => {
+export const onDownloadXls = <T extends object>(items: T[], scheme: ViewDataFormatScheme<T>) => {
   const schemaKeys = Object.keys(scheme);
   const itemKeys = Object.keys(items[0] as {});
   const needToExcludeKeys = itemKeys.filter((key) => !schemaKeys.includes(key));
 
   const preparedData = items.map((row) => {
     const obj = { ...row };
-    needToExcludeKeys.forEach((key) => delete obj[key]);
+    needToExcludeKeys.forEach((key) => delete obj[key as keyof typeof obj]);
     return obj;
   });
 

@@ -20,7 +20,7 @@ type PropsType<T> = {
   expandingContentComponent: ExpandingContentComponent;
 };
 
-const Table = <T,>(props: PropsType<T>) => {
+const Table = <T extends object>(props: PropsType<T>) => {
   
   const classTable = `Table ${props.colorScheme === "zebra" ? "Table_zebra" : ""}`;
 

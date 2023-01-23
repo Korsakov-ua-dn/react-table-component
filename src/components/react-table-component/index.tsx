@@ -5,7 +5,7 @@ import React, {
   useRef,
   MouseEvent,
 } from "react";
-import { Data, ExpandingContentComponent } from "./table-row";
+import { ExpandingContentComponent } from "./table-row";
 import Table, { ColorScheme } from "./table";
 import { sortArrayOfObjects, FormatData, Direction } from "./utils/sort-array-of-objects";
 import TableControls from "./table-controls";
@@ -16,6 +16,7 @@ import { onDownloadXls } from "./utils/on-download-xls";
 import { useReactToPrint } from "react-to-print";
 //From MUI
 import { SelectChangeEvent } from '@mui/material/Select';
+import { Data } from "./types";
 
 type TableProps<T> = {
   items: T[];
@@ -31,7 +32,7 @@ type TableProps<T> = {
 
 export type ViewDataFormatScheme<T> = Partial<Record<keyof T, Data>>;
 
-const TableContainer = <T, F extends keyof T>(props: TableProps<T>): JSX.Element => {
+const TableContainer = <T extends object, F extends keyof T>(props: TableProps<T>): JSX.Element => {
   
   const t = useTranslation(props.locale);
 

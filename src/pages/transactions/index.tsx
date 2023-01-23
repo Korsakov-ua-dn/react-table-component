@@ -1,12 +1,12 @@
 import React, {
-  useMemo,
   useCallback,
   useLayoutEffect,
 } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchAllTransactions, transactionActions } from "../../store/transaction-slice";
-import TableContainer, { ViewDataFormatScheme } from "../../components/react-table-component";
+import TableContainer from "../../components/react-table-component";
 import ExpandingContent from "../../components/expanding-content";
+import { formatDataToView, viewDataScheme } from "./view-data-scheme";
 
 const Transactions: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -29,27 +29,10 @@ const Transactions: React.FC = () => {
       dispatch(transactionActions.setPage(page))
     }, [dispatch]),
   };
-
-  const options = {
-    viewDataFormatScheme: useMemo(
-      (): ViewDataFormatScheme<typeof select.transactions[0]> => ({
-        name: { format: "string", title: "Транспорт", sort: true },
-        date: { format: "date", title: "Дата", sort: true },
-        card: { format: "string", title: "Карта", sort: false },
-        point: { format: "string", title: "АЗС", sort: false },
-        address: { format: "string", title: "Адрес", sort: true },
-        fuelName: { format: "string", title: "Тип топлива", sort: false },
-        fuelCount: {format: "number", title: "Количество", sort: true },
-        coast: { format: "price", title: "Стоимость", sort: true },
-      }),
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      []
-    ), // Данная схема исключает отрисовку полей "_id" и "__v"
-  };
   
   useLayoutEffect(() => {
     dispatch(fetchAllTransactions())
-  }, [dispatch])
+  }, [dispatch]);
 
   return (
     <>
@@ -62,7 +45,16 @@ const Transactions: React.FC = () => {
             items={select.transactions}
             limit={select.limit}
             page={select.page}
-            viewDataFormatScheme={options.viewDataFormatScheme}
+            viewDataFormatScheme={{
+              name: { format: "string", title: "Транспорт", sort: true, renderFunction: formatDataToView["string"] },
+              date: { format: "date", title: "Дата", sort: true, renderFunction: formatDataToView["date"] },
+              card: { format: "string", title: "Карта", sort: false, renderFunction: formatDataToView["string"] },
+              point: { format: "string", title: "АЗС", sort: false, renderFunction: formatDataToView["string"] },
+              address: { format: "string", title: "Адрес", sort: true, renderFunction: formatDataToView["string"] },
+              fuelName: { format: "string", title: "Тип топлива", sort: false, renderFunction: formatDataToView["string"] },
+              fuelCount: { format: "number", title: "Количество", sort: true, renderFunction: formatDataToView["number"] },
+              coast: { format: "price", title: "Стоимость", sort: true, renderFunction: formatDataToView["price"]},
+            }} // Если вынести объект схемы теряется проверка типизации
             colorScheme="zebra"
             locale={select.locale}
             setLimit={callbacks.setLimit}

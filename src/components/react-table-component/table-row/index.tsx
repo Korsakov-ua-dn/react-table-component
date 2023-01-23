@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from "react";
-import { formatDataToView } from "../utils/format-data-to-view";
 import { ViewDataFormatScheme } from "..";
 import "./style.scss";
 // From MUI
@@ -11,9 +10,9 @@ type PropsType<T> = {
   painted: boolean;
   expandingContentComponent: ExpandingContentComponent;
 };
-export type ExpandingContentComponent = <T>(info: T) => React.ReactElement;
+export type ExpandingContentComponent = <T>(info: T) => React.ReactElement<T>;
 
-const TabelRow = <T,>(props: PropsType<T>): JSX.Element => {
+const TabelRow = <T extends object>(props: PropsType<T>): JSX.Element => {
   // Состояние строки "развернутая" и "свернутая"
   const [isExpanded, setExpanded] = useState<boolean>(false);
   const expandRowHandler = useCallback(() => {
@@ -33,12 +32,9 @@ const TabelRow = <T,>(props: PropsType<T>): JSX.Element => {
   ];
 
   for (let key in props.viewDataFormatScheme) {
-    const format = props.viewDataFormatScheme[key]?.format;
-    const renderFunction = formatDataToView[format!];
-    
     td.push(
       <td className="Table__body-item" key={key}>
-        {renderFunction(props.row[key])}
+        { props.viewDataFormatScheme[key]?.renderFunction(props.row[key]) }
       </td>
     );
   }
@@ -49,7 +45,6 @@ const TabelRow = <T,>(props: PropsType<T>): JSX.Element => {
         {td}
       </tr>
       { isExpanded && <tr className={"Expanding-content"}>
-        {/* @ts-ignore */}
         <td colSpan={Object.keys(props.row).length}>
           <div className="Expanding-content__Detailed-information">
             { props.expandingContentComponent(props.row) }
@@ -61,11 +56,3 @@ const TabelRow = <T,>(props: PropsType<T>): JSX.Element => {
 };
 
 export default React.memo(TabelRow) as typeof TabelRow;
-
-//types
-export type Format = "price" | "date" | "number" | "string";
-export type Data = {
-  format: Format;
-  title: string;
-  sort: boolean;
-};

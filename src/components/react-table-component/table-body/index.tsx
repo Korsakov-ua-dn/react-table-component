@@ -12,7 +12,7 @@ type PropsType<T> = {
   expandingContentComponent: ExpandingContentComponent;
 };
 
-const TableBody = <T,>(props: PropsType<T>): JSX.Element => {
+const TableBody = <T extends object>(props: PropsType<T>): JSX.Element => {
   const tbody = props.items.map((row, i) => {
     if ( 
       i < props.limit * (props.page + 1) &&
@@ -30,7 +30,6 @@ const TableBody = <T,>(props: PropsType<T>): JSX.Element => {
       )
     } else return false
   })
-
 
   return <>{tbody}</>;
 };
