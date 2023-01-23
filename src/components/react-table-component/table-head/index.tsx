@@ -5,7 +5,7 @@ import "./style.scss";
 
 type PropsType<T> = {
   viewDataFormatScheme: ViewDataFormatScheme<T>;
-  activeField: any | undefined;
+  activeField: keyof T | undefined;
   direction: Direction;
   onSort: (e: MouseEvent<HTMLSpanElement>) => void;
 };
@@ -41,4 +41,4 @@ const TabelHead = <T,>(props: PropsType<T>): JSX.Element => {
   return <tr>{th}</tr>;
 };
 
-export default React.memo(TabelHead);
+export default React.memo(TabelHead) as typeof TabelHead;

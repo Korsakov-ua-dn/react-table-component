@@ -6,13 +6,12 @@ import "./style.scss";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
 type PropsType<T> = {
-  row: Row<T>;
+  row: T;
   viewDataFormatScheme: ViewDataFormatScheme<T>;
   painted: boolean;
   expandingContentComponent: ExpandingContentComponent;
 };
-export type Row<T> = T
-export type ExpandingContentComponent = <T>(info: Row<T>) => React.ReactElement;
+export type ExpandingContentComponent = <T>(info: T) => React.ReactElement;
 
 const TabelRow = <T,>(props: PropsType<T>): JSX.Element => {
   // Состояние строки "развернутая" и "свернутая"
@@ -34,9 +33,8 @@ const TabelRow = <T,>(props: PropsType<T>): JSX.Element => {
   ];
 
   for (let key in props.viewDataFormatScheme) {
-    //@ts-ignore
-    const format = props.viewDataFormatScheme[key].format;
-    const renderFunction = formatDataToView[format];
+    const format = props.viewDataFormatScheme[key]?.format;
+    const renderFunction = formatDataToView[format!];
     
     td.push(
       <td className="Table__body-item" key={key}>
@@ -71,6 +69,3 @@ export type Data = {
   title: string;
   sort: boolean;
 };
-// export type DataFormatScheme = Record<string, Data>;
-// export type Row = { [key: string]: any }
-// export type ExpandingContentComponent = (info: Row) => React.ReactElement;

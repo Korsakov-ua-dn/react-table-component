@@ -19,8 +19,8 @@ const TableBody = <T,>(props: PropsType<T>): JSX.Element => {
     ) {
       return (
         <TabelRow
-          //@ts-ignore 
-          key={row._id}
+        //@ts-ignore
+          key={row._id!}
           row={row}
           painted={i % 2 === 0} // покрасить зеброй
           viewDataFormatScheme={props.viewDataFormatScheme}
