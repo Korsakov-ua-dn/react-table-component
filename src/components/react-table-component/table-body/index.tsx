@@ -1,6 +1,7 @@
 import React from "react";
 import { ViewDataFormatScheme } from "..";
 import  TabelRow, { ExpandingContentComponent } from "../table-row";
+import { v1 } from 'uuid';
 import "./style.scss";
 
 type PropsType<T> = {
@@ -17,10 +18,10 @@ const TableBody = <T,>(props: PropsType<T>): JSX.Element => {
       i < props.limit * (props.page + 1) &&
       i >= props.limit * props.page
     ) {
+      const id = v1();
       return (
         <TabelRow
-        //@ts-ignore
-          key={row._id!}
+          key={id}
           row={row}
           painted={i % 2 === 0} // покрасить зеброй
           viewDataFormatScheme={props.viewDataFormatScheme}
