@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useCallback, useState, useMemo } from "react";
-import { Key, Wordbook } from "../translate/use-translate";
 import { ViewDataFormatScheme } from "..";
 import "./style.scss";
 // From MUI
@@ -10,6 +9,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+import { Translate } from "../translate/use-translate";
 
 type PropsType<T> = {
   viewDataFormatScheme: ViewDataFormatScheme<T>;
@@ -18,7 +18,7 @@ type PropsType<T> = {
   onSelectField: (e: SelectChangeEvent) => void;
   onPrintPdf: () => void;
   onDownloadXls: () => void;
-  t: (key: Key) => Wordbook;
+  t: Translate;
 };
 
 const TableControls = <T,>(props: PropsType<T>): JSX.Element => {

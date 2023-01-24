@@ -1,0 +1,9 @@
+{
+  "table": {
+    "field": "Feld",
+    "search": "Suche"
+  },
+  "test": {
+    "test1": "Prüfung1"
+  }
+}

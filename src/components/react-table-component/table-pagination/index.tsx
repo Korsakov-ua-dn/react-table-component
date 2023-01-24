@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import "./style.scss";
 // From MUI
 import TablePagination from '@mui/material/TablePagination';
-import { Key, Wordbook } from "../translate/use-translate";
+import { Translate } from "../translate/use-translate";
 
 type PropsType = {
   count: number;
@@ -10,7 +10,7 @@ type PropsType = {
   page: number;
   setLimit: (limit: number) => void;
   setPage: (page: number) => void;
-  t: (key: Key) => Wordbook;
+  t: Translate;
 };
 
 const Pagination: React.FC<PropsType> = (props) => {

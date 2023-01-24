@@ -1,6 +1,5 @@
 import { Format, FormatFunction } from "../../components/react-table-component/types";
 
-
 function numberFormat(value: number, options = {}){
     return new Intl.NumberFormat('ru-RU', options).format(value)
 }
@@ -31,8 +30,6 @@ export const viewDataScheme = {
   address: { format: "string", title: "Адрес", sort: true, renderFunction: formatDataToView["string"] },
   fuelName: { format: "string", title: "Тип топлива", sort: false, renderFunction: formatDataToView["string"] },
   fuelCount: { format: "number", title: "Количество", sort: true, renderFunction: formatDataToView["number"] },
-  coast: { format: "price", title: "Стоимость", sort: true, renderFunction: formatDataToView["price"], test: ""},
-  _id: { format: "price", title: "Стоимость", sort: true, renderFunction: formatDataToView["price"] },
-  __v: { format: "price", title: "Стоимость", sort: true, renderFunction: formatDataToView["price"] },
-  test: { format: "price", title: "Тест", sort: true, renderFunction: formatDataToView["price"] },
-} as const; // При использовании объекта путем импорта теряется проверка типизации
+  coast: { format: "price", title: "Стоимость", sort: true, renderFunction: formatDataToView["price"], test: ""}, // ошибочное поле test
+//   test: { format: "price", title: "Тест", sort: true, renderFunction: formatDataToView["price"] }, // ошибочное поле test
+} as const; // При использовании объекта путем импорта, а так же при обертывании его useMemo теряется проверка типизации

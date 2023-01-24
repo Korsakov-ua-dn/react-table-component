@@ -10,7 +10,7 @@ import Table, { ColorScheme } from "./table";
 import { sortArrayOfObjects, FormatData, Direction } from "./utils/sort-array-of-objects";
 import TableControls from "./table-controls";
 import TablePagination from "./table-pagination";
-import useTranslation, { Locale } from "./translate/use-translate";
+import { Locale, useTranslation } from "./translate/use-translate";
 import { getPageStylesForPrint } from "./utils/get-page-styles-for-print";
 import { onDownloadXls } from "./utils/on-download-xls";
 import { useReactToPrint } from "react-to-print";
@@ -34,7 +34,7 @@ export type ViewDataFormatScheme<T> = Partial<Record<keyof T, Data>>;
 
 const TableContainer = <T extends object, F extends keyof T>(props: TableProps<T>): JSX.Element => {
   
-  const t = useTranslation(props.locale);
+  const t = useTranslation("table", props.locale);
 
   const tableWrapperRef = useRef<HTMLDivElement | null>(null);
   const tableRef = useRef<HTMLTableElement | null>(null);
