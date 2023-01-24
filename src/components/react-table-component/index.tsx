@@ -13,10 +13,10 @@ import TablePagination from "./table-pagination";
 import { Locale, useTranslation } from "./translate/use-translate";
 import { getPageStylesForPrint } from "./utils/get-page-styles-for-print";
 import { onDownloadXls } from "./utils/on-download-xls";
+import { Data } from "./types";
 import { useReactToPrint } from "react-to-print";
 //From MUI
-import { SelectChangeEvent } from '@mui/material/Select';
-import { Data } from "./types";
+import { SelectChangeEvent } from "@mui/material/Select";
 
 type TableProps<T> = {
   items: T[];

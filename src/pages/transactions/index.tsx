@@ -55,7 +55,7 @@ const Transactions: React.FC = () => {
             //   fuelCount: { format: "number", title: "Количество", sort: true, renderFunction: formatDataToView["number"] },
             //   coast: { format: "price", title: "Стоимость", sort: true, renderFunction: formatDataToView["price"]},
             // }} // => тут типы проверяются
-            viewDataFormatScheme={viewDataScheme} // Если вынести объект схемы теряется проверка типизации
+            viewDataFormatScheme={viewDataScheme} // Если вынести объект схемы в переменную теряется проверка типизации
             colorScheme="zebra"
             locale={select.locale}
             setLimit={callbacks.setLimit}
