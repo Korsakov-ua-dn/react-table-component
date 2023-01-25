@@ -12,9 +12,9 @@
 
 React, TypeScript, Redux Toolkit, Axios.
 
-## Репозиторий с кодом API для получения данных о товарах из базы данных.
+## Репозиторий с кодом API для получения данных о транзакциях из базы данных.
 
-https://github.com/Korsakov-ua-dn/watchit-api
+https://github.com/Korsakov-ua-dn/transactions-api
 
 ## Требования
 

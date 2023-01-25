@@ -1,6 +1,6 @@
 {
-  "name": "watchit-front",
-  "homepage": "https://watchit-front.vercel.app/",
+  "name": "react-table-component",
+  "homepage": "https://react-typescript-table-component.vercel.app/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
