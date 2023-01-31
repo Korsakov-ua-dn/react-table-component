@@ -1,8 +1,9 @@
 import React, { useCallback, useState } from "react";
-import { ViewDataFormatScheme } from "..";
+import WithTooltip from "../with-tooltip";
 import "./style.scss";
 // From MUI
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import { ExpandingContentComponent, ViewDataFormatScheme } from "../types";
 
 type PropsType<T> = {
   row: T;
@@ -10,7 +11,7 @@ type PropsType<T> = {
   painted: boolean;
   expandingContentComponent: ExpandingContentComponent;
 };
-export type ExpandingContentComponent = <T>(info: T) => React.ReactElement<T>;
+
 
 const TabelRow = <T extends object>(props: PropsType<T>): JSX.Element => {
   // Состояние строки "развернутая" и "свернутая"
@@ -26,31 +27,45 @@ const TabelRow = <T extends object>(props: PropsType<T>): JSX.Element => {
   `;
 
   let td = [
-    <td className="Table__body-item_expand" key={"arrow"} onClick={expandRowHandler}>
+    <td
+      className="Table__body-item_expand"
+      key={"arrow"}
+      onClick={expandRowHandler}
+    >
       <ArrowRightIcon />
-    </td> // Первый элемент каждой строки - стрелка для разворачивания детальной информации
+    </td>, // Первый элемент каждой строки - стрелка для разворачивания детальной информации
   ];
 
   for (let key in props.viewDataFormatScheme) {
+    const width = props.viewDataFormatScheme[key]?.width;
+    const renderFunction = props.viewDataFormatScheme[key]?.renderFunction!;
+    const value = renderFunction(props.row[key]);
+
     td.push(
-      <td className="Table__body-item" key={key}>
-        { props.viewDataFormatScheme[key]?.renderFunction(props.row[key]) }
+      <td
+        key={key}
+        className="Table__body-item"
+        style={width ? { maxWidth: `${width}px`, minWidth: `${width}px` } : {}}
+      >
+        <WithTooltip>
+          {value}
+        </WithTooltip>
       </td>
     );
   }
 
   return (
     <>
-      <tr className={ClassNameRow}>
-        {td}
-      </tr>
-      { isExpanded && <tr className={"Expanding-content"}>
-        <td colSpan={Object.keys(props.row).length}>
-          <div className="Expanding-content__Detailed-information">
-            { props.expandingContentComponent(props.row) }
-          </div>
-        </td>
-      </tr>}
+      <tr className={ClassNameRow}>{td}</tr>
+      {isExpanded && (
+        <tr className={"Expanding-content"}>
+          <td colSpan={Object.keys(props.row).length}>
+            <div className="Expanding-content__Detailed-information">
+              {props.expandingContentComponent(props.row)}
+            </div>
+          </td>
+        </tr>
+      )}
     </>
   );
 };

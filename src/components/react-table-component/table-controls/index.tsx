@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useCallback, useState, useMemo } from "react";
-import { ViewDataFormatScheme } from "..";
 import "./style.scss";
 // From MUI
 import TextField from "@mui/material/TextField";
@@ -10,6 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import { Translate } from "../translate/use-translate";
+import { ViewDataFormatScheme } from "../types";
 
 type PropsType<T> = {
   viewDataFormatScheme: ViewDataFormatScheme<T>;

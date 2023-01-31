@@ -1,8 +1,8 @@
 import React from "react";
-import { ViewDataFormatScheme } from "..";
-import  TabelRow, { ExpandingContentComponent } from "../table-row";
+import  TabelRow from "../table-row";
 import { v1 } from 'uuid';
 import "./style.scss";
+import { ExpandingContentComponent, ViewDataFormatScheme } from "../types";
 
 type PropsType<T> = {
   items: T[];
