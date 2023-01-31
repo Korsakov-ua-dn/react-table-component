@@ -46,13 +46,13 @@ const Transactions: React.FC = () => {
             limit={select.limit}
             page={select.page}
             viewDataFormatScheme={{
-              name: { format: "string", title: "Транспорт", sort: true, renderFunction: formatDataToView["string"] },
-              date: { format: "date", title: "Дата", sort: true, renderFunction: formatDataToView["date"] },
-              card: { format: "string", title: "Карта", sort: false, renderFunction: formatDataToView["string"] },
-              point: { format: "string", title: "АЗС", sort: false, renderFunction: formatDataToView["string"] },
-              address: { format: "string", title: "Адрес", sort: true, renderFunction: formatDataToView["string"], width: 50 },
-              fuelName: { format: "string", title: "Тип топлива", sort: false, renderFunction: formatDataToView["string"], width: 80 },
-              fuelCount: { format: "number", title: "Количество", sort: true, renderFunction: formatDataToView["number"], width: 70 },
+              name: { format: "string", title: "Транспорт", sort: true, renderFunction: formatDataToView["string"], width: 200 },
+              date: { format: "date", title: "Дата", sort: true, renderFunction: formatDataToView["date"], width: 200 },
+              card: { format: "string", title: "Карта", sort: false, renderFunction: formatDataToView["string"], width: 200 },
+              point: { format: "string", title: "АЗС", sort: false, renderFunction: formatDataToView["string"], width: 100 },
+              address: { format: "string", title: "Адрес", sort: true, renderFunction: formatDataToView["string"], width: 400 },
+              fuelName: { format: "string", title: "Тип топлива", sort: false, renderFunction: formatDataToView["string"] },
+              fuelCount: { format: "number", title: "Количество", sort: true, renderFunction: formatDataToView["number"] },
               coast: { format: "price", title: "Стоимость", sort: true, renderFunction: formatDataToView["price"] },
             }} // => тут типы проверяются
             // viewDataFormatScheme={viewDataScheme} // Если вынести объект схемы в переменную теряется проверка типизации

@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from "react";
-import { ViewDataFormatScheme } from "..";
 import WithTooltip from "../with-tooltip";
 import "./style.scss";
 // From MUI
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import { ExpandingContentComponent, ViewDataFormatScheme } from "../types";
 
 type PropsType<T> = {
   row: T;
@@ -11,7 +11,7 @@ type PropsType<T> = {
   painted: boolean;
   expandingContentComponent: ExpandingContentComponent;
 };
-export type ExpandingContentComponent = <T>(info: T) => React.ReactElement<T>;
+
 
 const TabelRow = <T extends object>(props: PropsType<T>): JSX.Element => {
   // Состояние строки "развернутая" и "свернутая"

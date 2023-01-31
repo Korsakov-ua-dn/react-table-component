@@ -1,10 +1,9 @@
 import React, { MouseEvent, Ref } from "react";
 import { Direction } from "../utils/sort-array-of-objects";
 import TableBody from "../table-body";
-import TabelHead from "../table-head";
-import { ExpandingContentComponent } from "../table-row";
+import TableHead from "../table-head";
+import { ColorScheme, ExpandingContentComponent, ViewDataFormatScheme } from "../types";
 import "./style.scss";
-import { ViewDataFormatScheme } from "..";
 
 type PropsType<T> = {
   tableWrapperRef: Ref<HTMLDivElement>;
@@ -28,7 +27,7 @@ const Table = <T extends object>(props: PropsType<T>) => {
     <div className={classTable} ref={props.tableWrapperRef}>
       <table id="table" ref={props.tableRef}>
         <thead>
-          <TabelHead
+          <TableHead
             viewDataFormatScheme={props.viewDataFormatScheme}
             onSort={props.onSort}
             activeField={props.activeField}
@@ -50,6 +49,3 @@ const Table = <T extends object>(props: PropsType<T>) => {
 };
 
 export default React.memo(Table) as typeof Table;
-
-//types
-export type ColorScheme = "mono" | "zebra";

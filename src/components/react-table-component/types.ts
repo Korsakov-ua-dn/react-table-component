@@ -1,4 +1,5 @@
-export type Format = "price" | "date" | "number" | "string";
+export type ColorScheme = "mono" | "zebra";
+export type Format = "price" | "date" | "number" | "string"; // необходим для правильной сортировки 
 export type FormatFunction = (data: any) => number | string
 
 export type Data = {
@@ -8,3 +9,7 @@ export type Data = {
   renderFunction: FormatFunction;
   width?: number;
 };
+
+export type ViewDataFormatScheme<T> = Partial<Record<keyof T, Data>>;
+
+export type ExpandingContentComponent = <T>(info: T) => React.ReactElement<T>;
