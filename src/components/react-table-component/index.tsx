@@ -6,13 +6,13 @@ import React, {
   MouseEvent,
 } from "react";
 import Table from "./table";
-import { sortArrayOfObjects, FormatData, Direction } from "./utils/sort-array-of-objects";
+import { sortArrayOfObjects } from "./utils/sort-array-of-objects";
 import TableControls from "./table-controls";
 import TablePagination from "./table-pagination";
 import { Locale, useTranslation } from "./translate/use-translate";
 import { getPageStylesForPrint } from "./utils/get-page-styles-for-print";
 import { onDownloadXls } from "./utils/on-download-xls";
-import { ColorScheme, ExpandingContentComponent, ViewDataFormatScheme } from "./types";
+import { ColorScheme, Direction, ExpandingContentComponent, FormatData, ViewDataFormatScheme } from "./types";
 import { useReactToPrint } from "react-to-print";
 //From MUI
 import { SelectChangeEvent } from "@mui/material/Select";

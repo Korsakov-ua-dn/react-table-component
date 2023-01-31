@@ -1,3 +1,5 @@
+import { Direction, FormatData } from "../types";
+
 export function sortArrayOfObjects<T>(
   array: T[],
   field: keyof T,
@@ -31,7 +33,3 @@ export function sortArrayOfObjects<T>(
       return array;
   }
 }
-
-//types
-export type FormatData = "string" | "number" | "date" | "price";
-export type Direction = "ascending" | "descending" | "none";

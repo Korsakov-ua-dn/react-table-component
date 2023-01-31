@@ -1,6 +1,6 @@
 import { Format, FormatFunction } from "../../components/react-table-component/types";
 
-function numberFormat(value: number, options = {}){
+function numberFormat(value: number, options = {}) {
     return new Intl.NumberFormat('ru-RU', options).format(value)
 }
 

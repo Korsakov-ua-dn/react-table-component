@@ -6,7 +6,8 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchAllTransactions, transactionActions } from "../../store/transaction-slice";
 import TableContainer from "../../components/react-table-component";
 import ExpandingContent from "../../components/expanding-content";
-import { formatDataToView, viewDataScheme } from "./view-data-scheme";
+// eslint-disable-next-line
+import { formatDataToView, viewDataScheme } from "./transactions.services";
 
 const Transactions: React.FC = () => {
   const dispatch = useAppDispatch();

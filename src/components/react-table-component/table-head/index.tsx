@@ -1,6 +1,5 @@
 import React, { MouseEvent } from "react";
-import { ViewDataFormatScheme } from "../types";
-import { Direction } from "../utils/sort-array-of-objects";
+import { Direction, ViewDataFormatScheme } from "../types";
 import WithTooltip from "../with-tooltip";
 import "./style.scss";
 

@@ -1,8 +1,7 @@
 import React, { MouseEvent, Ref } from "react";
-import { Direction } from "../utils/sort-array-of-objects";
 import TableBody from "../table-body";
 import TableHead from "../table-head";
-import { ColorScheme, ExpandingContentComponent, ViewDataFormatScheme } from "../types";
+import { ColorScheme, Direction, ExpandingContentComponent, ViewDataFormatScheme } from "../types";
 import "./style.scss";
 
 type PropsType<T> = {

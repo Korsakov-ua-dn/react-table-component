@@ -15,6 +15,7 @@ const Header: React.FC<PropsType> = (props) => {
 
   const changeLocaleHandler = useCallback((event: SelectChangeEvent) => {
     props.changeLocale(event.target.value as Locale);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.changeLocale]);
 
   return (
