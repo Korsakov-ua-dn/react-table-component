@@ -8,6 +8,7 @@ import TableContainer from "../../components/react-table-component";
 import ExpandingContent from "../../components/expanding-content";
 // eslint-disable-next-line
 import { formatDataToView, viewDataScheme } from "./transactions.services";
+import TableComponent from "../../components/table-component";
 
 const Transactions: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -42,6 +43,24 @@ const Transactions: React.FC = () => {
       {select.error && select.error}
 
       {!!select.transactions.length && (
+          <TableComponent
+            items={select.transactions}
+            viewDataFormatScheme={{
+              name: { format: "string", title: "Транспорт", sort: true, renderFunction: formatDataToView["string"], width: 200 },
+              date: { format: "date", title: "Дата", sort: true, renderFunction: formatDataToView["date"], width: 200 },
+              card: { format: "string", title: "Карта", sort: false, renderFunction: formatDataToView["string"], width: 200 },
+              point: { format: "string", title: "АЗС", sort: false, renderFunction: formatDataToView["string"], width: 100 },
+              address: { format: "string", title: "Адрес", sort: true, renderFunction: formatDataToView["string"], width: 400 },
+              fuelName: { format: "string", title: "Тип топлива", sort: false, renderFunction: formatDataToView["string"] },
+              fuelCount: { format: "number", title: "Количество", sort: true, renderFunction: formatDataToView["number"] },
+              coast: { format: "price", title: "Стоимость", sort: true, renderFunction: formatDataToView["price"] },
+            }} // => тут типы проверяются
+            // viewDataFormatScheme={viewDataScheme} // Если вынести объект схемы в переменную теряется проверка типизации
+            colorScheme="zebra"
+            expandingContentComponent={(info) => <ExpandingContent info={info} />}
+          />
+      )}
+      {/* {!!select.transactions.length && (
           <TableContainer
             items={select.transactions}
             limit={select.limit}
@@ -63,7 +82,7 @@ const Transactions: React.FC = () => {
             setPage={callbacks.setPage}
             expandingContentComponent={(info) => <ExpandingContent info={info} />}
           />
-      )}
+      )} */}
     </>
   );
 };
