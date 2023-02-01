@@ -14,4 +14,4 @@ const ExpandingContent: React.FC<PropsType> = (props) => {
   );
 };
 
-export default React.memo(ExpandingContent);
+export default React.memo(ExpandingContent) as typeof ExpandingContent;
