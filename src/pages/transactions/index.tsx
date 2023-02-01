@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchAllTransactions, transactionActions } from "../../store/transaction-slice";
-import { Transaction } from "../../api";
+import { Transaction } from "../../api/api.types";
 import { useReactToPrint } from "react-to-print";
 import { useTranslation } from "../../utils/translate/use-translate";
 import { onDownloadXlsx } from "../../utils/on-download-xlsx";

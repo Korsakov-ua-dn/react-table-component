@@ -1,9 +1,9 @@
 import React, { useCallback } from "react";
 import Header from "../../components/header";
 import Layout from "../../components/layout";
-import { Locale } from "../../components/react-table-component/translate/use-translate";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { appActions } from "../../store/app-slice";
+import { Locale } from "../../utils/translate/use-translate";
 
 type PropsType = {
   children: React.ReactElement

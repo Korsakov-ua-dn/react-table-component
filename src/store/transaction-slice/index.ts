@@ -5,55 +5,17 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { RootState } from "../";
-import { Transaction, transactionsApi } from "../../api";
+import { transactionsApi } from "../../api";
+import { Transaction } from "../../api/api.types";
 
-// thunk
-// Запрос на сервер с указанием limit и skip параметров
-// export const fetchAllTransactions = createAsyncThunk<
-//   Transaction[],
-//   {
-//     limit: number;
-//     page: number;
-//   } | undefined,
-//   { rejectValue: string, state: RootState  }
-// >("transactions/GET_ALL", async (payload, { rejectWithValue, getState }) => {
-//   try {
-//     if (payload) {
-//       const response = await transactionsApi.getAll(
-//         payload.limit, 
-//         payload.page*payload.limit
-//       );
-//       return await response.data
-//     }
+type TransactionState = {
+  data: Transaction[];
+  limit: number;
+  page: number;
+  loading: boolean;
+  error: string | null;
+};
 
-//     const { page, limit } = getState().transactions;
-//     const response = await transactionsApi.getAll(limit, page*limit);
-//     return await response.data;
-
-//   } catch (err) {
-//     return rejectWithValue(
-//       "Произошла ошибка, попробуйте перезагрузить страницу"
-//     );
-//   }
-// }); 
-export const fetchAllTransactions = createAsyncThunk<
-  Transaction[],
-  undefined,
-  { rejectValue: string, state: RootState  }
->("transactions/GET_ALL", async (_, { rejectWithValue }) => {
-  try {
-
-    const response = await transactionsApi.getAll();
-    return await response.data;
-
-  } catch (err) {
-    return rejectWithValue(
-      "Произошла ошибка, попробуйте перезагрузить страницу"
-    );
-  }
-});
-
-// slice
 const initialState: TransactionState = {
   data: [],
   limit: 25,
@@ -94,15 +56,59 @@ const transactionsSlice = createSlice({
 export const transactionActions = transactionsSlice.actions;
 export default transactionsSlice.reducer;
 
+//thunk
+export const fetchAllTransactions = createAsyncThunk<
+  Transaction[],
+  undefined,
+  { rejectValue: string, state: RootState  }
+>("transactions/GET_ALL", async (_, { rejectWithValue }) => {
+  try {
+
+    const response = await transactionsApi.getAll();
+    return await response.data;
+
+  } catch (err) {
+    return rejectWithValue(
+      "Произошла ошибка, попробуйте перезагрузить страницу"
+    );
+  }
+});
+
 function isError(action: AnyAction) {
   return action.type.endsWith("rejected");
 }
 
-// types
-type TransactionState = {
-  data: Transaction[];
-  limit: number;
-  page: number;
-  loading: boolean;
-  error: string | null;
-};
+
+
+
+
+
+// thunk
+// Запрос на сервер с указанием limit и skip параметров
+// export const fetchAllTransactions = createAsyncThunk<
+//   Transaction[],
+//   {
+//     limit: number;
+//     page: number;
+//   } | undefined,
+//   { rejectValue: string, state: RootState  }
+// >("transactions/GET_ALL", async (payload, { rejectWithValue, getState }) => {
+//   try {
+//     if (payload) {
+//       const response = await transactionsApi.getAll(
+//         payload.limit, 
+//         payload.page*payload.limit
+//       );
+//       return await response.data
+//     }
+
+//     const { page, limit } = getState().transactions;
+//     const response = await transactionsApi.getAll(limit, page*limit);
+//     return await response.data;
+
+//   } catch (err) {
+//     return rejectWithValue(
+//       "Произошла ошибка, попробуйте перезагрузить страницу"
+//     );
+//   }
+// }); 

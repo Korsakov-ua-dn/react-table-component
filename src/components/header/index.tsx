@@ -4,7 +4,7 @@ import "./style.scss";
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { Locale } from "../react-table-component/translate/use-translate";
+import { Locale } from "../../utils/translate/use-translate";
 
 type PropsType = {
   locale: Locale;

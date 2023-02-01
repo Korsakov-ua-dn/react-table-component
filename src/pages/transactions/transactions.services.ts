@@ -1,11 +1,9 @@
-import { Transaction } from "../../api";
-import {
-  Format,
-  FormatFunction,
-} from "../../components/react-table-component/types";
+import { Transaction } from "../../api/api.types";
 import {
   Direction,
+  Format,
   FormatData,
+  FormatFunction,
   ViewDataFormatScheme,
 } from "../../components/table-component/types";
 
