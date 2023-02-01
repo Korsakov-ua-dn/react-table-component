@@ -2,13 +2,12 @@ import React from "react";
 import { v1 } from "uuid";
 import TableHeadItem from "../table-head-item";
 import { Direction, ViewDataFormatScheme } from "../types";
-import "./style.scss";
 
 type PropsType<T> = {
   viewDataFormatScheme: ViewDataFormatScheme<T>;
   activeField: keyof T | undefined;
-  direction: Direction;
-  onSort: null | ((field: keyof T) => void);
+  direction?: Direction;
+  onSort?: (field: keyof T) => void;
 };
 
 const TableHead = <T,>(props: PropsType<T>): JSX.Element => {

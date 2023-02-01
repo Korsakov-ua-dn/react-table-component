@@ -10,8 +10,8 @@ type PropsType<T> = {
   width: number | undefined;
   viewDataFormatScheme: ViewDataFormatScheme<T>;
   isActiveField: boolean;
-  direction: Direction;
-  onSort: null | ((field: keyof T) => void);
+  direction?: Direction;
+  onSort?: (field: keyof T) => void;
 };
 
 const TableHeadItem = <T,>(props: PropsType<T>): JSX.Element => {
