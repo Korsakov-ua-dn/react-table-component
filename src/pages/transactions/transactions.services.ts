@@ -35,30 +35,35 @@ export const viewDataScheme: ViewDataFormatScheme<Transaction> = {
     title: "Транспорт",
     sort: true,
     renderFunction: formatDataToView["string"],
+    width: 200,
   },
   date: {
     format: "date",
     title: "Дата",
     sort: true,
     renderFunction: formatDataToView["date"],
+    width: 200,
   },
   card: {
     format: "string",
     title: "Карта",
     sort: false,
     renderFunction: formatDataToView["string"],
+    width: 200,
   },
   point: {
     format: "string",
     title: "АЗС",
     sort: false,
     renderFunction: formatDataToView["string"],
+    width: 100,
   },
   address: {
     format: "string",
     title: "Адрес",
     sort: true,
     renderFunction: formatDataToView["string"],
+    width: 400,
   },
   fuelName: {
     format: "string",
@@ -71,6 +76,7 @@ export const viewDataScheme: ViewDataFormatScheme<Transaction> = {
     title: "Количество",
     sort: true,
     renderFunction: formatDataToView["number"],
+    width: 50,
   },
   coast: {
     format: "price",

@@ -5,7 +5,7 @@ type PropsType = {
   info: any;
 };
 
-const ExpandingContent: React.FC<PropsType> = (props) => {
+const ExpandedContent: React.FC<PropsType> = (props) => {
   return (
     <div className="Transaction-detail-info">
       <span>Детальная информация о транзакции <b>id: {props.info._id}</b></span>
@@ -14,4 +14,4 @@ const ExpandingContent: React.FC<PropsType> = (props) => {
   );
 };
 
-export default React.memo(ExpandingContent) as typeof ExpandingContent;
+export default React.memo(ExpandedContent) as typeof ExpandedContent;

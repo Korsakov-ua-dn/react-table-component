@@ -1,4 +1,4 @@
-.Table__header-item {
+.Table__head-item {
   cursor: pointer;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -6,10 +6,11 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  padding: 10px;
   overflow: hidden;
   white-space: nowrap;
-
+  padding: 10px;
+  box-sizing: border-box;
+  
   & div {
     width: fit-content;
     position: relative;
@@ -26,7 +27,7 @@
   }
 }
 
-.Table__header-item_active {
+.Table__head-item_active {
   // background-color: var(--color-active);
 
   & [data-direction="ascending"] {

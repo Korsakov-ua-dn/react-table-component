@@ -4,7 +4,7 @@ import "./style.scss";
 import Tooltip from "@mui/material/Tooltip";
 
 type PropsType = {
-  children: React.ReactNode | React.ReactElement | string | number;
+  children: string | number;
 };
 
 const WithTooltip = (props: PropsType) => {

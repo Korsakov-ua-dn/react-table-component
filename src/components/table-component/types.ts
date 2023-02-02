@@ -12,7 +12,7 @@ export type Data = {
 
 export type ViewDataFormatScheme<T> = Partial<Record<keyof T, Data>>;
 
-export type ExpandingContentComponent = <T>(info: T) => React.ReactElement<T>;
+export type ExpandedContentComponent = <T>(info: T) => React.ReactElement<T>;
 
 export type Direction = "ascending" | "descending" | "none";
 

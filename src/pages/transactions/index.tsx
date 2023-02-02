@@ -17,12 +17,14 @@ import {
   viewDataScheme,
 } from "./transactions.services";
 import { Search, Sort } from "./transactions.types";
-import ExpandingContent from "../../components/expanding-content";
+import ExpandedContent from "../../components/expanded-content";
 import TableComponent from "../../components/table-component";
 import TableControls from "../../components/table-controls";
 // From MUI
 import PaginationMUI from "@mui/material/TablePagination";
 import { SelectChangeEvent } from "@mui/material/Select";
+import TBody from "../../components/table-component/t-body";
+import THead from "../../components/table-component/t-head";
 
 const Transactions: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -172,16 +174,32 @@ const Transactions: React.FC = () => {
             colorScheme="zebra"
             activeField={sort?.field}
             direction={sort?.direction}
-            expandingContentComponent={(info) => (
-              <ExpandingContent info={info} />
+            getExpandedContentComponent={(info) => (
+              <ExpandedContent info={info} />
             )}
             tableWrapperRef={tableWrapperRef}
             tableRef={tableRef}
             onSort={callbacks.onSort}
-          />
+          >
+            <>
+              <THead
+                viewDataFormatScheme={viewDataScheme}
+                onSort={callbacks.onSort}
+                activeField={sort?.field}
+                direction={sort?.direction}
+              />
+              <TBody
+                items={transactionsForView}
+                viewDataFormatScheme={viewDataScheme}
+                getExpandedContentComponent={(info) => (
+                  <ExpandedContent info={info} />
+                )}
+              />
+            </>
+          </TableComponent>
           <PaginationMUI
             component="div"
-            count={select.transactions.length}
+            count={sortTransactions.length}
             page={select.page}
             onPageChange={callbacks.changePage}
             rowsPerPage={select.limit}
@@ -192,7 +210,7 @@ const Transactions: React.FC = () => {
             showLastButton
             labelDisplayedRows={(info) =>
               `${translate("page")} ${info.page + 1} 
-               ${translate("of")} ${Math.ceil(info.count / select.limit)}`
+               ${translate("of")} ${Math.ceil(info.count / select.limit) || 1}`
             }
           />
         </>

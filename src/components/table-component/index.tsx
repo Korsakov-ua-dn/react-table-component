@@ -1,10 +1,10 @@
 import React, { Ref } from "react";
-import TableBody from "./table-body";
-import TableHead from "./table-head";
+import Tbody from "./t-body";
+import Thead from "./t-head";
 import {
   ColorScheme,
   Direction,
-  ExpandingContentComponent,
+  ExpandedContentComponent,
   ViewDataFormatScheme,
 } from "./types";
 import "./style.scss";
@@ -15,33 +15,34 @@ type TableProps<T> = {
   colorScheme?: ColorScheme;
   tableRef?: Ref<HTMLTableElement>;
   tableWrapperRef?: Ref<HTMLDivElement>;
-  expandingContentComponent: ExpandingContentComponent;
+  getExpandedContentComponent: ExpandedContentComponent;
   direction?: Direction;
   activeField?: keyof T;
   onSort?: (field: keyof T) => void;
+  children: React.ReactElement
 };
 
-const TableComponent = <T extends object>(props: TableProps<T>): JSX.Element => {
-  const classTable = `Table ${props.colorScheme === "zebra" ? "Table_zebra" : ""}`;
+const TableComponent = <T extends object>(props: TableProps<T>) => {
+  const classTable = `
+    Table 
+    ${props.colorScheme === "zebra" ? "Table_zebra" : ""}
+  `;
 
   return (
     <div className={classTable} ref={props.tableWrapperRef}>
       <table id="table" ref={props.tableRef}>
-        <thead>
-          <TableHead
-            viewDataFormatScheme={props.viewDataFormatScheme}
-            onSort={props.onSort}
-            activeField={props.activeField}
-            direction={props.direction}
-          />
-        </thead>
-        <tbody>
-          <TableBody
-            items={props.items}
-            viewDataFormatScheme={props.viewDataFormatScheme}
-            expandingContentComponent={props.expandingContentComponent}
-          />
-        </tbody>
+        {/* <Thead
+          viewDataFormatScheme={props.viewDataFormatScheme}
+          onSort={props.onSort}
+          activeField={props.activeField}
+          direction={props.direction}
+        />
+        <Tbody
+          items={props.items}
+          viewDataFormatScheme={props.viewDataFormatScheme}
+          getExpandedContentComponent={props.getExpandedContentComponent}
+        /> */}
+        { props.children }
       </table>
     </div>
   );

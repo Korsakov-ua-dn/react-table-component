@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
-import WithTooltip from "../with-tooltip";
-import { ExpandingContentComponent, ViewDataFormatScheme } from "../types";
+import { ExpandedContentComponent, ViewDataFormatScheme } from "../types";
+import TbodyItem from "../t-body-item";
 import "./style.scss";
 // From MUI
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
@@ -9,12 +9,13 @@ type PropsType<T> = {
   row: T;
   viewDataFormatScheme: ViewDataFormatScheme<T>;
   painted: boolean;
-  expandingContentComponent: ExpandingContentComponent;
+  expandingContentComponent: ExpandedContentComponent;
 };
 
-const TabelBodyRow = <T extends object>(props: PropsType<T>): JSX.Element => {
+const TbodyRow = <T extends object>(props: PropsType<T>): JSX.Element => {
   // Состояние строки "развернутая" и "свернутая"
   const [isExpanded, setExpanded] = useState<boolean>(false);
+
   const expandRowHandler = useCallback(() => {
     setExpanded((prev) => !prev);
   }, []);
@@ -25,6 +26,7 @@ const TabelBodyRow = <T extends object>(props: PropsType<T>): JSX.Element => {
     ${props.painted ? "Table__body-row_painted" : ""}
   `;
 
+  // Первый элемент каждой строки - стрелка для разворачивания детальной информации
   let td = [
     <td
       className="Table__body-item_expand"
@@ -32,7 +34,7 @@ const TabelBodyRow = <T extends object>(props: PropsType<T>): JSX.Element => {
       onClick={expandRowHandler}
     >
       <ArrowRightIcon />
-    </td>, // Первый элемент каждой строки - стрелка для разворачивания детальной информации
+    </td>
   ];
 
   for (let key in props.viewDataFormatScheme) {
@@ -40,22 +42,13 @@ const TabelBodyRow = <T extends object>(props: PropsType<T>): JSX.Element => {
     const renderFunction = props.viewDataFormatScheme[key]?.renderFunction!;
     const value = renderFunction(props.row[key]);
 
-    td.push(
-      <td
-        key={key}
-        className="Table__body-item"
-        style={width ? { maxWidth: `${width}px`, minWidth: `${width}px` } : {}}
-      >
-        <WithTooltip>
-          {value}
-        </WithTooltip>
-      </td>
-    );
+    td.push(<TbodyItem key={key} width={width} value={value}/>);
   }
 
   return (
     <>
       <tr className={ClassNameRow}>{td}</tr>
+
       {isExpanded && (
         <tr className={"Expanding-content"}>
           <td colSpan={Object.keys(props.row).length}>
@@ -69,4 +62,4 @@ const TabelBodyRow = <T extends object>(props: PropsType<T>): JSX.Element => {
   );
 };
 
-export default React.memo(TabelBodyRow) as typeof TabelBodyRow;
+export default React.memo(TbodyRow) as typeof TbodyRow;

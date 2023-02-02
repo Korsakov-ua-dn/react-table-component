@@ -1,6 +1,6 @@
 import React from "react";
 import { v1 } from "uuid";
-import TableHeadItem from "../table-head-item";
+import TheadItem from "../t-head-item";
 import { Direction, ViewDataFormatScheme } from "../types";
 
 type PropsType<T> = {
@@ -10,15 +10,15 @@ type PropsType<T> = {
   onSort?: (field: keyof T) => void;
 };
 
-const TableHead = <T,>(props: PropsType<T>): JSX.Element => {
-  // Первая th в массиве нужен т.к. в tbody есть дополнительный элемент стрелка
-  // для развертывания дополнительной информации по строке
-  let th = [<th key={"FirstTH"}></th>];
+const Thead = <T,>(props: PropsType<T>): JSX.Element => {
+  /* Первая th в массиве нужен т.к. в tbody первый элемент стрелка
+     для развертывания дополнительной информации по строке */
+  let thead = [<th key={"FirstTH"}></th>];
 
   for (let key in props.viewDataFormatScheme) {
     const id = v1();
-    th.push(
-      <TableHeadItem
+    thead.push(
+      <TheadItem
         key={id}
         value={key}
         isSort={props.viewDataFormatScheme[key]?.sort!}
@@ -31,7 +31,11 @@ const TableHead = <T,>(props: PropsType<T>): JSX.Element => {
     );
   }
 
-  return <tr>{th}</tr>;
+  return (
+    <thead>
+      <tr>{thead}</tr>
+    </thead>
+  );
 };
 
-export default React.memo(TableHead) as typeof TableHead;
+export default React.memo(Thead) as typeof Thead;
