@@ -23,8 +23,10 @@ import TBody from "../../components/table-component/t-body";
 import THead from "../../components/table-component/t-head";
 import TableControls from "../../components/table-controls";
 // From MUI
-import PaginationMUI from "@mui/material/TablePagination";
+import TablePagination from "@mui/material/TablePagination";
 import { SelectChangeEvent } from "@mui/material/Select";
+import Download from "../../components/table-controls/download";
+import SearchPanel from "../../components/table-controls/search-panel";
 
 const Transactions: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -159,15 +161,21 @@ const Transactions: React.FC = () => {
 
       {!!select.transactions.length && (
         <>
-          <TableControls
-            viewDataFormatScheme={viewDataScheme}
-            search={search}
-            onSearch={callbacks.onSearch}
-            onSelectField={callbacks.onSelectSearchField}
-            onPrintPdf={onPrintPdf}
-            onDownloadXlsx={callbacks.onDownloadXlsx}
-            translate={translate}
-          />
+          <TableControls>
+            <>
+              <Download 
+                onPrintPdf={onPrintPdf} 
+                onDownloadXlsx={callbacks.onDownloadXlsx}
+              />
+              <SearchPanel
+                viewDataFormatScheme={viewDataScheme}
+                search={search}
+                onSearch={callbacks.onSearch}
+                onSelectField={callbacks.onSelectSearchField}
+                translate={translate}
+              />
+            </>
+          </TableControls>
           
           <TableComponent
             colorScheme="zebra"
@@ -191,7 +199,7 @@ const Transactions: React.FC = () => {
             </>
           </TableComponent>
 
-          <PaginationMUI
+          <TablePagination
             component="div"
             count={sortTransactions.length}
             page={select.page}
@@ -206,7 +214,18 @@ const Transactions: React.FC = () => {
               `${translate("page")} ${info.page + 1} 
                ${translate("of")} ${Math.ceil(info.count / select.limit) || 1}`
             }
+            SelectProps={{
+              MenuProps: {
+                sx: {
+                  '.MuiTablePagination-menuItem.Mui-selected': {
+                    backgroundColor: 'var(--color-active)!important',
+                    color: '#ffffff',
+                  },
+                },
+              },
+            }}
           />
+          
         </>
       )}
     </>

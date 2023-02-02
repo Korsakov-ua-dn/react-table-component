@@ -1,0 +1,13 @@
+.Search .MuiFormControl-root {
+  margin: 0;
+  margin-right: 10px;
+}
+.Search__field-option {
+  font-style: normal;
+}
+.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected:has(
+    .Search__field-option
+  ) {
+  background-color: var(--color-active) !important;
+  color: #ffffff;
+}

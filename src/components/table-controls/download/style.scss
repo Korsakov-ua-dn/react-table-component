@@ -1,0 +1,19 @@
+.Download {
+  display: flex;
+  align-items: center;
+}
+.Download__btn {
+  width: 30px;
+  height: 24px;
+  background-position: 0 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  margin-right: 10px;
+}
+.Download__btn_pdf {
+  background-image: url("./images/pdf-icon.svg");
+}
+.Download__btn_xls {
+  background-image: url("./images/xls-icon.svg");
+}
