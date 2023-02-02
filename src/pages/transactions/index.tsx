@@ -19,12 +19,12 @@ import {
 import { Search, Sort } from "./transactions.types";
 import ExpandedContent from "../../components/expanded-content";
 import TableComponent from "../../components/table-component";
+import TBody from "../../components/table-component/t-body";
+import THead from "../../components/table-component/t-head";
 import TableControls from "../../components/table-controls";
 // From MUI
 import PaginationMUI from "@mui/material/TablePagination";
 import { SelectChangeEvent } from "@mui/material/Select";
-import TBody from "../../components/table-component/t-body";
-import THead from "../../components/table-component/t-head";
 
 const Transactions: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -168,18 +168,11 @@ const Transactions: React.FC = () => {
             onDownloadXlsx={callbacks.onDownloadXlsx}
             translate={translate}
           />
+          
           <TableComponent
-            items={transactionsForView}
-            viewDataFormatScheme={viewDataScheme}
             colorScheme="zebra"
-            activeField={sort?.field}
-            direction={sort?.direction}
-            getExpandedContentComponent={(info) => (
-              <ExpandedContent info={info} />
-            )}
             tableWrapperRef={tableWrapperRef}
             tableRef={tableRef}
-            onSort={callbacks.onSort}
           >
             <>
               <THead
@@ -197,6 +190,7 @@ const Transactions: React.FC = () => {
               />
             </>
           </TableComponent>
+
           <PaginationMUI
             component="div"
             count={sortTransactions.length}
