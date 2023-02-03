@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEvent, useCallback } from "react";
 import { v1 } from "uuid";
 import TheadItem from "../t-head-item";
 import { Direction, ViewDataFormatScheme } from "../types";
@@ -11,6 +11,14 @@ type PropsType<T> = {
 };
 
 const Thead = <T,>(props: PropsType<T>): JSX.Element => {
+
+  // Один обработчик для всех полей
+  const onSort = useCallback((e: MouseEvent<HTMLElement>) => {
+    const field = e.currentTarget.getAttribute('data-field') as keyof T
+    props.onSort && props.onSort(field)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.onSort])
+
   /* Первая th в массиве нужен т.к. в tbody первый элемент стрелка
      для развертывания дополнительной информации по строке */
   let thead = [<th key={"FirstTH"}></th>];
@@ -24,7 +32,7 @@ const Thead = <T,>(props: PropsType<T>): JSX.Element => {
         isSort={props.viewDataFormatScheme[key]?.sort!}
         width={props.viewDataFormatScheme[key]?.width}
         viewDataFormatScheme={props.viewDataFormatScheme}
-        onSort={props.onSort}
+        onSort={onSort}
         isActiveField={props.activeField === key}
         direction={props.direction}
       />

@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { MouseEvent } from "react";
 import { Direction, ViewDataFormatScheme } from "../types";
 import WithTooltip from "../with-tooltip";
 import "./style.scss";
@@ -11,14 +11,10 @@ type PropsType<T> = {
   viewDataFormatScheme: ViewDataFormatScheme<T>;
   isActiveField: boolean;
   direction?: Direction;
-  onSort?: (field: keyof T) => void;
+  onSort?: (e: MouseEvent<HTMLElement>) => void;
 };
 
 const TheadItem = <T,>(props: PropsType<T>): JSX.Element => {
-  const onSortHandler = useCallback(() => {
-    props.onSort && props.onSort(props.value);
-  }, [props]);
-
   const classN = `
     Table__head-item 
     ${props.isActiveField ? "Table__head-item_active" : ""}
@@ -27,20 +23,24 @@ const TheadItem = <T,>(props: PropsType<T>): JSX.Element => {
   const style = props.width ? { maxWidth: `${props.width}px` } : {};
 
   return (
-    <th onClick={props.isSort ? onSortHandler : () => {}} className={classN}>
+    <th
+      onClick={props.onSort}
+      className={classN}
+      data-field={props.value}
+    >
       <div style={style}>
         <WithTooltip>
           {props.viewDataFormatScheme[props.value]?.title!}
         </WithTooltip>
 
-        {/* {props.isSort && props.onSort && ( */}
+        {props.isSort && props.onSort && (
           <img
             className="Direction-arrow"
             data-direction={props.direction}
             src={arrow}
             alt="sort arrow"
           />
-        {/* )} */}
+        )}
       </div>
     </th>
   );
