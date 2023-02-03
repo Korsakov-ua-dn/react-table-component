@@ -40,7 +40,7 @@ const Thead = <T,>(props: PropsType<T>): JSX.Element => {
   }
 
   return (
-    <thead>
+    <thead className="Table__head">
       <tr>{thead}</tr>
     </thead>
   );

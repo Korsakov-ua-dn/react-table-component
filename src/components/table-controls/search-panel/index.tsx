@@ -12,7 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 
 type PropsType<T> = {
   viewDataFormatScheme: ViewDataFormatScheme<T>;
-  search: { field: keyof T; value: string } | null;
+  searchField: keyof T | undefined;
   onSearch: (value: string) => void;
   onSelectField: (e: SelectChangeEvent) => void;
   translate: Translate;
@@ -20,6 +20,7 @@ type PropsType<T> = {
 
 const SearchPanel = <T,>(props: PropsType<T>): JSX.Element => {
   const [error, setError] = useState(false);
+  const [value, setValue] = useState("");
 
   const callbacks = {
     onSelectFieldHandler: useCallback(
@@ -31,14 +32,15 @@ const SearchPanel = <T,>(props: PropsType<T>): JSX.Element => {
 
     onSearchHandler: useCallback(
       (e: ChangeEvent<HTMLInputElement>) => {
-        if (!props.search) {
+        if (!props.searchField) {
           setError(true);
         } else {
           setError(false);
-          props.onSearch(e.target.value);
+          setValue(e.target.value)
+          props.onSearch(e.target.value)
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.onSearch, props.search]),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.onSearch, props.searchField]),
   };
 
   const selectOptions = useMemo(() => {
@@ -60,13 +62,13 @@ const SearchPanel = <T,>(props: PropsType<T>): JSX.Element => {
     <div className="Search">
       <SearchField
         label={props.translate("field")}
-        value={props.search?.field}
+        value={props.searchField}
         selectOptions={selectOptions}
         onSelectFieldHandler={callbacks.onSelectFieldHandler}
       />
 
       <SearchInput
-        value={props.search ? props.search.value : ""}
+        value={value}
         onChange={callbacks.onSearchHandler}
         id="search-input"
         label={props.translate("search")}

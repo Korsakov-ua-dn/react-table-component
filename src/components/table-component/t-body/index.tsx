@@ -24,7 +24,7 @@ const Tbody = <T extends object>(props: PropsType<T>): JSX.Element => {
     );
   });
 
-  return <tbody>{tbody}</tbody>;
+  return <tbody className="Table__body">{tbody}</tbody>;
 };
 
 export default React.memo(Tbody) as typeof Tbody;

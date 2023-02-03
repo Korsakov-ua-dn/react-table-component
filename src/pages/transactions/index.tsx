@@ -5,6 +5,7 @@ import React, {
   useState,
   useMemo,
 } from "react";
+import { debounce } from "lodash";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchAllTransactions, transactionActions } from "../../store/transaction-slice";
 import { Transaction } from "../../api/api.types";
@@ -102,9 +103,9 @@ const Transactions: React.FC = () => {
         dispatch(transactionActions.setPage(newPage));
     }, [dispatch]),
 
-    onSearch: useCallback((value: string) => {
+    onSearch: useMemo(() => debounce((value: string) => {
       setSearch((prev) => (prev ? { ...prev, value } : null));
-    }, []),
+    }, 300), []),
 
     onSelectSearchField: useCallback((e: SelectChangeEvent) => {
       const field = e.target.value as keyof Transaction;
@@ -156,7 +157,7 @@ const Transactions: React.FC = () => {
               />
               <SearchPanel
                 viewDataFormatScheme={viewDataScheme}
-                search={search}
+                searchField={search?.field}
                 onSearch={callbacks.onSearch}
                 onSelectField={callbacks.onSelectSearchField}
                 translate={translate}
