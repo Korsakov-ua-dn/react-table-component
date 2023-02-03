@@ -1,3 +1,4 @@
+import { RefObject } from "react";
 import { Transaction } from "../../api/api.types";
 import {
   Direction,
@@ -11,6 +12,7 @@ function numberFormat(value: number, options = {}) {
   return new Intl.NumberFormat("ru-RU", options).format(value);
 }
 
+// Функции форматирования данных для отображения согласно макета.
 export const formatDataToView: Record<Format, FormatFunction> = {
   string: (data: any) => data,
   number: (data: any) => numberFormat(data),
@@ -29,6 +31,7 @@ export const formatDataToView: Record<Format, FormatFunction> = {
   },
 };
 
+// Порядок элементов в схеме и их параметры управляют отображением в таюлице.
 export const viewDataScheme: ViewDataFormatScheme<Transaction> = {
   name: {
     format: "string",
@@ -86,6 +89,7 @@ export const viewDataScheme: ViewDataFormatScheme<Transaction> = {
   },
 }; // ViewDataFormatScheme<Transaction> === Partial<Record<keyof Transaction, Data>>
 
+// Функция сортировки данных в зависимости от их типа и направления.
 export function sortArrayOfObjects<T>(
   array: T[],
   field: keyof T,
@@ -121,10 +125,11 @@ export function sortArrayOfObjects<T>(
   }
 }
 
-export const getPageStylesForPrint = (
+// Печать PDF
+function getPageStylesForPrint (
   width: number,
   height: number
-): string => {
+): string {
   // Convert px to mm
   const coefficient = 0.2636;
   return `
@@ -138,4 +143,37 @@ export const getPageStylesForPrint = (
             }
         }
     `;
+};
+
+/**
+ * Строки таблицы разворачиваются по клику и меняют высоту таблицы.
+ * Перед выполнением печати необходимо актуализировать высоту таблицы
+ * и вмонтировать тег <style> со стилями для печати.
+ * tableWrapperRef - содержит все css стили для корректного отображения pdf
+ * tableRef - дает информацию о полной ширине таблицы без внутреннего скролла
+ */
+export function getPrintPdfSettings (
+  tableWrapperRef: RefObject<HTMLDivElement>, 
+  tableRef: RefObject<HTMLTableElement>
+) {
+  return {
+    content: () => tableWrapperRef.current,
+    documentTitle: "table",
+    onBeforeGetContent: () => {
+      if (tableRef.current) {
+        const style = document.createElement("style");
+        style.textContent = getPageStylesForPrint(
+          tableRef.current.offsetWidth,
+          tableRef.current.offsetHeight
+        );
+        tableWrapperRef.current?.appendChild(style); // вмонтирую <style> в DOM перед печатью
+      }
+    },
+    onAfterPrint: () => {
+      if (tableWrapperRef.current?.lastChild) {
+        tableWrapperRef.current.removeChild(tableWrapperRef.current.lastChild); // удаляю <style> из DOM после печати
+      }
+    },
+    removeAfterPrint: true,
+  }
 };

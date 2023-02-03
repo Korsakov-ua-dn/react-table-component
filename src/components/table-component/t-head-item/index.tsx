@@ -33,14 +33,14 @@ const TheadItem = <T,>(props: PropsType<T>): JSX.Element => {
           {props.viewDataFormatScheme[props.value]?.title!}
         </WithTooltip>
 
-        {props.isSort && props.onSort && (
+        {/* {props.isSort && props.onSort && ( */}
           <img
             className="Direction-arrow"
             data-direction={props.direction}
             src={arrow}
             alt="sort arrow"
           />
-        )}
+        {/* )} */}
       </div>
     </th>
   );

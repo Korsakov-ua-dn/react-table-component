@@ -12,7 +12,7 @@ import { useReactToPrint } from "react-to-print";
 import { useTranslation } from "../../utils/translate/use-translate";
 import { onDownloadXlsx } from "../../utils/on-download-xlsx";
 import {
-  getPageStylesForPrint,
+  getPrintPdfSettings,
   sortArrayOfObjects,
   viewDataScheme,
 } from "./transactions.services";
@@ -22,11 +22,11 @@ import TableComponent from "../../components/table-component";
 import TBody from "../../components/table-component/t-body";
 import THead from "../../components/table-component/t-head";
 import TableControls from "../../components/table-controls";
-// From MUI
-import TablePagination from "@mui/material/TablePagination";
-import { SelectChangeEvent } from "@mui/material/Select";
 import Download from "../../components/table-controls/download";
 import SearchPanel from "../../components/table-controls/search-panel";
+import Pagination from "../../components/pagination";
+// From MUI
+import { SelectChangeEvent } from "@mui/material/Select";
 
 const Transactions: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -57,7 +57,8 @@ const Transactions: React.FC = () => {
       //   String(item[search.field]).includes(search.value)
       // );
     } else return select.transactions;
-  }, [search, select.transactions]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search?.value, select.transactions]);
 
   // Отсортированный массив транзакций
   const sortTransactions = useMemo<Transaction[]>(() => {
@@ -80,33 +81,15 @@ const Transactions: React.FC = () => {
   }, [select.limit, select.page, sortTransactions]);
 
   const translate = useTranslation("table", select.locale);
-  const tableWrapperRef = useRef<HTMLDivElement | null>(null); // оба рефа нужны для печати пдф
-  const tableRef = useRef<HTMLTableElement | null>(null);
-  /**
-   * Строки таблицы разворачиваются по клику и меняют высоту таблицы.
-   * Перед выполнением печати необходимо актуализировать высоту таблицы
-   * и вмонтировать тег <style> со стилями для печати
-   */
-  const onPrintPdf = useReactToPrint({
-    content: () => tableWrapperRef.current,
-    documentTitle: "table",
-    onBeforeGetContent: () => {
-      if (tableRef.current) {
-        const style = document.createElement("style");
-        style.textContent = getPageStylesForPrint(
-          tableRef.current.offsetWidth,
-          tableRef.current.offsetHeight
-        );
-        tableWrapperRef.current?.appendChild(style); // вмонтирую <style> в DOM перед печатью
-      }
-    },
-    onAfterPrint: () => {
-      if (tableWrapperRef.current?.lastChild) {
-        tableWrapperRef.current.removeChild(tableWrapperRef.current.lastChild); // удаляю <style> из DOM после печати
-      }
-    },
-    removeAfterPrint: true,
-  });
+
+  // Три рефа нужны для печати пдф
+  const tableWrapperRef = useRef<HTMLDivElement>(null);
+  const tableRef = useRef<HTMLTableElement>(null);
+  // Мемоизация динамически генерируемого коллбэка
+  const printFuncRef = useRef<() => void>();
+  printFuncRef.current = useReactToPrint(
+    getPrintPdfSettings(tableWrapperRef, tableRef)
+  );
 
   const callbacks = {
     changeRowsPerPage: useCallback(
@@ -147,6 +130,10 @@ const Transactions: React.FC = () => {
     onDownloadXlsx: useCallback(() => {
       onDownloadXlsx(transactionsForView, viewDataScheme);
     }, [transactionsForView]),
+
+    memoizedPrintPdf: useCallback(() => {
+      printFuncRef.current && printFuncRef.current();
+    }, []),
   };
 
   useLayoutEffect(() => {
@@ -164,7 +151,7 @@ const Transactions: React.FC = () => {
           <TableControls>
             <>
               <Download 
-                onPrintPdf={onPrintPdf} 
+                onPrintPdf={callbacks.memoizedPrintPdf} 
                 onDownloadXlsx={callbacks.onDownloadXlsx}
               />
               <SearchPanel
@@ -199,31 +186,18 @@ const Transactions: React.FC = () => {
             </>
           </TableComponent>
 
-          <TablePagination
-            component="div"
+          <Pagination
             count={sortTransactions.length}
             page={select.page}
-            onPageChange={callbacks.changePage}
             rowsPerPage={select.limit}
+            onPageChange={callbacks.changePage}
             rowsPerPageOptions={[5, 10, 25]}
             labelRowsPerPage={translate("show")}
             onRowsPerPageChange={callbacks.changeRowsPerPage}
-            showFirstButton
-            showLastButton
             labelDisplayedRows={(info) =>
               `${translate("page")} ${info.page + 1} 
                ${translate("of")} ${Math.ceil(info.count / select.limit) || 1}`
             }
-            SelectProps={{
-              MenuProps: {
-                sx: {
-                  '.MuiTablePagination-menuItem.Mui-selected': {
-                    backgroundColor: 'var(--color-active)!important',
-                    color: '#ffffff',
-                  },
-                },
-              },
-            }}
           />
           
         </>

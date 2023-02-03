@@ -31,14 +31,14 @@
   // background-color: var(--color-active);
 
   & [data-direction="ascending"] {
-    display: block;
+    visibility: visible;
     transform: rotate(180deg);
   }
   & [data-direction="descending"] {
-    display: block;
+    visibility: visible;
   }
 }
 
 .Direction-arrow {
-  display: none;
+  visibility: hidden;
 }
