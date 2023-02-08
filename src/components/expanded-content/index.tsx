@@ -1,16 +1,30 @@
-import React from "react";
-import "./style.scss";
+import React, { useLayoutEffect, useState } from "react";
+import { LatLngExpression } from "leaflet";
+import Map from "../map";
+import { geocode } from "../../geocode-services";
 
 type PropsType = {
   info: any;
 };
 
 const ExpandedContent: React.FC<PropsType> = (props) => {
+  const [center, setCenter] = useState<LatLngExpression>();
+  const [error, setError] = useState<string>("");
+
+  useLayoutEffect(() => {
+    geocode
+      .getCoordFromAdress(props.info.address)
+      .then((res) => {
+        setCenter(res);
+      })
+      .catch((err) => setError("Ошибка отображения адресса на карте"));
+  }, [props.info.address]);
+
   return (
-    <div className="Transaction-detail-info">
-      <span>Детальная информация о транзакции <b>id: {props.info._id}</b></span>
-      <span>Дата платежа: {props.info.date}</span>
-    </div>
+    <>
+      {error}
+      {center && <Map center={center} transaction={props.info} />}
+    </>
   );
 };
 

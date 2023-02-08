@@ -28,6 +28,7 @@ import SearchPanel from "../../components/table-controls/search-panel";
 import Pagination from "../../components/pagination";
 // From MUI
 import { SelectChangeEvent } from "@mui/material/Select";
+import { geocode } from "../../geocode-services";
 
 const Transactions: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -138,6 +139,7 @@ const Transactions: React.FC = () => {
   };
 
   useLayoutEffect(() => {
+    geocode.init();
     dispatch(fetchAllTransactions());
   }, [dispatch]);
 
