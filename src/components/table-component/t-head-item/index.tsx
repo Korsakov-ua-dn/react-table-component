@@ -24,7 +24,7 @@ const TheadItem = <T,>(props: PropsType<T>): JSX.Element => {
 
   return (
     <th
-      onClick={props.onSort}
+      onClick={props.isSort ? props.onSort : () => {}}
       className={classN}
       data-field={props.value}
     >

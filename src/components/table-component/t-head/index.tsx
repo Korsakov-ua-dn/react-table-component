@@ -24,12 +24,13 @@ const Thead = <T,>(props: PropsType<T>): JSX.Element => {
   let thead = [<th key={"FirstTH"}></th>];
 
   for (let key in props.viewDataFormatScheme) {
+    const isSort = props.viewDataFormatScheme[key]?.sort!
     const id = v1();
     thead.push(
       <TheadItem
         key={id}
         value={key}
-        isSort={props.viewDataFormatScheme[key]?.sort!}
+        isSort={isSort}
         width={props.viewDataFormatScheme[key]?.width}
         viewDataFormatScheme={props.viewDataFormatScheme}
         onSort={onSort}

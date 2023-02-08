@@ -6,7 +6,7 @@ export type Data = {
   format: Format;
   title: string;
   sort: boolean;
-  renderFunction: FormatFunction;
+  renderFunction?: FormatFunction;
   width?: number;
 };
 
