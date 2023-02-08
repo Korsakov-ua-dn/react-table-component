@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useLayoutEffect } from "react";
 import Header from "../../components/header";
 import Layout from "../../components/layout";
 import { useAppDispatch, useAppSelector } from "../../hooks";
@@ -21,6 +21,10 @@ const MainLayout: React.FC<PropsType> = (props) => {
       dispatch(appActions.setLocale(locale))
     }, [dispatch]),
   };
+
+  useLayoutEffect(() => {
+    dispatch(appActions.remindLocale());
+  }, [dispatch])
 
   return (
     <Layout>
