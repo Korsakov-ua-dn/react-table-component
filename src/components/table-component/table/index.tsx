@@ -1,9 +1,9 @@
 import React, { RefObject } from "react";
-import { ColorScheme } from "./types";
+import { ColorSchemeType } from "../table.types";
 import "./style.scss";
 
 type TableProps = {
-  colorScheme?: ColorScheme;
+  colorScheme?: ColorSchemeType;
   tableRef?: RefObject<HTMLTableElement>;
   tableWrapperRef?: RefObject<HTMLDivElement>;
   children: React.ReactElement;

@@ -5,11 +5,11 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { RootState } from "..";
-import { Transaction } from "../../modules/transactions/transactions.types";
+import { ITransaction } from "../../modules/transactions/transactions.types";
 import { transactionsApi } from "../../services/transactions-api";
 
 type TransactionsState = {
-  data: Transaction[];
+  data: ITransaction[];
   limit: number;
   page: number;
   loading: boolean;
@@ -58,7 +58,7 @@ export default transactionsSlice.reducer;
 
 //thunk
 export const fetchAllTransactions = createAsyncThunk<
-  Transaction[],
+  ITransaction[],
   undefined,
   { rejectValue: string, state: RootState  }
 >("transactions/GET_ALL", async (_, { rejectWithValue }) => {

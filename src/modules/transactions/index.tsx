@@ -10,7 +10,7 @@ import { useReactToPrint } from "react-to-print";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { useTranslation } from "../../utils/translate/use-translate";
 import { transactionActions } from "../../store/transactions-slice";
-import { Transaction, Search, Sort } from "./transactions.types";
+import { ITransaction, SearchType, SortType } from "./transactions.types";
 import { 
   sortArrayOfObjects,
   getPrintPdfSettings,
@@ -18,12 +18,8 @@ import {
   onDownloadXlsx,
 } from "./transactions-utils";
 import ExpandedContent from "../../containers/expanded-content";
-import TableComponent from "../../components/table-component";
-import TBody from "../../components/table-component/t-body";
-import THead from "../../components/table-component/t-head";
-import TableControls from "../../components/table-controls";
-import Download from "../../components/table-controls/download";
-import SearchPanel from "../../components/table-controls/search-panel";
+import { TableComponent, TBody, THead } from "../../components/table-component";
+import { TableControls, DownloadPanel, SearchPanel } from "../../components/table-controls";
 import Pagination from "../../components/pagination";
 // From MUI
 import { SelectChangeEvent } from "@mui/material/Select";
@@ -39,11 +35,11 @@ const Transactions: React.FC = () => {
     locale: state.app.locale,
   }));
 
-  const [search, setSearch] = useState<Search>(null);
-  const [sort, setSort] = useState<Sort>(null);
+  const [search, setSearch] = useState<SearchType>(null);
+  const [sort, setSort] = useState<SortType>(null);
 
   // Отфильтрованный массив транзакций по поиску
-  const filteredTransactions = useMemo<Transaction[]>(() => {
+  const filteredTransactions = useMemo<ITransaction[]>(() => {
     if (search) {
       // Поиск не чувствительный к регистру
       const regex = new RegExp(`${search.value}`, "i");
@@ -59,7 +55,7 @@ const Transactions: React.FC = () => {
   }, [search?.value, select.transactions]);
 
   // Отсортированный массив транзакций
-  const sortTransactions = useMemo<Transaction[]>(() => {
+  const sortTransactions = useMemo<ITransaction[]>(() => {
     if (sort) {
       return sortArrayOfObjects(
         filteredTransactions,
@@ -71,7 +67,7 @@ const Transactions: React.FC = () => {
   }, [filteredTransactions, sort]);
 
   // Отфильтрованный массив транзакций для рендера постранично
-  const transactionsForView = useMemo<Transaction[]>(() => {
+  const transactionsForView = useMemo<ITransaction[]>(() => {
     return sortTransactions.filter(
       (_, i) =>
         i < select.limit * (select.page + 1) && i >= select.limit * select.page
@@ -105,11 +101,11 @@ const Transactions: React.FC = () => {
     }, 300), []),
 
     onSelectSearchField: useCallback((e: SelectChangeEvent) => {
-      const field = e.target.value as keyof Transaction;
+      const field = e.target.value as keyof ITransaction;
       setSearch({ field, value: "" });
     }, []),
 
-    onSort: useCallback((field: keyof Transaction) => {
+    onSort: useCallback((field: keyof ITransaction) => {
       const format = viewDataScheme[field]?.format!;
       setSort((prev) => {
         if (prev?.field !== field || prev?.direction === "none") {
@@ -138,7 +134,7 @@ const Transactions: React.FC = () => {
     <>
       <TableControls>
         <>
-          <Download 
+          <DownloadPanel 
             onPrintPdf={callbacks.memoizedPrintPdf} 
             onDownloadXlsx={callbacks.onDownloadXlsx}
           />

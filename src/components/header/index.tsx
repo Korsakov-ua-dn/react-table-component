@@ -1,10 +1,10 @@
 import React, { useCallback } from "react";
 import "./style.scss";
+import { Locale } from "../../utils/translate/use-translate";
 // From MUI
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { Locale } from "../../utils/translate/use-translate";
 
 type PropsType = {
   locale: Locale;

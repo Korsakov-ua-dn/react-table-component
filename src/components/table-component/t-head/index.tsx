@@ -1,12 +1,12 @@
 import React, { MouseEvent, useCallback } from "react";
 import { v1 } from "uuid";
 import TheadItem from "../t-head-item";
-import { Direction, ViewDataFormatScheme } from "../types";
+import { DirectionType, ViewDataFormatScheme } from "../table.types";
 
 type PropsType<T> = {
   viewDataFormatScheme: ViewDataFormatScheme<T>;
   activeField: keyof T | undefined;
-  direction?: Direction;
+  direction?: DirectionType;
   onSort?: (field: keyof T) => void;
 };
 

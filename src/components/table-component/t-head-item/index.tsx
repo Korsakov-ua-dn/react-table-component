@@ -1,8 +1,9 @@
 import React, { MouseEvent } from "react";
-import { Direction, ViewDataFormatScheme } from "../types";
+import { DirectionType, ViewDataFormatScheme } from "../table.types";
 import WithTooltip from "../with-tooltip";
 import "./style.scss";
-const arrow = require("../assets/images/arrow-sort.svg").default;
+
+const arrow = require("../images/arrow-sort.svg").default;
 
 type PropsType<T> = {
   value: Partial<keyof T>;
@@ -10,7 +11,7 @@ type PropsType<T> = {
   width: number | undefined;
   viewDataFormatScheme: ViewDataFormatScheme<T>;
   isActiveField: boolean;
-  direction?: Direction;
+  direction?: DirectionType;
   onSort?: (e: MouseEvent<HTMLElement>) => void;
 };
 

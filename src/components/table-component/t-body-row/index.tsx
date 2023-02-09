@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { ExpandedContentComponent, ViewDataFormatScheme } from "../types";
+import { ExpandedContentComponent, ViewDataFormatScheme } from "../table.types";
 import TbodyItem from "../t-body-item";
 import TBodyExpandedRow from "../t-body-expanded-row";
 import "./style.scss";

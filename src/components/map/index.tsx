@@ -3,13 +3,13 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { Icon, LatLngExpression } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./style.scss";
-import { Transaction } from "../../modules/transactions/transactions.types";
+import { ITransaction } from "../../modules/transactions/transactions.types";
 
 const marker = require("./images/map-marker.png");
 
 type PropsType = {
   center: LatLngExpression;
-  transaction: Transaction;
+  transaction: ITransaction;
 };
 
 const Map: React.FC<PropsType> = (props) => {

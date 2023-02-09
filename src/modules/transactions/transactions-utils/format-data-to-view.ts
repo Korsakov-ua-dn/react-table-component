@@ -1,11 +1,11 @@
 import {
-  Format,
-  FormatFunction,
-} from "../../../components/table-component/types";
+  FormatType,
+  FormatFunctionType,
+} from "../../../components/table-component/table.types";
 import { formatNumber } from "./formatNumber";
 
 // Функции форматирования данных для отображения согласно макета.
-export const formatDataToView: Record<Format, FormatFunction> = {
+export const formatDataToView: Record<FormatType, FormatFunctionType> = {
   string: (data: any) => data,
   number: (data: any) => formatNumber(data),
   price: (data: any) => `${formatNumber(data)} ₽`,

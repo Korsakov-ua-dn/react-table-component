@@ -1,8 +1,7 @@
 import React from "react";
 import TbodyRow from "../t-body-row";
 import { v1 } from "uuid";
-import { ExpandedContentComponent, ViewDataFormatScheme } from "../types";
-import "./style.scss";
+import { ExpandedContentComponent, ViewDataFormatScheme } from "../table.types";
 
 type PropsType<T> = {
   items: T[];

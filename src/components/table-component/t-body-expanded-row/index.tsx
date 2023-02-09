@@ -1,5 +1,5 @@
 import React from "react";
-import { ExpandedContentComponent } from "../types";
+import { ExpandedContentComponent } from "../table.types";
 import "./style.scss";
 
 type PropsType<T> = {

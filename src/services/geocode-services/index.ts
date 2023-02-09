@@ -6,6 +6,7 @@ export const geocode = {
     Geocode.setApiKey(`${process.env.REACT_APP_GEOCODE_API_KEY}`);
   },
 
+  // возвращает координаты центра переданного адреса
   async getCoordFromAdress(
     address: string
   ): Promise<LatLngExpression | undefined> {

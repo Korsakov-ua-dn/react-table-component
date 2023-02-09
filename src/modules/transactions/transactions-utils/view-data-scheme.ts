@@ -1,9 +1,9 @@
-import { ViewDataFormatScheme } from "../../../components/table-component/types";
-import { Transaction } from "../transactions.types";
+import { ViewDataFormatScheme } from "../../../components/table-component/table.types";
+import { ITransaction } from "../transactions.types";
 import { formatDataToView } from "./format-data-to-view";
 
 // Порядок элементов в схеме и их параметры управляют отображением в таюлице.
-export const viewDataScheme: ViewDataFormatScheme<Transaction> = {
+export const viewDataScheme: ViewDataFormatScheme<ITransaction> = {
   name: {
     format: "string",
     title: "Транспорт",

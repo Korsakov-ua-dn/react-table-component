@@ -1,11 +1,11 @@
-import { Direction, FormatData } from "../../../components/table-component/types";
+import { DirectionType, FormatType } from "../../../components/table-component/table.types";
 
 // Функция сортировки данных в зависимости от их типа и направления.
 export function sortArrayOfObjects<T>(
   array: T[],
   field: keyof T,
-  direction: Direction,
-  format: FormatData
+  direction: DirectionType,
+  format: FormatType,
 ) {
   if (direction === "none") return array;
 

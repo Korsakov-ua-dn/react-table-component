@@ -4,7 +4,7 @@ import Transactions from "../../modules/transactions";
 import { geocode } from "../../services/geocode-services";
 import { fetchAllTransactions } from "../../store/transactions-slice";
 
-const Main: React.FC = () => {
+const Main:React.FC = () => {
   const dispatch = useAppDispatch();
 
   const select = useAppSelector((state) => ({

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useCallback, useState, useMemo } from "react";
-import { ViewDataFormatScheme } from "../../table-component/types";
+import { ViewDataFormatScheme } from "../../table-component/table.types";
 import { Translate } from "../../../utils/translate/use-translate";
 import SearchField from "./search-field";
 import "./style.scss";
@@ -82,6 +82,7 @@ const SearchPanel = <T,>(props: PropsType<T>): JSX.Element => {
           ),
         }}
         variant="standard"
+        style={{width: 120}}
       />
     </div>
   );
