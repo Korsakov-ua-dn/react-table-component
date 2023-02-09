@@ -1,13 +1,13 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import MainLayout from "../containers/main-layout";
-import Transactions from "./transactions";
+import Main from "./main";
 
 const App = () => {
   return (
     <MainLayout>
       <Routes>
-        <Route path={""} element={<Transactions />} />
+        <Route path={""} element={<Main />} />
       </Routes>
     </MainLayout>
   );

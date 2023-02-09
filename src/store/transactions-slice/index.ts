@@ -4,11 +4,11 @@ import {
   AnyAction,
   PayloadAction,
 } from "@reduxjs/toolkit";
-import { RootState } from "../";
-import { transactionsApi } from "../../api";
-import { Transaction } from "../../api/api.types";
+import { RootState } from "..";
+import { Transaction } from "../../modules/transactions/transactions.types";
+import { transactionsApi } from "../../services/transactions-api";
 
-type TransactionState = {
+type TransactionsState = {
   data: Transaction[];
   limit: number;
   page: number;
@@ -16,7 +16,7 @@ type TransactionState = {
   error: string | null;
 };
 
-const initialState: TransactionState = {
+const initialState: TransactionsState = {
   data: [],
   limit: 25,
   page: 0,

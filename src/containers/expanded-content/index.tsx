@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useState } from "react";
 import { LatLngExpression } from "leaflet";
-import Map from "../map";
-import { geocode } from "../../geocode-services";
+import Map from "../../components/map";
+import { geocode } from "../../services/geocode-services";
 
 type PropsType = {
   info: any;

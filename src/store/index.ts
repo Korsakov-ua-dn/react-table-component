@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import transactionReducer from "./transaction-slice";
+import transactionReducer from "./transactions-slice";
 import appReducer from "./app-slice";
 
 const rootReducer = combineReducers({

@@ -1,24 +1,23 @@
 import React, {
   useCallback,
-  useLayoutEffect,
   useRef,
   useState,
   useMemo,
 } from "react";
 import { debounce } from "lodash";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { fetchAllTransactions, transactionActions } from "../../store/transaction-slice";
-import { Transaction } from "../../api/api.types";
 import { useReactToPrint } from "react-to-print";
+// Own
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { useTranslation } from "../../utils/translate/use-translate";
-import { onDownloadXlsx } from "../../utils/on-download-xlsx";
-import {
-  getPrintPdfSettings,
+import { transactionActions } from "../../store/transactions-slice";
+import { Transaction, Search, Sort } from "./transactions.types";
+import { 
   sortArrayOfObjects,
+  getPrintPdfSettings,
   viewDataScheme,
-} from "./transactions.services";
-import { Search, Sort } from "./transactions.types";
-import ExpandedContent from "../../components/expanded-content";
+  onDownloadXlsx,
+} from "./transactions-utils";
+import ExpandedContent from "../../containers/expanded-content";
 import TableComponent from "../../components/table-component";
 import TBody from "../../components/table-component/t-body";
 import THead from "../../components/table-component/t-head";
@@ -28,7 +27,6 @@ import SearchPanel from "../../components/table-controls/search-panel";
 import Pagination from "../../components/pagination";
 // From MUI
 import { SelectChangeEvent } from "@mui/material/Select";
-import { geocode } from "../../geocode-services";
 
 const Transactions: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -38,8 +36,6 @@ const Transactions: React.FC = () => {
     limit: state.transactions.limit,
     page: state.transactions.page,
     selected: state.transactions.limit,
-    loading: state.transactions.loading,
-    error: state.transactions.error,
     locale: state.app.locale,
   }));
 
@@ -138,73 +134,59 @@ const Transactions: React.FC = () => {
     }, []),
   };
 
-  useLayoutEffect(() => {
-    geocode.init();
-    dispatch(fetchAllTransactions());
-  }, [dispatch]);
-
   return (
     <>
-      {select.loading && "Загрузка информации..."}
-
-      {select.error && select.error}
-
-      {!!select.transactions.length && (
+      <TableControls>
         <>
-          <TableControls>
-            <>
-              <Download 
-                onPrintPdf={callbacks.memoizedPrintPdf} 
-                onDownloadXlsx={callbacks.onDownloadXlsx}
-              />
-              <SearchPanel
-                viewDataFormatScheme={viewDataScheme}
-                searchField={search?.field}
-                onSearch={callbacks.onSearch}
-                onSelectField={callbacks.onSelectSearchField}
-                translate={translate}
-              />
-            </>
-          </TableControls>
-          
-          <TableComponent
-            colorScheme="zebra"
-            tableWrapperRef={tableWrapperRef}
-            tableRef={tableRef}
-          >
-            <>
-              <THead
-                viewDataFormatScheme={viewDataScheme}
-                onSort={callbacks.onSort}
-                activeField={sort?.field}
-                direction={sort?.direction}
-              />
-              <TBody
-                items={transactionsForView}
-                viewDataFormatScheme={viewDataScheme}
-                getExpandedContentComponent={(info) => (
-                  <ExpandedContent info={info} />
-                )}
-              />
-            </>
-          </TableComponent>
-
-          <Pagination
-            count={sortTransactions.length}
-            page={select.page}
-            rowsPerPage={select.limit}
-            onPageChange={callbacks.changePage}
-            rowsPerPageOptions={[5, 10, 25]}
-            labelRowsPerPage={translate("show")}
-            onRowsPerPageChange={callbacks.changeRowsPerPage}
-            labelDisplayedRows={(info) =>
-              `${translate("page")} ${info.page + 1} 
-               ${translate("of")} ${Math.ceil(info.count / select.limit) || 1}`
-            }
+          <Download 
+            onPrintPdf={callbacks.memoizedPrintPdf} 
+            onDownloadXlsx={callbacks.onDownloadXlsx}
           />
-          
+          <SearchPanel
+            viewDataFormatScheme={viewDataScheme}
+            searchField={search?.field}
+            onSearch={callbacks.onSearch}
+            onSelectField={callbacks.onSelectSearchField}
+            translate={translate}
+          />
         </>
-      )}
+      </TableControls>
+      
+      <TableComponent
+        colorScheme="zebra"
+        tableWrapperRef={tableWrapperRef}
+        tableRef={tableRef}
+      >
+        <>
+          <THead
+            viewDataFormatScheme={viewDataScheme}
+            onSort={callbacks.onSort}
+            activeField={sort?.field}
+            direction={sort?.direction}
+          />
+          <TBody
+            items={transactionsForView}
+            viewDataFormatScheme={viewDataScheme}
+            getExpandedContentComponent={(info) => (
+              <ExpandedContent info={info} />
+            )}
+          />
+        </>
+      </TableComponent>
+
+      <Pagination
+        count={sortTransactions.length}
+        page={select.page}
+        rowsPerPage={select.limit}
+        onPageChange={callbacks.changePage}
+        rowsPerPageOptions={[5, 10, 25]}
+        labelRowsPerPage={translate("show")}
+        onRowsPerPageChange={callbacks.changeRowsPerPage}
+        labelDisplayedRows={(info) =>
+          `${translate("page")} ${info.page + 1} 
+            ${translate("of")} ${Math.ceil(info.count / select.limit) || 1}`
+        }
+      />
     </>
   );
 };
