@@ -133,7 +133,6 @@ const Transactions: React.FC = () => {
   return (
     <>
       <TableControls>
-        <>
           <DownloadPanel 
             onPrintPdf={callbacks.memoizedPrintPdf} 
             onDownloadXlsx={callbacks.onDownloadXlsx}
@@ -145,7 +144,6 @@ const Transactions: React.FC = () => {
             onSelectField={callbacks.onSelectSearchField}
             translate={translate}
           />
-        </>
       </TableControls>
       
       <TableComponent
@@ -153,21 +151,19 @@ const Transactions: React.FC = () => {
         tableWrapperRef={tableWrapperRef}
         tableRef={tableRef}
       >
-        <>
-          <THead
-            viewDataFormatScheme={viewDataScheme}
-            onSort={callbacks.onSort}
-            activeField={sort?.field}
-            direction={sort?.direction}
-          />
-          <TBody
-            items={transactionsForView}
-            viewDataFormatScheme={viewDataScheme}
-            getExpandedContentComponent={(info) => (
-              <ExpandedContent info={info} />
-            )}
-          />
-        </>
+        <THead
+          viewDataFormatScheme={viewDataScheme}
+          onSort={callbacks.onSort}
+          activeField={sort?.field}
+          direction={sort?.direction}
+        />
+        <TBody
+          items={transactionsForView}
+          viewDataFormatScheme={viewDataScheme}
+          getExpandedContentComponent={(info) => (
+            <ExpandedContent info={info} />
+          )}
+        />
       </TableComponent>
 
       <Pagination

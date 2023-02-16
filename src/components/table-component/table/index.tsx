@@ -3,10 +3,10 @@ import { ColorSchemeType } from "../table.types";
 import "./style.scss";
 
 type TableProps = {
+  children: [React.ReactNode, React.ReactNode];
   colorScheme?: ColorSchemeType;
   tableRef?: RefObject<HTMLTableElement>;
   tableWrapperRef?: RefObject<HTMLDivElement>;
-  children: React.ReactElement;
 };
 
 const TableComponent:React.FC<TableProps> = (props) => {

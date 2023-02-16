@@ -6,7 +6,7 @@ import { appActions } from "../../store/app-slice";
 import { Locale } from "../../utils/translate/use-translate";
 
 type PropsType = {
-  children: React.ReactElement
+  children: React.ReactNode;
 };
 
 const MainLayout: React.FC<PropsType> = (props) => {

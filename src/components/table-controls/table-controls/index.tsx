@@ -2,7 +2,7 @@ import React from "react";
 import "./style.scss";
 
 type PropsType = {
-  children: React.ReactElement;
+  children: React.ReactNode | React.ReactNode[];
 };
 
 const TableControls:React.FC<PropsType> = (props) => {
