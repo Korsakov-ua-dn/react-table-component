@@ -1,9 +1,9 @@
 import React, { MouseEvent } from "react";
 import { DirectionType, ViewDataFormatScheme } from "../table.types";
 import WithTooltip from "../with-tooltip";
+import arrow from '../images/arrow-sort.svg';
 import "./style.scss";
 
-const arrow = require("../images/arrow-sort.svg").default;
 
 type PropsType<T> = {
   value: Partial<keyof T>;

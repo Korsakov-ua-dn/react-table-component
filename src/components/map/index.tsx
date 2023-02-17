@@ -4,8 +4,7 @@ import { Icon, LatLngExpression } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./style.scss";
 import { ITransaction } from "../../modules/transactions/transactions.types";
-
-const marker = require("./images/map-marker.png");
+import marker from "./images/map-marker.png";
 
 type PropsType = {
   center: LatLngExpression;
