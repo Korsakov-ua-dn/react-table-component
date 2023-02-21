@@ -1,6 +1,6 @@
 import { DirectionType, FormatType } from "../../components/table-component/table.types";
 
-export type ITransaction = {
+export interface ITransaction {
   _id: string;
   name: string;
   date: string;

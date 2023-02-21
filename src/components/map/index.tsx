@@ -6,12 +6,12 @@ import "./style.scss";
 import { ITransaction } from "../../modules/transactions/transactions.types";
 import marker from "./images/map-marker.png";
 
-type PropsType = {
+interface IProps {
   center: LatLngExpression;
   transaction: ITransaction;
 };
 
-const Map: React.FC<PropsType> = (props) => {
+const Map: React.FC<IProps> = (props) => {
   return (
     <MapContainer center={props.center} zoom={17} scrollWheelZoom={false}>
       <TileLayer

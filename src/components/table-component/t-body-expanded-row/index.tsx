@@ -2,12 +2,12 @@ import React from "react";
 import { ExpandedContentComponent } from "../table.types";
 import "./style.scss";
 
-type PropsType<T> = {
+interface IProps<T> {
   row: T;
   getExpandedContentComponent: ExpandedContentComponent;
 };
 
-const TbodyExpandedRow = <T extends object>(props: PropsType<T>): JSX.Element => {
+const TbodyExpandedRow = <T extends object>(props: IProps<T>): JSX.Element => {
   return (
     <tr className={"Expanding-content"}>
       <td colSpan={Object.keys(props.row).length}>

@@ -2,23 +2,29 @@ import React, { RefObject } from "react";
 import { ColorSchemeType } from "../table.types";
 import "./style.scss";
 
-type TableProps = {
+interface IProps extends React.TableHTMLAttributes<HTMLTableElement> {
   children: [React.ReactNode, React.ReactNode];
   colorScheme?: ColorSchemeType;
   tableRef?: RefObject<HTMLTableElement>;
   tableWrapperRef?: RefObject<HTMLDivElement>;
 };
 
-const TableComponent:React.FC<TableProps> = (props) => {
+const TableComponent:React.FC<IProps> = ({
+  children,
+  colorScheme,
+  tableRef,
+  tableWrapperRef,
+  ...restProps
+}) => {
   const classTable = `
     Table 
-    ${props.colorScheme === "zebra" ? "Table_zebra" : ""}
+    ${colorScheme === "zebra" ? "Table_zebra" : ""}
   `;
 
   return (
-    <div className={classTable} ref={props.tableWrapperRef}>
-      <table id="table" ref={props.tableRef}>
-        {props.children}
+    <div className={classTable} ref={tableWrapperRef}>
+      <table id="table" ref={tableRef} {...restProps}>
+        {children}
       </table>
     </div>
   );

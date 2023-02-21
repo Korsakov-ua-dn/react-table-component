@@ -5,7 +5,7 @@ import arrow from '../images/arrow-sort.svg';
 import "./style.scss";
 
 
-type PropsType<T> = {
+interface IProps<T> {
   value: Partial<keyof T>;
   isSort: boolean;
   width: number | undefined;
@@ -15,7 +15,7 @@ type PropsType<T> = {
   onSort?: (e: MouseEvent<HTMLElement>) => void;
 };
 
-const TheadItem = <T,>(props: PropsType<T>): JSX.Element => {
+const TheadItem = <T,>(props: IProps<T>): JSX.Element => {
   const classN = `
     Table__head-item 
     ${props.isActiveField ? "Table__head-item_active" : ""}

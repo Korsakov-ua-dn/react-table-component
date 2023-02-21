@@ -4,14 +4,14 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 
-type PropsType = {
+interface IProps {
   selectOptions: React.ReactElement[];
   value: string | number | symbol | undefined;
   onSelectFieldHandler: (e: SelectChangeEvent) => void;
   label: string;
 };
 
-const SearchField:React.FC<PropsType> = (props: PropsType) => {
+const SearchField:React.FC<IProps> = (props) => {
   return (
     <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
       <InputLabel id="searc-select-label">{props.label}</InputLabel>

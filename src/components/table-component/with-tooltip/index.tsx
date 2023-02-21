@@ -3,11 +3,11 @@ import "./style.scss";
 // From MUI
 import Tooltip from "@mui/material/Tooltip";
 
-type PropsType = {
+interface IProps {
   children: string | number;
 };
 
-const WithTooltip = (props: PropsType) => {
+const WithTooltip = (props: IProps) => {
   const ref = useRef<HTMLSpanElement>(null);
   const [isTooltip, setTooltip] = useState<boolean>(false);
 

@@ -3,11 +3,11 @@ import { LatLngExpression } from "leaflet";
 import Map from "../../components/map";
 import { geocode } from "../../services/geocode-services";
 
-type PropsType = {
+interface IProps {
   info: any;
 };
 
-const ExpandedContent: React.FC<PropsType> = (props) => {
+const ExpandedContent: React.FC<IProps> = (props) => {
   const [center, setCenter] = useState<LatLngExpression>();
   const [error, setError] = useState<string>("");
 

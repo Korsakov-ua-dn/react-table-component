@@ -6,14 +6,14 @@ import "./style.scss";
 // From MUI
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
-type PropsType<T> = {
+interface IProps<T> {
   row: T;
   viewDataFormatScheme: ViewDataFormatScheme<T>;
   painted: boolean;
   getExpandedContentComponent: ExpandedContentComponent;
 };
 
-const TbodyRow = <T extends object>(props: PropsType<T>): JSX.Element => {
+const TbodyRow = <T extends object>(props: IProps<T>): JSX.Element => {
   // Состояние строки "развернутая" и "свернутая"
   const [isExpanded, setExpanded] = useState<boolean>(false);
 

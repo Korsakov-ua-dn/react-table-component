@@ -4,12 +4,14 @@ import Layout from "../../components/layout";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { appActions } from "../../store/app-slice";
 import { Locale } from "../../utils/translate/use-translate";
+// From MUI
+import { SelectChangeEvent } from "@mui/material";
 
-type PropsType = {
+interface IProps {
   children: React.ReactNode;
 };
 
-const MainLayout: React.FC<PropsType> = (props) => {
+const MainLayout: React.FC<IProps> = (props) => {
   const dispatch = useAppDispatch();
   
   const select = useAppSelector((state) => ({
@@ -17,8 +19,8 @@ const MainLayout: React.FC<PropsType> = (props) => {
   }));
 
   const callbacks = {
-    changeLocale: useCallback((locale: Locale) => {
-      dispatch(appActions.setLocale(locale))
+    changeLocale: useCallback((event: SelectChangeEvent) => {
+      dispatch(appActions.setLocale(event.target.value as Locale))
     }, [dispatch]),
   };
 

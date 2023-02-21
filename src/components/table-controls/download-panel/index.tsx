@@ -1,12 +1,12 @@
 import React from "react";
 import "./style.scss";
 
-type PropsType = {
-  onPrintPdf?: () => void;
-  onDownloadXlsx?: () => void;
+interface IProps {
+  onPrintPdf: () => void;
+  onDownloadXlsx: () => void;
 };
 
-const Download:React.FC<PropsType> = (props) => {
+const Download:React.FC<IProps> = (props) => {
   return (
       <div className="Download">
         <button className="Download__btn Download__btn_pdf" onClick={props.onPrintPdf}></button>

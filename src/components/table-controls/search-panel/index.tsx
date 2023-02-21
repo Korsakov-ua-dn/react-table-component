@@ -10,7 +10,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
-type PropsType<T> = {
+interface IProps<T> {
   viewDataFormatScheme: ViewDataFormatScheme<T>;
   searchField: keyof T | undefined;
   onSearch: (value: string) => void;
@@ -18,7 +18,7 @@ type PropsType<T> = {
   translate: Translate;
 };
 
-const SearchPanel = <T,>(props: PropsType<T>): JSX.Element => {
+const SearchPanel = <T,>(props: IProps<T>): JSX.Element => {
   const [error, setError] = useState(false);
   const [value, setValue] = useState("");
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import './style.scss';
 
-type PropsType = {
+interface IProps {
   children: React.ReactNode | React.ReactNode[];
 }
 
-const Layout:React.FC<PropsType> = (props) => {
+const Layout:React.FC<IProps> = (props) => {
   return (
     <div className={'Layout'}>
       {props.children}

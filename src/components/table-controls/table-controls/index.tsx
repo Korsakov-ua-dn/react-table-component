@@ -1,11 +1,11 @@
 import React from "react";
 import "./style.scss";
 
-type PropsType = {
+interface IProps {
   children: React.ReactNode | React.ReactNode[];
 };
 
-const TableControls:React.FC<PropsType> = (props) => {
+const TableControls:React.FC<IProps> = (props) => {
   return (
     <div className="Table-controls">
       {props.children}

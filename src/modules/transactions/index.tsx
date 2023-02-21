@@ -23,10 +23,11 @@ import { TableControls, DownloadPanel, SearchPanel } from "../../components/tabl
 import Pagination from "../../components/pagination";
 // From MUI
 import { SelectChangeEvent } from "@mui/material/Select";
+import { LabelDisplayedRowsArgs } from "@mui/material/TablePagination/TablePagination";
 
 const Transactions: React.FC = () => {
   const dispatch = useAppDispatch();
-
+  
   const select = useAppSelector((state) => ({
     transactions: state.transactions.data,
     limit: state.transactions.limit,
@@ -128,22 +129,32 @@ const Transactions: React.FC = () => {
     memoizedPrintPdf: useCallback(() => {
       printFuncRef.current && printFuncRef.current();
     }, []),
+
+    labelDisplayedRows: useCallback((info: LabelDisplayedRowsArgs) =>
+      `${translate("page")} ${info.page + 1} 
+        ${translate("of")} ${Math.ceil(info.count / select.limit) || 1}`
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    , [select.limit]),
   };
+
+  const options = {
+    rowsPerPageOptions: useMemo(() => [5, 10, 25], []),
+  }
 
   return (
     <>
       <TableControls>
-          <DownloadPanel 
-            onPrintPdf={callbacks.memoizedPrintPdf} 
-            onDownloadXlsx={callbacks.onDownloadXlsx}
-          />
-          <SearchPanel
-            viewDataFormatScheme={viewDataScheme}
-            searchField={search?.field}
-            onSearch={callbacks.onSearch}
-            onSelectField={callbacks.onSelectSearchField}
-            translate={translate}
-          />
+        <DownloadPanel 
+          onPrintPdf={callbacks.memoizedPrintPdf} 
+          onDownloadXlsx={callbacks.onDownloadXlsx}
+        />
+        <SearchPanel
+          viewDataFormatScheme={viewDataScheme}
+          searchField={search?.field}
+          onSearch={callbacks.onSearch}
+          onSelectField={callbacks.onSelectSearchField}
+          translate={translate}
+        />
       </TableControls>
       
       <TableComponent
@@ -171,13 +182,10 @@ const Transactions: React.FC = () => {
         page={select.page}
         rowsPerPage={select.limit}
         onPageChange={callbacks.changePage}
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={options.rowsPerPageOptions}
         labelRowsPerPage={translate("show")}
         onRowsPerPageChange={callbacks.changeRowsPerPage}
-        labelDisplayedRows={(info) =>
-          `${translate("page")} ${info.page + 1} 
-            ${translate("of")} ${Math.ceil(info.count / select.limit) || 1}`
-        }
+        labelDisplayedRows={callbacks.labelDisplayedRows}
       />
     </>
   );
