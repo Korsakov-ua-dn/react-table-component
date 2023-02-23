@@ -8,10 +8,8 @@
   - генерация pdf, xls
   - поддержка мультиязычности.
 
-## Скриншот:
-![Alt text](/../screenshot/screenshot/screenshot.png?raw=true "Табличный компонент")
-![Alt text](https://github.com/Korsakov-ua-dn/react-table-component/blob/screenshot/screenshot/screenshot.png?raw=true)
-
+### Скриншот табличного компонента с развернутой информацией по строке:
+![Screenshot of table component](/../screenshot/screenshot/screenshot.png?raw=true "Табличный компонент")
 
 ## Технологический стек:
 
