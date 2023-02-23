@@ -1,33 +1,32 @@
-import React, {
-  useCallback,
-  useRef,
-  useState,
-  useMemo,
-} from "react";
-import { debounce } from "lodash";
-import { useReactToPrint } from "react-to-print";
-// Own
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { useTranslation } from "../../utils/translate/use-translate";
-import { transactionActions } from "../../store/transactions-slice";
-import { ITransaction, SearchType, SortType } from "./transactions.types";
-import { 
-  sortArrayOfObjects,
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+import { debounce } from 'lodash';
+import { useReactToPrint } from 'react-to-print';
+import { SelectChangeEvent } from '@mui/material/Select';
+import { LabelDisplayedRowsArgs } from '@mui/material/TablePagination/TablePagination';
+
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useTranslation } from '../../utils/translate/use-translate';
+import { transactionActions } from '../../store/transactions-slice';
+import ExpandedContent from '../../containers/expanded-content';
+import { TBody, THead, TableComponent } from '../../components/table-component';
+import {
+  DownloadPanel,
+  SearchPanel,
+  TableControls,
+} from '../../components/table-controls';
+import Pagination from '../../components/pagination';
+
+import {
   getPrintPdfSettings,
-  viewDataScheme,
   onDownloadXlsx,
-} from "./transactions-utils";
-import ExpandedContent from "../../containers/expanded-content";
-import { TableComponent, TBody, THead } from "../../components/table-component";
-import { TableControls, DownloadPanel, SearchPanel } from "../../components/table-controls";
-import Pagination from "../../components/pagination";
-// From MUI
-import { SelectChangeEvent } from "@mui/material/Select";
-import { LabelDisplayedRowsArgs } from "@mui/material/TablePagination/TablePagination";
+  sortArrayOfObjects,
+  viewDataScheme,
+} from './transactions-utils';
+import { ITransaction, SearchType, SortType } from './transactions.types';
 
 const Transactions: React.FC = () => {
   const dispatch = useAppDispatch();
-  
+
   const select = useAppSelector((state) => ({
     transactions: state.transactions.data,
     limit: state.transactions.limit,
@@ -43,7 +42,7 @@ const Transactions: React.FC = () => {
   const filteredTransactions = useMemo<ITransaction[]>(() => {
     if (search) {
       // Поиск не чувствительный к регистру
-      const regex = new RegExp(`${search.value}`, "i");
+      const regex = new RegExp(`${search.value}`, 'i');
       return select.transactions.filter((item) =>
         regex.test(String(item[search.field]))
       );
@@ -52,7 +51,7 @@ const Transactions: React.FC = () => {
       //   String(item[search.field]).includes(search.value)
       // );
     } else return select.transactions;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search?.value, select.transactions]);
 
   // Отсортированный массив транзакций
@@ -75,7 +74,7 @@ const Transactions: React.FC = () => {
     );
   }, [select.limit, select.page, sortTransactions]);
 
-  const translate = useTranslation("table", select.locale);
+  const translate = useTranslation('table', select.locale);
 
   // Три рефа нужны для печати пдф
   const tableWrapperRef = useRef<HTMLDivElement>(null);
@@ -90,35 +89,43 @@ const Transactions: React.FC = () => {
     changeRowsPerPage: useCallback(
       (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         dispatch(transactionActions.setLimit(Number(e.target.value)));
-    }, [dispatch]),
+      },
+      [dispatch]
+    ),
 
     changePage: useCallback(
       (e: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
         dispatch(transactionActions.setPage(newPage));
-    }, [dispatch]),
+      },
+      [dispatch]
+    ),
 
-    onSearch: useMemo(() => debounce((value: string) => {
-      setSearch((prev) => (prev ? { ...prev, value } : null));
-    }, 300), []),
+    onSearch: useMemo(
+      () =>
+        debounce((value: string) => {
+          setSearch((prev) => (prev ? { ...prev, value } : null));
+        }, 300),
+      []
+    ),
 
     onSelectSearchField: useCallback((e: SelectChangeEvent) => {
       const field = e.target.value as keyof ITransaction;
-      setSearch({ field, value: "" });
+      setSearch({ field, value: '' });
     }, []),
 
     onSort: useCallback((field: keyof ITransaction) => {
       const format = viewDataScheme[field]?.format!;
       setSort((prev) => {
-        if (prev?.field !== field || prev?.direction === "none") {
-          return { field, format, direction: "ascending" };
+        if (prev?.field !== field || prev?.direction === 'none') {
+          return { field, format, direction: 'ascending' };
         }
-        if (prev?.direction === "ascending") {
-          return { field, format, direction: "descending" };
+        if (prev?.direction === 'ascending') {
+          return { field, format, direction: 'descending' };
         }
-        if (prev?.direction === "descending") {
-          return { field, format, direction: "none" };
+        if (prev?.direction === 'descending') {
+          return { field, format, direction: 'none' };
         }
-        return { field, format, direction: "none" };
+        return { field, format, direction: 'none' };
       });
     }, []),
 
@@ -130,22 +137,24 @@ const Transactions: React.FC = () => {
       printFuncRef.current && printFuncRef.current();
     }, []),
 
-    labelDisplayedRows: useCallback((info: LabelDisplayedRowsArgs) =>
-      `${translate("page")} ${info.page + 1} 
-        ${translate("of")} ${Math.ceil(info.count / select.limit) || 1}`
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    , [select.limit]),
+    labelDisplayedRows: useCallback(
+      (info: LabelDisplayedRowsArgs) =>
+        `${translate('page')} ${info.page + 1} 
+        ${translate('of')} ${Math.ceil(info.count / select.limit) || 1}`,
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [select.limit]
+    ),
   };
 
   const options = {
     rowsPerPageOptions: useMemo(() => [5, 10, 25], []),
-  }
+  };
 
   return (
     <>
       <TableControls>
-        <DownloadPanel 
-          onPrintPdf={callbacks.memoizedPrintPdf} 
+        <DownloadPanel
+          onPrintPdf={callbacks.memoizedPrintPdf}
           onDownloadXlsx={callbacks.onDownloadXlsx}
         />
         <SearchPanel
@@ -156,7 +165,7 @@ const Transactions: React.FC = () => {
           translate={translate}
         />
       </TableControls>
-      
+
       <TableComponent
         colorScheme="zebra"
         tableWrapperRef={tableWrapperRef}
@@ -183,7 +192,7 @@ const Transactions: React.FC = () => {
         rowsPerPage={select.limit}
         onPageChange={callbacks.changePage}
         rowsPerPageOptions={options.rowsPerPageOptions}
-        labelRowsPerPage={translate("show")}
+        labelRowsPerPage={translate('show')}
         onRowsPerPageChange={callbacks.changeRowsPerPage}
         labelDisplayedRows={callbacks.labelDisplayedRows}
       />

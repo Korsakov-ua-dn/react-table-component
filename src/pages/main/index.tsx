@@ -1,10 +1,11 @@
-import React, { useLayoutEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import Transactions from "../../modules/transactions";
-import { geocode } from "../../services/geocode-services";
-import { fetchAllTransactions } from "../../store/transactions-slice";
+import React, { useLayoutEffect } from 'react';
 
-const Main:React.FC = () => {
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import Transactions from '../../modules/transactions';
+import { geocode } from '../../services/geocode-services';
+import { fetchAllTransactions } from '../../store/transactions-slice';
+
+const Main: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const select = useAppSelector((state) => ({
@@ -20,7 +21,7 @@ const Main:React.FC = () => {
 
   return (
     <>
-      {select.loading && "Загрузка информации..."}
+      {select.loading && 'Загрузка информации...'}
 
       {select.error && select.error}
 

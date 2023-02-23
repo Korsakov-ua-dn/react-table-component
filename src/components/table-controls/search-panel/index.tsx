@@ -1,14 +1,16 @@
-import React, { ChangeEvent, useCallback, useState, useMemo } from "react";
-import { ViewDataFormatScheme } from "../../table-component/table.types";
-import { Translate } from "../../../utils/translate/use-translate";
-import SearchField from "./search-field";
-import "./style.scss";
-// From MUI
-import SearchInput from "@mui/material/TextField";
-import InputAdornment from "@mui/material/InputAdornment";
-import SearchIcon from "@mui/icons-material/Search";
-import { SelectChangeEvent } from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
+import React, { ChangeEvent, useCallback, useMemo, useState } from 'react';
+import SearchInput from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import SearchIcon from '@mui/icons-material/Search';
+import { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+
+import { Translate } from '../../../utils/translate/use-translate';
+import { ViewDataFormatScheme } from '../../table-component/table.types';
+
+import SearchField from './search-field';
+
+import './style.scss';
 
 interface IProps<T> {
   viewDataFormatScheme: ViewDataFormatScheme<T>;
@@ -16,53 +18,61 @@ interface IProps<T> {
   onSearch: (value: string) => void;
   onSelectField: (e: SelectChangeEvent) => void;
   translate: Translate;
-};
+}
 
-const SearchPanel = <T,>(props: IProps<T>): JSX.Element => {
+const SearchPanel = <T,>({
+  viewDataFormatScheme,
+  searchField,
+  onSearch,
+  onSelectField,
+  translate,
+}: IProps<T>): JSX.Element => {
   const [error, setError] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
 
   const callbacks = {
     onSelectFieldHandler: useCallback(
       (e: SelectChangeEvent) => {
-        props.onSelectField(e);
+        onSelectField(e);
         setError(false);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.onSelectField]),
+      },
+      [onSelectField]
+    ),
 
     onSearchHandler: useCallback(
       (e: ChangeEvent<HTMLInputElement>) => {
-        if (!props.searchField) {
+        if (!searchField) {
           setError(true);
         } else {
           setError(false);
-          setValue(e.target.value)
-          props.onSearch(e.target.value)
+          setValue(e.target.value);
+          onSearch(e.target.value);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.onSearch, props.searchField]),
+      },
+      [onSearch, searchField]
+    ),
   };
 
   const selectOptions = useMemo(() => {
-    let menuItems = [];
+    const menuItems = [];
 
-    for (let key in props.viewDataFormatScheme) {
+    for (const key in viewDataFormatScheme) {
       menuItems.push(
         <MenuItem key={key} value={key}>
           <em className="Search__field-option">
-            {props.viewDataFormatScheme[key]?.title}
+            {viewDataFormatScheme[key]?.title}
           </em>
         </MenuItem>
       );
     }
     return menuItems;
-  }, [props.viewDataFormatScheme]);
+  }, [viewDataFormatScheme]);
 
   return (
     <div className="Search">
       <SearchField
-        label={props.translate("field")}
-        value={props.searchField}
+        label={translate('field')}
+        value={searchField}
         selectOptions={selectOptions}
         onSelectFieldHandler={callbacks.onSelectFieldHandler}
       />
@@ -71,8 +81,8 @@ const SearchPanel = <T,>(props: IProps<T>): JSX.Element => {
         value={value}
         onChange={callbacks.onSearchHandler}
         id="search-input"
-        label={props.translate("search")}
-        helperText={error ? props.translate("search-error") : " "}
+        label={translate('search')}
+        helperText={error ? translate('search-error') : ' '}
         error={error}
         InputProps={{
           endAdornment: (
@@ -82,7 +92,7 @@ const SearchPanel = <T,>(props: IProps<T>): JSX.Element => {
           ),
         }}
         variant="standard"
-        style={{width: 120}}
+        style={{ width: 120 }}
       />
     </div>
   );

@@ -1,13 +1,15 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import MainLayout from "../containers/main-layout";
-import Main from "./main";
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 
-const App:React.FC = () => {
+import MainLayout from '../containers/main-layout';
+
+import Main from './main';
+
+const App: React.FC = () => {
   return (
     <MainLayout>
       <Routes>
-        <Route path={""} element={<Main />} />
+        <Route path={''} element={<Main />} />
       </Routes>
     </MainLayout>
   );

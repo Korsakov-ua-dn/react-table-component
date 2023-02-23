@@ -1,9 +1,13 @@
-import * as XLSX from "xlsx";
-import { ViewDataFormatScheme } from "../../../components/table-component/table.types";
+import * as XLSX from 'xlsx';
 
-export const onDownloadXlsx = <T extends object>(items: T[], scheme: ViewDataFormatScheme<T>) => {
+import { ViewDataFormatScheme } from '../../../components/table-component/table.types';
+
+export const onDownloadXlsx = <T extends object>(
+  items: T[],
+  scheme: ViewDataFormatScheme<T>
+) => {
   const schemaKeys = Object.keys(scheme);
-  const itemKeys = Object.keys(items[0] as {});
+  const itemKeys = Object.keys(items[0] as object);
   const needToExcludeKeys = itemKeys.filter((key) => !schemaKeys.includes(key));
 
   const preparedData = items.map((row) => {
@@ -14,7 +18,7 @@ export const onDownloadXlsx = <T extends object>(items: T[], scheme: ViewDataFor
 
   const workSheet = XLSX.utils.json_to_sheet(preparedData);
   const workBook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workBook, workSheet, "table");
-  XLSX.write(workBook, { bookType: "xlsx", type: "binary" });
-  XLSX.writeFile(workBook, "table.xlsx");
+  XLSX.utils.book_append_sheet(workBook, workSheet, 'table');
+  XLSX.write(workBook, { bookType: 'xlsx', type: 'binary' });
+  XLSX.writeFile(workBook, 'table.xlsx');
 };
