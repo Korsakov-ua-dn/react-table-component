@@ -1,5 +1,5 @@
-export type ColorSchemeType = "mono" | "zebra";
-export type FormatFunctionType = (data: any) => number | string
+export type ColorSchemeType = 'mono' | 'zebra';
+export type FormatFunctionType = (data: any) => number | string;
 
 export type Data = {
   format: FormatType;
@@ -13,6 +13,6 @@ export type ViewDataFormatScheme<T> = Partial<Record<keyof T, Data>>;
 
 export type ExpandedContentComponent = <T>(info: T) => React.ReactElement<T>;
 
-export type DirectionType = "ascending" | "descending" | "none";
+export type DirectionType = 'ascending' | 'descending' | 'none';
 
-export type FormatType = "string" | "number" | "date" | "price";
+export type FormatType = 'string' | 'number' | 'date' | 'price';

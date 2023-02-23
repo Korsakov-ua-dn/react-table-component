@@ -1,4 +1,7 @@
-import { DirectionType, FormatType } from "../../components/table-component/table.types";
+import {
+  DirectionType,
+  FormatType,
+} from '../../components/table-component/table.types';
 
 export interface ITransaction {
   _id: string;
@@ -11,7 +14,7 @@ export interface ITransaction {
   fuelCount: number;
   coast: number;
   __v: number;
-};
+}
 
 export type FieldType = keyof ITransaction;
 export type SearchType = { field: keyof ITransaction; value: string } | null;

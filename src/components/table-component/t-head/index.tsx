@@ -1,14 +1,15 @@
-import React, { MouseEvent, useCallback } from "react";
-import { v1 } from "uuid";
-import TheadItem from "../t-head-item";
-import { DirectionType, ViewDataFormatScheme } from "../table.types";
+import React, { MouseEvent, useCallback } from 'react';
+import { v1 } from 'uuid';
+
+import TheadItem from '../t-head-item';
+import { DirectionType, ViewDataFormatScheme } from '../table.types';
 
 interface IProps<T> extends React.HTMLAttributes<HTMLTableSectionElement> {
   viewDataFormatScheme: ViewDataFormatScheme<T>;
   activeField: keyof T | undefined;
   direction?: DirectionType;
   onSort?: (field: keyof T) => void;
-};
+}
 
 const Thead = <T extends object>({
   viewDataFormatScheme,
@@ -17,19 +18,21 @@ const Thead = <T extends object>({
   onSort,
   ...restProps
 }: IProps<T>): JSX.Element => {
-
   // Один обработчик для всех полей
-  const onSortHendler = useCallback((e: MouseEvent<HTMLElement>) => {
-    const field = e.currentTarget.getAttribute('data-field') as keyof T
-    onSort && onSort(field)
-  }, [onSort])
+  const onSortHendler = useCallback(
+    (e: MouseEvent<HTMLElement>) => {
+      const field = e.currentTarget.getAttribute('data-field') as keyof T;
+      onSort && onSort(field);
+    },
+    [onSort]
+  );
 
   /* Первая th в массиве нужен т.к. в tbody первый элемент стрелка
      для развертывания дополнительной информации по строке */
-  let thead = [<th key={"FirstTH"}></th>];
+  const thead = [<th key={'FirstTH'}></th>];
 
-  for (let key in viewDataFormatScheme) {
-    const isSort = viewDataFormatScheme[key]?.sort!
+  for (const key in viewDataFormatScheme) {
+    const isSort = viewDataFormatScheme[key]?.sort!;
     const id = v1();
     thead.push(
       <TheadItem

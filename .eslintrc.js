@@ -12,13 +12,21 @@ module.exports = {
     'no-console': 'warn',
     'prefer-const': 'warn',
     quotes: ['error', 'single'],
-    indent: ['warn', 2],
     'max-len': ['warn', { code: 120 }],
     semi: ['warn', 'always'],
     'import/order': [
       'error',
       {
-        groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object', 'type'],
+        groups: [
+          'builtin',
+          'external',
+          'internal',
+          'parent',
+          'sibling',
+          'index',
+          'object',
+          'type',
+        ],
         'newlines-between': 'always-and-inside-groups',
       },
     ],
@@ -35,5 +43,6 @@ module.exports = {
     ],
     '@typescript-eslint/no-non-null-assertion': 'warn',
     '@typescript-eslint/no-non-null-asserted-optional-chain': 'warn',
+    '@typescript-eslint/no-empty-function': 'warn',
   },
 };

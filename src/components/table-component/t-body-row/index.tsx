@@ -1,17 +1,18 @@
-import React, { useCallback, useState } from "react";
-import { ExpandedContentComponent, ViewDataFormatScheme } from "../table.types";
-import TbodyItem from "../t-body-item";
-import TBodyExpandedRow from "../t-body-expanded-row";
-import "./style.scss";
-// From MUI
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import React, { useCallback, useState } from 'react';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+
+import { ExpandedContentComponent, ViewDataFormatScheme } from '../table.types';
+import TbodyItem from '../t-body-item';
+import TBodyExpandedRow from '../t-body-expanded-row';
+
+import './style.scss';
 
 interface IProps<T> {
   row: T;
   viewDataFormatScheme: ViewDataFormatScheme<T>;
   painted: boolean;
   getExpandedContentComponent: ExpandedContentComponent;
-};
+}
 
 const TbodyRow = <T extends object>(props: IProps<T>): JSX.Element => {
   // Состояние строки "развернутая" и "свернутая"
@@ -23,22 +24,18 @@ const TbodyRow = <T extends object>(props: IProps<T>): JSX.Element => {
 
   const ClassNameRow = `
     Table__body-row 
-    ${isExpanded ? "Table__body-row_expanded" : ""}
-    ${props.painted ? "Table__body-row_painted" : ""}
+    ${isExpanded ? 'Table__body-row_expanded' : ''}
+    ${props.painted ? 'Table__body-row_painted' : ''}
   `;
 
   // Первый элемент каждой строки - стрелка для разворачивания детальной информации
-  let td = [
-    <td
-      className="Arrow-expand"
-      key={"arrow"}
-      onClick={expandRowHandler}
-    >
+  const td = [
+    <td className="Arrow-expand" key={'arrow'} onClick={expandRowHandler}>
       <ArrowRightIcon />
     </td>,
   ];
 
-  for (let key in props.viewDataFormatScheme) {
+  for (const key in props.viewDataFormatScheme) {
     const width = props.viewDataFormatScheme[key]?.width;
     const renderFunction = props.viewDataFormatScheme[key]?.renderFunction!;
     const value = renderFunction(props.row[key]);

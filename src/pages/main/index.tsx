@@ -19,17 +19,6 @@ const Main: React.FC = () => {
     dispatch(fetchAllTransactions());
   }, [dispatch]);
 
-  const a = 1;
-
-  console.log(a);
-
-  const b = `sdddddddddd ${a} ddddddddddddddddddddddddd dddddddddddddddddddd dddddddddddddd ddddddddddd вавававава ва ва в авававававававва`;
-
-  const obj = {
-    a: 'a',
-    b: 'b',
-  };
-
   return (
     <>
       {select.loading && 'Загрузка информации...'}

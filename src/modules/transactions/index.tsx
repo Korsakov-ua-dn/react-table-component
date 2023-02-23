@@ -9,10 +9,19 @@ import { useTranslation } from '../../utils/translate/use-translate';
 import { transactionActions } from '../../store/transactions-slice';
 import ExpandedContent from '../../containers/expanded-content';
 import { TBody, THead, TableComponent } from '../../components/table-component';
-import { DownloadPanel, SearchPanel, TableControls } from '../../components/table-controls';
+import {
+  DownloadPanel,
+  SearchPanel,
+  TableControls,
+} from '../../components/table-controls';
 import Pagination from '../../components/pagination';
 
-import { getPrintPdfSettings, onDownloadXlsx, sortArrayOfObjects, viewDataScheme } from './transactions-utils';
+import {
+  getPrintPdfSettings,
+  onDownloadXlsx,
+  sortArrayOfObjects,
+  viewDataScheme,
+} from './transactions-utils';
 import { ITransaction, SearchType, SortType } from './transactions.types';
 
 const Transactions: React.FC = () => {
@@ -34,7 +43,9 @@ const Transactions: React.FC = () => {
     if (search) {
       // Поиск не чувствительный к регистру
       const regex = new RegExp(`${search.value}`, 'i');
-      return select.transactions.filter((item) => regex.test(String(item[search.field])));
+      return select.transactions.filter((item) =>
+        regex.test(String(item[search.field]))
+      );
       //Поиск чувствительный к регистру
       // return select.transactions.filter((item) =>
       //   String(item[search.field]).includes(search.value)
@@ -46,13 +57,21 @@ const Transactions: React.FC = () => {
   // Отсортированный массив транзакций
   const sortTransactions = useMemo<ITransaction[]>(() => {
     if (sort) {
-      return sortArrayOfObjects(filteredTransactions, sort.field, sort.direction, sort.format);
+      return sortArrayOfObjects(
+        filteredTransactions,
+        sort.field,
+        sort.direction,
+        sort.format
+      );
     } else return filteredTransactions;
   }, [filteredTransactions, sort]);
 
   // Отфильтрованный массив транзакций для рендера постранично
   const transactionsForView = useMemo<ITransaction[]>(() => {
-    return sortTransactions.filter((_, i) => i < select.limit * (select.page + 1) && i >= select.limit * select.page);
+    return sortTransactions.filter(
+      (_, i) =>
+        i < select.limit * (select.page + 1) && i >= select.limit * select.page
+    );
   }, [select.limit, select.page, sortTransactions]);
 
   const translate = useTranslation('table', select.locale);
@@ -62,7 +81,9 @@ const Transactions: React.FC = () => {
   const tableRef = useRef<HTMLTableElement>(null);
   // Мемоизация динамически генерируемого коллбэка
   const printFuncRef = useRef<() => void>();
-  printFuncRef.current = useReactToPrint(getPrintPdfSettings(tableWrapperRef, tableRef));
+  printFuncRef.current = useReactToPrint(
+    getPrintPdfSettings(tableWrapperRef, tableRef)
+  );
 
   const callbacks = {
     changeRowsPerPage: useCallback(
@@ -132,7 +153,10 @@ const Transactions: React.FC = () => {
   return (
     <>
       <TableControls>
-        <DownloadPanel onPrintPdf={callbacks.memoizedPrintPdf} onDownloadXlsx={callbacks.onDownloadXlsx} />
+        <DownloadPanel
+          onPrintPdf={callbacks.memoizedPrintPdf}
+          onDownloadXlsx={callbacks.onDownloadXlsx}
+        />
         <SearchPanel
           viewDataFormatScheme={viewDataScheme}
           searchField={search?.field}
@@ -142,7 +166,11 @@ const Transactions: React.FC = () => {
         />
       </TableControls>
 
-      <TableComponent colorScheme="zebra" tableWrapperRef={tableWrapperRef} tableRef={tableRef}>
+      <TableComponent
+        colorScheme="zebra"
+        tableWrapperRef={tableWrapperRef}
+        tableRef={tableRef}
+      >
         <THead
           viewDataFormatScheme={viewDataScheme}
           onSort={callbacks.onSort}
@@ -152,7 +180,9 @@ const Transactions: React.FC = () => {
         <TBody
           items={transactionsForView}
           viewDataFormatScheme={viewDataScheme}
-          getExpandedContentComponent={(info) => <ExpandedContent info={info} />}
+          getExpandedContentComponent={(info) => (
+            <ExpandedContent info={info} />
+          )}
         />
       </TableComponent>
 

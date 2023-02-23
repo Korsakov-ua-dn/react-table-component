@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
-import "./style.scss";
-// From MUI
-import Tooltip from "@mui/material/Tooltip";
+import React, { useEffect, useRef, useState } from 'react';
+import Tooltip from '@mui/material/Tooltip';
+
+import './style.scss';
 
 interface IProps {
   children: string | number;
-};
+}
 
 const WithTooltip = (props: IProps) => {
   const ref = useRef<HTMLSpanElement>(null);
