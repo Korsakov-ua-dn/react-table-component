@@ -9,8 +9,8 @@
   - поддержка мультиязычности.
 
 ## Скриншот:
-![Alt text](/../screenshot/screenshot.png?raw=true "Табличный компонент")
-![Alt text](https://github.com/Korsakov-ua-dn/react-table-component/screenshot/screenshot.png?raw=true)
+![Alt text](/../screenshot/screenshot/screenshot.png?raw=true "Табличный компонент")
+![Alt text](https://github.com/Korsakov-ua-dn/react-table-component/blob/screenshot/screenshot/screenshot.png?raw=true)
 
 
 ## Технологический стек:
