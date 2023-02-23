@@ -11,9 +11,12 @@
 ### Скриншот табличного компонента с развернутой информацией по строке:
 ![Screenshot of table component](/../screenshot/screenshot/screenshot.png?raw=true "Табличный компонент")
 
+### Ссылка на приложение развернутое на хостинге vercel:
+https://react-typescript-table-component.vercel.app/
+
 ## Технологический стек:
 
-React, TypeScript, Redux Toolkit, Axios.
+React, TypeScript, Redux Toolkit, Axios, SCSS.
 
 ## Репозиторий с кодом API для получения данных о транзакциях из базы данных.
 
