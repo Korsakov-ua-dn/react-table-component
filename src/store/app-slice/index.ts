@@ -1,16 +1,17 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Locale } from "../../utils/translate/use-translate";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
+import { Locale } from '../../utils/translate/use-translate';
 
 type AppState = {
   locale: Locale;
 };
 
 const initialState: AppState = {
-  locale: "ru",
+  locale: 'ru',
 };
 
 const appSlice = createSlice({
-  name: "app",
+  name: 'app',
   initialState,
   reducers: {
     setLocale(state, action: PayloadAction<Locale>) {
@@ -20,9 +21,9 @@ const appSlice = createSlice({
     remindLocale(state) {
       const locale = localStorage.getItem('locale') as Locale;
       if (locale) {
-        state.locale = locale
+        state.locale = locale;
       }
-    }
+    },
   },
 });
 

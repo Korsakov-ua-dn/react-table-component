@@ -1,15 +1,16 @@
-import React, { RefObject } from "react";
-import { ColorSchemeType } from "../table.types";
-import "./style.scss";
+import React, { RefObject } from 'react';
+
+import { ColorSchemeType } from '../table.types';
+import './style.scss';
 
 interface IProps extends React.TableHTMLAttributes<HTMLTableElement> {
   children: [React.ReactNode, React.ReactNode];
   colorScheme?: ColorSchemeType;
   tableRef?: RefObject<HTMLTableElement>;
   tableWrapperRef?: RefObject<HTMLDivElement>;
-};
+}
 
-const TableComponent:React.FC<IProps> = ({
+const TableComponent: React.FC<IProps> = ({
   children,
   colorScheme,
   tableRef,
@@ -18,7 +19,7 @@ const TableComponent:React.FC<IProps> = ({
 }) => {
   const classTable = `
     Table 
-    ${colorScheme === "zebra" ? "Table_zebra" : ""}
+    ${colorScheme === 'zebra' ? 'Table_zebra' : ''}
   `;
 
   return (

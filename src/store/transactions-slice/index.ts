@@ -1,12 +1,13 @@
 import {
-  createSlice,
-  createAsyncThunk,
   AnyAction,
   PayloadAction,
-} from "@reduxjs/toolkit";
-import { RootState } from "..";
-import { ITransaction } from "../../modules/transactions/transactions.types";
-import { transactionsApi } from "../../services/transactions-api";
+  createAsyncThunk,
+  createSlice,
+} from '@reduxjs/toolkit';
+
+import { RootState } from '..';
+import { ITransaction } from '../../modules/transactions/transactions.types';
+import { transactionsApi } from '../../services/transactions-api';
 
 type TransactionsState = {
   data: ITransaction[];
@@ -25,7 +26,7 @@ const initialState: TransactionsState = {
 };
 
 const transactionsSlice = createSlice({
-  name: "transactions",
+  name: 'transactions',
   initialState,
   reducers: {
     setLimit(state, action: PayloadAction<number>) {
@@ -60,28 +61,21 @@ export default transactionsSlice.reducer;
 export const fetchAllTransactions = createAsyncThunk<
   ITransaction[],
   undefined,
-  { rejectValue: string, state: RootState  }
->("transactions/GET_ALL", async (_, { rejectWithValue }) => {
+  { rejectValue: string; state: RootState }
+>('transactions/GET_ALL', async (_, { rejectWithValue }) => {
   try {
-
     const response = await transactionsApi.getAll();
     return await response.data;
-
   } catch (err) {
     return rejectWithValue(
-      "Произошла ошибка, попробуйте перезагрузить страницу"
+      'Произошла ошибка, попробуйте перезагрузить страницу'
     );
   }
 });
 
 function isError(action: AnyAction) {
-  return action.type.endsWith("rejected");
+  return action.type.endsWith('rejected');
 }
-
-
-
-
-
 
 // thunk
 // Запрос на сервер с указанием limit и skip параметров
@@ -96,7 +90,7 @@ function isError(action: AnyAction) {
 //   try {
 //     if (payload) {
 //       const response = await transactionsApi.getAll(
-//         payload.limit, 
+//         payload.limit,
 //         payload.page*payload.limit
 //       );
 //       return await response.data
@@ -111,4 +105,4 @@ function isError(action: AnyAction) {
 //       "Произошла ошибка, попробуйте перезагрузить страницу"
 //     );
 //   }
-// }); 
+// });

@@ -1,7 +1,8 @@
-import React from "react";
-import TbodyRow from "../t-body-row";
-import { v1 } from "uuid";
-import { ExpandedContentComponent, ViewDataFormatScheme } from "../table.types";
+import React from 'react';
+import { v1 } from 'uuid';
+
+import TbodyRow from '../t-body-row';
+import { ExpandedContentComponent, ViewDataFormatScheme } from '../table.types';
 
 interface IProps<T> extends React.HTMLAttributes<HTMLTableSectionElement> {
   items: T[];
@@ -15,7 +16,6 @@ const Tbody = <T extends object>({
   getExpandedContentComponent,
   ...restProps
 }: IProps<T>): JSX.Element => {
-  
   const tbody = items.map((row, i) => {
     const id = v1();
     return (

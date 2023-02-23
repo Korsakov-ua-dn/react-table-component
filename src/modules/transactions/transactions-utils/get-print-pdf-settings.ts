@@ -1,4 +1,4 @@
-import { RefObject } from "react";
+import { RefObject } from 'react';
 
 /**
  * Строки таблицы разворачиваются по клику и меняют высоту таблицы.
@@ -13,10 +13,10 @@ export function getPrintPdfSettings(
 ) {
   return {
     content: () => tableWrapperRef.current,
-    documentTitle: "table",
+    documentTitle: 'table',
     onBeforeGetContent: () => {
       if (tableRef.current) {
-        const style = document.createElement("style");
+        const style = document.createElement('style');
         style.textContent = getPageStylesForPrint(
           tableRef.current.offsetWidth,
           tableRef.current.offsetHeight
@@ -33,13 +33,10 @@ export function getPrintPdfSettings(
   };
 }
 
-function getPageStylesForPrint (
-    width: number,
-    height: number
-  ): string {
-    // Convert px to mm
-    const coefficient = 0.2636;
-    return `
+function getPageStylesForPrint(width: number, height: number): string {
+  // Convert px to mm
+  const coefficient = 0.2636;
+  return `
       @media print {
         html, body {
         background-color: #ffffff;
@@ -50,4 +47,4 @@ function getPageStylesForPrint (
         }
       }
     `;
-  };
+}

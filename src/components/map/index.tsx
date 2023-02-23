@@ -1,15 +1,17 @@
-import React from "react";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import { Icon, LatLngExpression } from "leaflet";
-import "leaflet/dist/leaflet.css";
-import "./style.scss";
-import { ITransaction } from "../../modules/transactions/transactions.types";
-import marker from "./images/map-marker.png";
+import React from 'react';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { Icon, LatLngExpression } from 'leaflet';
+
+import 'leaflet/dist/leaflet.css';
+import './style.scss';
+import { ITransaction } from '../../modules/transactions/transactions.types';
+
+import marker from './images/map-marker.png';
 
 interface IProps {
   center: LatLngExpression;
   transaction: ITransaction;
-};
+}
 
 const Map: React.FC<IProps> = (props) => {
   return (
@@ -30,8 +32,8 @@ const Map: React.FC<IProps> = (props) => {
       >
         <Popup>
           <span>
-            Детальная информация о транзакции{" "}
-            <b>id:&nbsp;{props.transaction._id}</b>{" "}
+            Детальная информация о транзакции{' '}
+            <b>id:&nbsp;{props.transaction._id}</b>{' '}
           </span>
           <br />
           <span>Адрес: {props.transaction.address}</span>

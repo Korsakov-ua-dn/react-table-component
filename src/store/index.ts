@@ -1,10 +1,11 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import transactionReducer from "./transactions-slice";
-import appReducer from "./app-slice";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+
+import appReducer from './app-slice';
+import transactionReducer from './transactions-slice';
 
 const rootReducer = combineReducers({
-  transactions: transactionReducer,
   app: appReducer,
+  transactions: transactionReducer,
 });
 
 export const store = configureStore({
@@ -16,5 +17,5 @@ export const store = configureStore({
 });
 
 // types
-export type RootState = ReturnType<typeof rootReducer>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppDispatch = typeof store.dispatch;

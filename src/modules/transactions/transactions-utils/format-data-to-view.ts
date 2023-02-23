@@ -1,8 +1,9 @@
 import {
-  FormatType,
   FormatFunctionType,
-} from "../../../components/table-component/table.types";
-import { formatNumber } from "./formatNumber";
+  FormatType,
+} from '../../../components/table-component/table.types';
+
+import { formatNumber } from './formatNumber';
 
 // Функции форматирования данных для отображения согласно макета.
 export const formatDataToView: Record<FormatType, FormatFunctionType> = {
@@ -13,12 +14,12 @@ export const formatDataToView: Record<FormatType, FormatFunctionType> = {
     const date = new Date(data);
     return date
       .toLocaleString([], {
-        year: "numeric",
-        month: "numeric",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
       })
-      .replace(",", "");
+      .replace(',', '');
   },
 };

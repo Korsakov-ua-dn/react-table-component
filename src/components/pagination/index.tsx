@@ -1,8 +1,7 @@
-import React from "react";
-// From MUI
+import React from 'react';
 import TablePagination, {
   TablePaginationProps,
-} from "@mui/material/TablePagination";
+} from '@mui/material/TablePagination';
 
 type PropsType = TablePaginationProps & {
   count: number;
@@ -21,18 +20,17 @@ const Pagination: React.FC<PropsType> = ({
   rowsPerPage,
   ...restprops
 }): JSX.Element => {
-
   const style = {
     MenuProps: {
       sx: {
-        ".MuiTablePagination-menuItem.Mui-selected": {
-          backgroundColor: "var(--color-active)!important",
-          color: "#ffffff",
+        '.MuiTablePagination-menuItem.Mui-selected': {
+          backgroundColor: 'var(--color-active)!important',
+          color: '#ffffff',
         },
       },
     },
   };
-  
+
   return (
     <TablePagination
       component="div"

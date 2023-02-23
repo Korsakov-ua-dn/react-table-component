@@ -1,9 +1,9 @@
-import React, { MouseEvent } from "react";
-import { DirectionType, ViewDataFormatScheme } from "../table.types";
-import WithTooltip from "../with-tooltip";
-import arrow from '../images/arrow-sort.svg';
-import "./style.scss";
+import React, { MouseEvent } from 'react';
 
+import { DirectionType, ViewDataFormatScheme } from '../table.types';
+import WithTooltip from '../with-tooltip';
+import arrow from '../images/arrow-sort.svg';
+import './style.scss';
 
 interface IProps<T> {
   value: Partial<keyof T>;
@@ -13,12 +13,12 @@ interface IProps<T> {
   isActiveField: boolean;
   direction?: DirectionType;
   onSort?: (e: MouseEvent<HTMLElement>) => void;
-};
+}
 
 const TheadItem = <T,>(props: IProps<T>): JSX.Element => {
   const classN = `
     Table__head-item 
-    ${props.isActiveField ? "Table__head-item_active" : ""}
+    ${props.isActiveField ? 'Table__head-item_active' : ''}
   `;
 
   const style = props.width ? { maxWidth: `${props.width}px` } : {};
