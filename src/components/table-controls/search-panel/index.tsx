@@ -17,7 +17,7 @@ interface IProps<T> {
   searchField: keyof T | undefined;
   onSearch: (value: string) => void;
   onSelectField: (e: SelectChangeEvent) => void;
-  translate: Translate;
+  translate: Translate<'table'>;
 }
 
 const SearchPanel = <T,>({

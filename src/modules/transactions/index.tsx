@@ -35,6 +35,8 @@ const Transactions: React.FC = () => {
     locale: state.app.locale,
   }));
 
+  const translate = useTranslation('table', select.locale);
+
   const [search, setSearch] = useState<SearchType>(null);
   const [sort, setSort] = useState<SortType>(null);
 
@@ -46,10 +48,6 @@ const Transactions: React.FC = () => {
       return select.transactions.filter((item) =>
         regex.test(String(item[search.field]))
       );
-      //Поиск чувствительный к регистру
-      // return select.transactions.filter((item) =>
-      //   String(item[search.field]).includes(search.value)
-      // );
     } else return select.transactions;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search?.value, select.transactions]);
@@ -73,8 +71,6 @@ const Transactions: React.FC = () => {
         i < select.limit * (select.page + 1) && i >= select.limit * select.page
     );
   }, [select.limit, select.page, sortTransactions]);
-
-  const translate = useTranslation('table', select.locale);
 
   // Три рефа нужны для печати пдф
   const tableWrapperRef = useRef<HTMLDivElement>(null);
@@ -149,6 +145,7 @@ const Transactions: React.FC = () => {
   const options = {
     rowsPerPageOptions: useMemo(() => [5, 10, 25], []),
   };
+  console.log('Render Transactions');
 
   return (
     <>

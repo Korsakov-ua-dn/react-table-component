@@ -1,31 +1,23 @@
-// import en from './locales/en.json';
-// import ru from './locales/ru.json';
+import { useMemo } from 'react';
+
 import * as locales from './locales';
 
 export function useTranslation<T extends keyof Wordbook>(
   chapter: T,
   locale: Locale
 ) {
-  // const wordbook: Wordbook = require(`./locales/${locale}.json`);
-  // eslint-disable-next-line import/namespace
-  const wordbook: Wordbook = locales[locale];
+  const memoTranslateFn = useMemo(() => {
+    const wordbook: Wordbook = locales[locale];
+    return (key: keyof Wordbook[T]) => wordbook[chapter][key];
+  }, [chapter, locale]);
 
-  // let wordbook: Wordbook;
-  // if (locale === 'en') {
-  //   wordbook = en;
-  // } else {
-  //   wordbook = ru;
-  // }
-
-  return (key: keyof Wordbook[T]) => wordbook[chapter][key];
+  return memoTranslateFn;
 }
 
 // types
-export type Locale = 'en' | 'ru';
-
-// type Wordbook = typeof ru | typeof en;
-
-export type Translate = ReturnType<typeof useTranslation>;
-
 type ValueOf<T> = T[keyof T];
 type Wordbook = ValueOf<typeof locales>;
+export type Locale = keyof typeof locales;
+export type Translate<T> = ReturnType<
+  typeof useTranslation<T extends keyof Wordbook ? T : never>
+>;
