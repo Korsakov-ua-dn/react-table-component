@@ -145,7 +145,6 @@ const Transactions: React.FC = () => {
   const options = {
     rowsPerPageOptions: useMemo(() => [5, 10, 25], []),
   };
-  console.log('Render Transactions');
 
   return (
     <>
