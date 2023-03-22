@@ -1,6 +1,6 @@
 import * as XLSX from 'xlsx';
 
-import { ViewDataFormatScheme } from '../../../components/table-component/table.types';
+import { ViewDataFormatScheme } from '../components/table-component/table.types';
 
 export const onDownloadXlsx = <T extends object>(
   items: T[],

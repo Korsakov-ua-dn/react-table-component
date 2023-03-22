@@ -1,7 +1,7 @@
 import {
   DirectionType,
   FormatType,
-} from '../../../components/table-component/table.types';
+} from '../components/table-component/table.types';
 
 // Функция сортировки данных в зависимости от их типа и направления.
 export function sortArrayOfObjects<T>(

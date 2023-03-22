@@ -1,8 +1,8 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { LatLngExpression } from 'leaflet';
 
-import Map from '../../components/map';
 import { geocode } from '../../services/geocode-services';
+import Map from '../../modules/transactions/components/map';
 
 interface IProps {
   info: any;

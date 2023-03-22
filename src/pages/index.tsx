@@ -1,18 +1,16 @@
-import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import MainLayout from '../containers/main-layout';
+import { Header } from '../modules/header';
 
-import Main from './main';
+import { Main } from './main';
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   return (
-    <MainLayout>
+    <>
+      <Header />
       <Routes>
         <Route path={''} element={<Main />} />
       </Routes>
-    </MainLayout>
+    </>
   );
 };
-
-export default React.memo(App) as typeof App;

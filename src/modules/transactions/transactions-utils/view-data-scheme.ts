@@ -1,5 +1,5 @@
-import { ViewDataFormatScheme } from '../../../components/table-component/table.types';
-import { ITransaction } from '../transactions.types';
+import { ViewDataFormatScheme } from '../components/table-component/table.types';
+import { ITransaction } from '../types';
 
 import { formatDataToView } from './format-data-to-view';
 

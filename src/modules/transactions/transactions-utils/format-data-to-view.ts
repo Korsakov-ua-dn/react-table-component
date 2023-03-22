@@ -1,7 +1,7 @@
 import {
   FormatFunctionType,
   FormatType,
-} from '../../../components/table-component/table.types';
+} from '../components/table-component/table.types';
 
 import { formatNumber } from './formatNumber';
 
