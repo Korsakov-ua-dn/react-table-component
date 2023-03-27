@@ -1,11 +1,12 @@
 import React, { useLayoutEffect } from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { geocode } from '../../services/geocode-services';
+import { useAppDispatch, useAppSelector } from 'shared/hooks';
+import { geocode } from 'shared/api';
+
 import { MainLayout } from '../../components/main-layout';
 import { Transactions, fetchAllTransactions } from '../../modules/transactions';
 
-export const Main: React.FC = () => {
+const Main: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const select = useAppSelector((state) => ({
@@ -21,7 +22,7 @@ export const Main: React.FC = () => {
 
   return (
     <MainLayout>
-      {select.loading && 'Загрузка информации...'}
+      {select.loading && 'Загрузка данных о транзакциях...'}
 
       {select.error && select.error}
 
@@ -29,3 +30,5 @@ export const Main: React.FC = () => {
     </MainLayout>
   );
 };
+
+export default Main;

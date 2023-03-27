@@ -5,11 +5,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
-import { Translate } from '../../../../../utils';
-
 import { ViewDataFormatScheme } from '../../table-component/table.types';
 
 import SearchField from './search-field';
+
+import type { Translate } from 'shared/lib/intl';
 
 import './style.scss';
 

@@ -4,8 +4,9 @@ import { useReactToPrint } from 'react-to-print';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { LabelDisplayedRowsArgs } from '@mui/material/TablePagination/TablePagination';
 
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
-import { useTranslation } from '../../../../utils';
+import { useTranslation } from 'shared/lib/intl';
+
+import { useAppDispatch, useAppSelector } from 'shared/hooks';
 
 import ExpandedContent from '../../../../containers/expanded-content';
 
@@ -34,7 +35,7 @@ export const Transactions: React.FC = () => {
     limit: state.transactions.limit,
     page: state.transactions.page,
     selected: state.transactions.limit,
-    locale: state.header.locale,
+    locale: state.lang.locale,
   }));
 
   const translate = useTranslation('table', select.locale);

@@ -1,16 +1,12 @@
+import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { Header } from '../modules/header';
+const Main = lazy(() => import('./main'));
 
-import { Main } from './main';
-
-export const App: React.FC = () => {
+export const Routing: React.FC = () => {
   return (
-    <>
-      <Header />
-      <Routes>
-        <Route path={''} element={<Main />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path={'/'} element={<Main />} />
+    </Routes>
   );
 };

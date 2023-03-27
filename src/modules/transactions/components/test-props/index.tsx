@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Translate } from '../../../../utils';
+import { Translate } from 'shared/lib/intl';
 
 interface IProps {
   title: string;
