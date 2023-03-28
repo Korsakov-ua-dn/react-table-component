@@ -1,0 +1,43 @@
+.Table__head-item {
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 10px;
+  box-sizing: border-box;
+  
+  & div {
+    width: fit-content;
+    position: relative;
+    display: flex;
+    color: #ffffff;
+    padding-right: 18px;
+    & .Direction-arrow {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 17px;
+      width: 14px;
+    }
+  }
+}
+
+.Table__head-item_active {
+  & [data-direction="ascending"] {
+    visibility: visible;
+    transform: rotate(180deg);
+  }
+
+  & [data-direction="descending"] {
+    visibility: visible;
+  }
+}
+
+.Direction-arrow {
+  visibility: hidden;
+}

@@ -5,7 +5,7 @@ import { SelectChangeEvent } from '@mui/material/Select';
 import { LabelDisplayedRowsArgs } from '@mui/material/TablePagination/TablePagination';
 
 import { useTranslation } from 'shared/lib/intl';
-
+import { Table, Tbody, Thead } from 'shared/ui/table-with-expanded-row';
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
 
 import ExpandedContent from '../../../../containers/expanded-content';
@@ -22,9 +22,6 @@ import { ITransaction, SearchType, SortType } from '../../types';
 import TableControls from '../../components/table-controls/table-controls';
 import DownloadPanel from '../../components/table-controls/download-panel';
 import SearchPanel from '../../components/table-controls/search-panel';
-import { TableComponent } from '../../components/table-component';
-import THead from '../../components/table-component/t-head';
-import TBody from '../../components/table-component/t-body';
 import Pagination from '../../components/pagination';
 
 export const Transactions: React.FC = () => {
@@ -165,25 +162,25 @@ export const Transactions: React.FC = () => {
         />
       </TableControls>
 
-      <TableComponent
+      <Table
         colorScheme="zebra"
         tableWrapperRef={tableWrapperRef}
         tableRef={tableRef}
       >
-        <THead
+        <Thead
           viewDataFormatScheme={viewDataScheme}
           onSort={callbacks.onSort}
           activeField={sort?.field}
           direction={sort?.direction}
         />
-        <TBody
+        <Tbody
           items={transactionsForView}
           viewDataFormatScheme={viewDataScheme}
           getExpandedContentComponent={(info) => (
             <ExpandedContent info={info} />
           )}
         />
-      </TableComponent>
+      </Table>
 
       <Pagination
         count={sortTransactions.length}

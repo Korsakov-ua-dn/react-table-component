@@ -4,6 +4,8 @@ import { Header } from 'widgets/header';
 
 import { withProviders } from './providers';
 
+import './index.scss';
+
 const App = () => {
   return (
     <>

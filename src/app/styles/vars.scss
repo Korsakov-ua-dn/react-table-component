@@ -1,0 +1,21 @@
+:root {
+  --header_height: 60px;
+
+  --border_radius: 4px;
+  --background: #ffffff;
+
+  --color_dark_grey: #b3b3b3;
+  --color_light_grey: #dcdcdc;
+  --color_light_yellow: #fffeee;
+  --color_active: cornflowerblue;
+
+  --font: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font_color: rgba(0, 0, 0, 0.87);
+  --font_color_grey: #999999;
+}
+
+@media screen and (max-width: 767px) {
+  :root {
+    --header_height: 50px;
+  }
+}

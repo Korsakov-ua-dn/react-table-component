@@ -1,0 +1,21 @@
+.Table__body-row {
+  background-color: var(--color_light_yellow);
+}
+.Table__body-row_expanded {
+  & svg {
+    transform: rotate(90deg);
+  }
+}
+.Arrow-expand {
+  display: flex;
+  align-items: flex-start;
+  padding: 8px 0;
+  cursor: pointer;
+  & svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+.Table_zebra .Table__body-row_painted {
+  background-color: var(--color_light_grey);
+}

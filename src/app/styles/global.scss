@@ -1,0 +1,37 @@
+body {
+  position: relative;
+  min-width: 360px;
+  min-height: 100vh;
+
+  font-family: var(--font);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--font_color);
+  background-color: var(--background);
+
+  // скрывает скролл бар
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
+
+h1,
+h2,
+h3,
+a,
+p,
+button,
+span,
+textarea,
+label,
+input {
+  font-family: var(--font);
+  font-style: normal;
+  font-weight: 400;
+  color: inherit;
+}
