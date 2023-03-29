@@ -27,6 +27,7 @@ export const SearchPanel: React.FC<IProps> = React.memo(
     const searchField = useAppSelector(
       (state) => state['search-transaction'].params?.field
     );
+
     const [error, setError] = useState(false);
 
     const cb = {

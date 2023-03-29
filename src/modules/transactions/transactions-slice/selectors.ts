@@ -2,8 +2,8 @@ import { createSelector } from '@reduxjs/toolkit';
 
 import { sortArrayOfObjects } from '../transactions-utils';
 
-export const getAllTransactions = (state: RootState) => state.transactions.data;
-export const getSearchParams = (state: RootState) =>
+const getAllTransactions = (state: RootState) => state.transactions.data;
+const getSearchParams = (state: RootState) =>
   state['search-transaction'].params;
 // export const getSearchField = (state: RootState) =>
 //   state['search-transaction'].params?.field;
@@ -12,15 +12,15 @@ export const getSearchParams = (state: RootState) =>
 // export const getSearchField = (state: RootState) => 'point' as const;
 // export const getSearchValue = (state: RootState) => '' as const;
 
-export const getSortField = (state: RootState) => 'date' as const;
-export const getDataFormat = (state: RootState) => 'date' as const;
-export const getSortDirection = (state: RootState) => 'descending' as const; // "none" | "ascending" | "descending"
+const getSortField = (state: RootState) => 'date' as const;
+const getDataFormat = (state: RootState) => 'date' as const;
+const getSortDirection = (state: RootState) => 'descending' as const; // "none" | "ascending" | "descending"
 // field: keyof ITransaction;
 // format: DataFormat;
 // direction: Direction;
 
-export const getLimit = (state: RootState) => state.transactions.limit;
-export const getPage = (state: RootState) => state.transactions.page;
+const getLimit = (state: RootState) => state.transactions.limit;
+const getPage = (state: RootState) => state.transactions.page;
 
 const getTransactionsBySearch = createSelector(
   [getAllTransactions, getSearchParams],
