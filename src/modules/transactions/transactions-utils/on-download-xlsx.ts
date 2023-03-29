@@ -1,10 +1,10 @@
 import * as XLSX from 'xlsx';
 
-import { ViewDataFormatScheme } from '../components/table-component/table.types';
+import type { Scheme } from 'shared/ui/table-with-expanded-row';
 
 export const onDownloadXlsx = <T extends object>(
   items: T[],
-  scheme: ViewDataFormatScheme<T>
+  scheme: Scheme<T>
 ) => {
   const schemaKeys = Object.keys(scheme);
   const itemKeys = Object.keys(items[0] as object);

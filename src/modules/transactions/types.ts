@@ -1,7 +1,4 @@
-import {
-  DirectionType,
-  FormatType,
-} from './components/table-component/table.types';
+import type { DataFormat, Direction } from 'shared/ui/table-with-expanded-row';
 
 export interface ITransaction {
   _id: string;
@@ -20,6 +17,6 @@ export type FieldType = keyof ITransaction;
 export type SearchType = { field: keyof ITransaction; value: string } | null;
 export type SortType = {
   field: keyof ITransaction;
-  format: FormatType;
-  direction: DirectionType;
+  format: DataFormat;
+  direction: Direction;
 } | null;

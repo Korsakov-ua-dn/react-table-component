@@ -1,14 +1,11 @@
-import {
-  DirectionType,
-  FormatType,
-} from '../components/table-component/table.types';
+import type { DataFormat, Direction } from 'shared/ui/table-with-expanded-row';
 
-// Функция сортировки данных в зависимости от их типа и направления.
-export function sortArrayOfObjects<T>(
+// Функция сортировки данных в зависимости от их типа и направления сортировки.
+export function sortArrayOfObjects<T extends object>(
   array: T[],
   field: keyof T,
-  direction: DirectionType,
-  format: FormatType
+  direction: Direction,
+  format: DataFormat
 ) {
   if (direction === 'none') return array;
 

@@ -4,12 +4,12 @@ import { v1 } from 'uuid';
 import Th from '../th';
 import Tr from '../tr';
 
-// import { DirectionType, ViewDataFormatScheme } from '../table.types';
+import type { Direction, Scheme } from '../types';
 
 interface IProps<T> extends React.HTMLAttributes<HTMLTableSectionElement> {
-  viewDataFormatScheme: ViewDataFormatScheme<T>;
+  viewDataFormatScheme: Scheme<T>;
   activeField: keyof T | undefined;
-  direction?: DirectionType;
+  direction?: Direction;
   onSort?: (field: keyof T) => void;
 }
 
@@ -21,13 +21,13 @@ const Thead = <T extends object>({
   ...restProps
 }: IProps<T>): JSX.Element => {
   // Один обработчик для всех полей
-  // const onSortHendler = useCallback(
-  //   (e: MouseEvent<HTMLElement>) => {
-  //     const field = e.currentTarget.getAttribute('data-field') as keyof T;
-  //     onSort && onSort(field);
-  //   },
-  //   [onSort]
-  // );
+  const onSortHendler = useCallback(
+    (e: MouseEvent<HTMLElement>) => {
+      const field = e.currentTarget.getAttribute('data-field') as keyof T;
+      onSort && onSort(field);
+    },
+    [onSort]
+  );
 
   const renderTh = (key: keyof T) => {
     const isSort = viewDataFormatScheme[key]?.sort!;
@@ -39,8 +39,7 @@ const Thead = <T extends object>({
         isSort={isSort}
         width={viewDataFormatScheme[key]?.width}
         viewDataFormatScheme={viewDataFormatScheme}
-        // onSort={onSortHendler}
-        onSort={() => onSort && onSort(key)}
+        onSort={onSortHendler}
         isActiveField={activeField === key}
         direction={direction}
       />

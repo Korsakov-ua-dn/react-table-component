@@ -1,10 +1,11 @@
-import { ViewDataFormatScheme } from '../components/table-component/table.types';
 import { ITransaction } from '../types';
 
 import { formatDataToView } from './format-data-to-view';
 
-// Порядок элементов в схеме и их параметры управляют отображением в таюлице.
-export const viewDataScheme: ViewDataFormatScheme<ITransaction> = {
+import type { Scheme } from 'shared/ui/table-with-expanded-row';
+
+// Порядок элементов в схеме и их параметры управляют отображением в таблице.
+export const viewDataScheme: Scheme<ITransaction> = {
   name: {
     format: 'string',
     title: 'Транспорт',
@@ -59,4 +60,4 @@ export const viewDataScheme: ViewDataFormatScheme<ITransaction> = {
     sort: true,
     renderFunction: formatDataToView['price'],
   },
-}; // ViewDataFormatScheme<Transaction> === Partial<Record<keyof Transaction, Data>>
+};

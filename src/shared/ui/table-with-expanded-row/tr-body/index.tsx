@@ -1,17 +1,18 @@
 import React, { useCallback, useState } from 'react';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
-// import { ExpandedContentComponent, ViewDataFormatScheme } from '../table.types';
 import Td from '../td';
+import ExpandedRow from '../expanded-row';
+
+import type { GetExpandedComponent, Scheme } from '../types';
 
 import './style.scss';
-import ExpandedRow from '../expanded-row';
 
 interface IProps<T> {
   row: T;
-  viewDataFormatScheme: ViewDataFormatScheme<T>;
+  viewDataFormatScheme: Scheme<T>;
   painted: boolean;
-  getExpandedContentComponent: ExpandedContentComponent;
+  getExpandedComponent: GetExpandedComponent;
 }
 
 const TrBody = <T extends object>(props: IProps<T>): JSX.Element => {
@@ -50,7 +51,7 @@ const TrBody = <T extends object>(props: IProps<T>): JSX.Element => {
       {isExpanded && (
         <ExpandedRow
           row={props.row}
-          getExpandedContentComponent={props.getExpandedContentComponent}
+          getExpandedComponent={props.getExpandedComponent}
         />
       )}
     </>

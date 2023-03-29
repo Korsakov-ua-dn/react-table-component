@@ -1,11 +1,12 @@
 import React, { RefObject } from 'react';
 
-// import { ColorSchemeType } from '../table.types';
+import type { ColorScheme } from '../types';
+
 import './style.scss';
 
 interface IProps extends React.TableHTMLAttributes<HTMLTableElement> {
   children: [React.ReactNode, React.ReactNode];
-  colorScheme?: ColorSchemeType;
+  colorScheme?: ColorScheme;
   tableRef?: RefObject<HTMLTableElement>;
   tableWrapperRef?: RefObject<HTMLDivElement>;
 }

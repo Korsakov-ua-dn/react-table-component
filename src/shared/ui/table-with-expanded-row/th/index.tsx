@@ -2,17 +2,18 @@ import React, { MouseEvent } from 'react';
 
 import WithTooltip from 'shared/ui/with-tooltip';
 
-// import { DirectionType, ViewDataFormatScheme } from '../table.types';
 import arrow from './arrow-sort.svg';
 import './style.scss';
+
+import type { Direction, Scheme } from '../types';
 
 interface IProps<T> {
   value: Partial<keyof T>;
   isSort: boolean;
   width: number | undefined;
-  viewDataFormatScheme: ViewDataFormatScheme<T>;
+  viewDataFormatScheme: Scheme<T>;
   isActiveField: boolean;
-  direction?: DirectionType;
+  direction?: Direction;
   onSort?: (e: MouseEvent<HTMLElement>) => void;
 }
 

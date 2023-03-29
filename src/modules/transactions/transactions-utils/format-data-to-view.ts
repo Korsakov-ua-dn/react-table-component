@@ -1,12 +1,12 @@
-import {
-  FormatFunctionType,
-  FormatType,
-} from '../components/table-component/table.types';
-
 import { formatNumber } from './formatNumber';
 
+import type {
+  DataFormat,
+  DataFormatFunction,
+} from 'shared/ui/table-with-expanded-row';
+
 // Функции форматирования данных для отображения согласно макета.
-export const formatDataToView: Record<FormatType, FormatFunctionType> = {
+export const formatDataToView: Record<DataFormat, DataFormatFunction> = {
   string: (data: any) => data,
   number: (data: any) => formatNumber(data),
   price: (data: any) => `${formatNumber(data)} ₽`,

@@ -1,19 +1,20 @@
 import React from 'react';
 import { v1 } from 'uuid';
 
-// import { ExpandedContentComponent, ViewDataFormatScheme } from '../table.types';
 import TrBody from '../tr-body';
+
+import type { GetExpandedComponent, Scheme } from '../types';
 
 interface IProps<T> extends React.HTMLAttributes<HTMLTableSectionElement> {
   items: T[];
-  viewDataFormatScheme: ViewDataFormatScheme<T>;
-  getExpandedContentComponent: ExpandedContentComponent;
+  viewDataFormatScheme: Scheme<T>;
+  getExpandedComponent: GetExpandedComponent;
 }
 
 const Tbody = <T extends object>({
   items,
   viewDataFormatScheme,
-  getExpandedContentComponent,
+  getExpandedComponent,
   ...restProps
 }: IProps<T>): JSX.Element => {
   const tbody = items.map((row, i) => {
@@ -24,7 +25,7 @@ const Tbody = <T extends object>({
         row={row}
         painted={i % 2 === 0} // покрасить зеброй
         viewDataFormatScheme={viewDataFormatScheme}
-        getExpandedContentComponent={getExpandedContentComponent}
+        getExpandedComponent={getExpandedComponent}
       />
     );
   });

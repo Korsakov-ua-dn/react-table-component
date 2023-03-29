@@ -1,0 +1,1 @@
+export { searchTransactionReducer } from './model';

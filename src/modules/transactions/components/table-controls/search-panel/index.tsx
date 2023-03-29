@@ -5,16 +5,15 @@ import SearchIcon from '@mui/icons-material/Search';
 import { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
-import { ViewDataFormatScheme } from '../../table-component/table.types';
-
 import SearchField from './search-field';
 
 import type { Translate } from 'shared/lib/intl';
+import type { Scheme } from 'shared/ui/table-with-expanded-row';
 
 import './style.scss';
 
 interface IProps<T> {
-  viewDataFormatScheme: ViewDataFormatScheme<T>;
+  viewDataFormatScheme: Scheme<T>;
   searchField: keyof T | undefined;
   onSearch: (value: string) => void;
   onSelectField: (e: SelectChangeEvent) => void;

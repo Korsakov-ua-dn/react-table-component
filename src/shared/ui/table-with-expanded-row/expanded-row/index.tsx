@@ -1,10 +1,12 @@
 import React from 'react';
 
+import type { GetExpandedComponent } from '../types';
+
 import './style.scss';
 
 interface IProps<T> {
   row: T;
-  getExpandedContentComponent: ExpandedContentComponent;
+  getExpandedComponent: GetExpandedComponent;
 }
 
 const ExpandedRow = <T extends object>(props: IProps<T>): JSX.Element => {
@@ -12,7 +14,7 @@ const ExpandedRow = <T extends object>(props: IProps<T>): JSX.Element => {
     <tr className={'Expanding-content'}>
       <td colSpan={Object.keys(props.row).length}>
         <div className="Expanding-content__Detailed-information">
-          {props.getExpandedContentComponent(props.row)}
+          {props.getExpandedComponent(props.row)}
         </div>
       </td>
     </tr>
