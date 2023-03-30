@@ -42,7 +42,7 @@ const SearchInput = ({
       onChange={onSearchHandler}
       id="search-transaction-input"
       label={translate('search')}
-      helperText={error ? translate('search-error') : ''}
+      // helperText={error ? translate('search-error') : ''}
       error={error}
     />
   );

@@ -65,6 +65,11 @@ export const SearchPanel: React.FC<IProps> = React.memo(
           onSearch={cb.onSearch}
           translate={translate}
         />
+        {error && (
+          <span className="SearchTransactionPanel__error">
+            {translate('search-error')}
+          </span>
+        )}
       </ComponentLayout>
     );
   }

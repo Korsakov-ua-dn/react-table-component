@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 import './style.scss';
 
 interface IProps {
-  children: [ReactNode, ReactNode];
+  children: [ReactNode, ReactNode] | [ReactNode, ReactNode, ReactNode];
 }
 
 export const ComponentLayout: React.FC<IProps> = React.memo(({ children }) => {
