@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-import { sortArrayOfObjects } from '../transactions-utils';
+import { sortArrayOfObjects } from '../lib';
 
 const getAllTransactions = (state: RootState) => state.transaction.data;
 const getSearchParams = (state: RootState) =>

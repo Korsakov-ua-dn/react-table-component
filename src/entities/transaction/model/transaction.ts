@@ -1,37 +1,25 @@
 import { AnyAction, PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { fetchAllTransactions } from 'entities/transaction/model/thunks';
+import { ITransaction } from 'shared/api/axios/transaction';
 
-import type { ITransaction } from '../types';
+import { fetchAllTransactions } from './thunks';
 
 type TransactionsState = {
   data: ITransaction[];
-  limit: number;
-  page: number;
   loading: boolean;
   error: string | null;
 };
 
 const initialState: TransactionsState = {
   data: [],
-  limit: 25,
-  page: 0,
   loading: false,
   error: null,
 };
 
-const transactionsSlice = createSlice({
-  name: 'transactions',
+const transactionSlice = createSlice({
+  name: 'transaction',
   initialState,
-  reducers: {
-    setLimit(state, action: PayloadAction<number>) {
-      state.limit = action.payload;
-      state.page = 0;
-    },
-    setPage(state, action: PayloadAction<number>) {
-      state.page = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllTransactions.pending, (state) => {
@@ -49,8 +37,8 @@ const transactionsSlice = createSlice({
   },
 });
 
-export const transactionActions = transactionsSlice.actions;
-export const transactionReducer = transactionsSlice.reducer;
+// export const transactionActions = transactionSlice.actions;
+export const transactionReducer = transactionSlice.reducer;
 
 function isError(action: AnyAction) {
   return action.type.endsWith('rejected');

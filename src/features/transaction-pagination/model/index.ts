@@ -21,6 +21,7 @@ const transactionPaginationSlice = createSlice({
     },
     setLimit(state, action: PayloadAction<number>) {
       state.limit = action.payload;
+      state.page = 0;
     },
   },
 });
