@@ -6,7 +6,7 @@ import { withProviders } from './providers';
 
 import './index.scss';
 
-const App = () => {
+export const App = withProviders(() => {
   return (
     <>
       <Header>
@@ -16,6 +16,4 @@ const App = () => {
       <Routing />
     </>
   );
-};
-
-export default withProviders(App);
+});

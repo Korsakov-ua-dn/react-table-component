@@ -2,17 +2,10 @@ import { createSelector } from '@reduxjs/toolkit';
 
 import { sortArrayOfObjects } from '../lib';
 
+// Возвращает отфильтрованный массив транзакций согласно параметров поиска
 const getAllTransactions = (state: RootState) => state.transaction.data;
 const getSearchParams = (state: RootState) =>
   state['search-transaction'].params;
-
-const getSortField = (state: RootState) => 'date' as const;
-const getDataFormat = (state: RootState) => 'date' as const;
-const getSortDirection = (state: RootState) => 'descending' as const;
-
-const getLimit = (state: RootState) => state['transaction-pagination'].limit;
-const getPage = (state: RootState) => state['transaction-pagination'].page;
-
 const getTransactionsBySearch = createSelector(
   [getAllTransactions, getSearchParams],
   (allTransactions, params) => {
@@ -26,20 +19,25 @@ const getTransactionsBySearch = createSelector(
   }
 );
 
+// Возвращает отсортированный массив транзакций согласно параметров сортировки
+const getSortParams = (state: RootState) => state['transaction-sort'].params;
 export const getSortTransactions = createSelector(
-  [getTransactionsBySearch, getSortField, getDataFormat, getSortDirection],
-  (transactionsBySearch, sortField, dataFormat, sortDirection) => {
-    if (sortField && dataFormat && sortDirection) {
+  [getTransactionsBySearch, getSortParams],
+  (transactionsBySearch, params) => {
+    if (params) {
       return sortArrayOfObjects(
         transactionsBySearch,
-        sortField,
-        sortDirection,
-        dataFormat
+        params.field,
+        params.direction,
+        params.format
       );
     } else return transactionsBySearch;
   }
 );
 
+// Возвращает отфильтрованный массив транзакций согласно параметров пагинации
+const getLimit = (state: RootState) => state['transaction-pagination'].limit;
+const getPage = (state: RootState) => state['transaction-pagination'].page;
 export const getTransactionsByPage = createSelector(
   [getSortTransactions, getLimit, getPage],
   (sortTransactions, limit, page) => {

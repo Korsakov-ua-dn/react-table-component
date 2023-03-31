@@ -8,18 +8,18 @@ interface IProps extends React.TableHTMLAttributes<HTMLTableElement> {
   children: [React.ReactNode, React.ReactNode];
   colorScheme?: ColorScheme;
   tableRef?: RefObject<HTMLTableElement>;
-  tableWrapperRef?: RefObject<HTMLDivElement>;
+  wrapRef?: RefObject<HTMLDivElement>;
 }
 
 export const Table: React.FC<IProps> = React.memo(
-  ({ children, colorScheme, tableRef, tableWrapperRef, ...restProps }) => {
+  ({ children, colorScheme, tableRef, wrapRef, ...restProps }) => {
     const classTable = `
     Table 
     ${colorScheme === 'zebra' ? 'Table_zebra' : ''}
   `;
 
     return (
-      <div className={classTable} ref={tableWrapperRef}>
+      <div className={classTable} ref={wrapRef}>
         <table id="table" ref={tableRef} {...restProps}>
           {children}
         </table>

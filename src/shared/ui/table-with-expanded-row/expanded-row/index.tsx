@@ -6,7 +6,7 @@ import './style.scss';
 
 interface IProps<T> {
   row: T;
-  getExpandedComponent: GetExpandedComponent;
+  getExpandedComponent: GetExpandedComponent<T>;
 }
 
 const ExpandedRow = <T extends object>(props: IProps<T>): JSX.Element => {

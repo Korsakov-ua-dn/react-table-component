@@ -2,9 +2,9 @@ import { FC, RefObject, memo } from 'react';
 
 import { useAppSelector } from 'shared/hooks';
 
-import { getTransactionsByPage } from 'modules/transactions/transactions-slice/selectors';
-import { viewDataScheme } from 'modules/transactions/transactions-utils';
+import { getTransactionsByPage } from 'entities/transaction/model/selectors';
 
+import { scheme } from 'features/transaction-table/config';
 import { PdfDownload } from 'features/pdf-download';
 import { XlsDownload } from 'features/xls-download';
 import { SearchPanel } from 'features/searchTransaction/ui';
@@ -24,13 +24,10 @@ export const TransactionControls: FC<IProps> = memo(({ wrapRef, tableRef }) => {
     <ComponentLayout>
       <DownloadBlock>
         <PdfDownload wrapRef={wrapRef} tableRef={tableRef} />
-        <XlsDownload
-          items={transactionsByPage}
-          viewDataFormatScheme={viewDataScheme}
-        />
+        <XlsDownload items={transactionsByPage} viewDataFormatScheme={scheme} />
       </DownloadBlock>
 
-      <SearchPanel viewDataFormatScheme={viewDataScheme} />
+      <SearchPanel viewDataFormatScheme={scheme} />
     </ComponentLayout>
   );
 });

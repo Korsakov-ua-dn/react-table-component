@@ -12,7 +12,7 @@ interface IProps<T> {
   row: T;
   viewDataFormatScheme: Scheme<T>;
   painted: boolean;
-  getExpandedComponent: GetExpandedComponent;
+  getExpandedComponent: GetExpandedComponent<T>;
 }
 
 const TrBody = <T extends object>(props: IProps<T>): JSX.Element => {

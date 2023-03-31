@@ -5,7 +5,7 @@ import { useTranslation } from 'shared/lib/intl';
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import TablePaginationMui from 'shared/ui/table-pagination-mui';
 
-import { getSortTransactions } from 'modules/transactions/transactions-slice/selectors';
+import { getSortTransactions } from 'entities/transaction/model/selectors';
 
 import { OPTIONS } from './config';
 import { transactionPaginationActions } from './model';

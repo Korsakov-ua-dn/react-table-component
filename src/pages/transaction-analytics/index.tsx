@@ -42,7 +42,7 @@ const TransactionAnalytics: FC = () => {
     <PageLayout>
       <TransactionControls wrapRef={tableWrapperRef} tableRef={tableRef} />
 
-      <TransactionTable />
+      <TransactionTable wrapRef={tableWrapperRef} tableRef={tableRef} />
 
       <TransactionPagination />
     </PageLayout>

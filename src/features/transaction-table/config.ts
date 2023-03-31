@@ -1,11 +1,11 @@
 import { formatDataScheme } from './lib/format-data-scheme';
 
-import type {
-  DataFormat,
-  Direction,
-  Scheme,
-} from 'shared/ui/table-with-expanded-row';
+import type { Scheme } from 'shared/ui/table-with-expanded-row';
 import type { ITransaction } from 'shared/api';
+
+export const mapContainerStyle = {
+  height: '200px',
+};
 
 // Порядок элементов в схеме и их параметры управляют отображением в таблице.
 export const scheme: Scheme<ITransaction> = {
@@ -64,11 +64,3 @@ export const scheme: Scheme<ITransaction> = {
     renderFunction: formatDataScheme['price'],
   },
 };
-
-export type FieldType = keyof ITransaction;
-export type SearchType = { field: keyof ITransaction; value: string } | null;
-export type SortType = {
-  field: keyof ITransaction;
-  format: DataFormat;
-  direction: Direction;
-} | null;

@@ -1,11 +1,11 @@
-import React from 'react';
+import { ReactNode } from 'react';
 
-import { Layout } from 'components/layout';
+import { Layout } from 'shared/ui/layout';
 
 import './style.scss';
 
 interface IProps {
-  children: React.ReactNode | React.ReactNode[];
+  children: ReactNode | ReactNode[];
 }
 
 export const Header: React.FC<IProps> = ({ children }) => {

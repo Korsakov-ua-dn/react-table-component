@@ -12,7 +12,7 @@ export type Data = {
 
 export type Scheme<T> = Partial<Record<keyof T, Data>>;
 
-export type GetExpandedComponent = <T>(info: T) => React.ReactElement<T>;
+export type GetExpandedComponent<T> = (info: T) => React.ReactNode;
 
 export type Direction = 'ascending' | 'descending' | 'none';
 
@@ -32,3 +32,11 @@ export type DataFormat = 'string' | 'number' | 'date' | 'price';
 //     ? Keys
 //     : never
 //   : never;
+
+// export type NotEmpty<T> = Record<string, any> extends T ? never : T;
+
+// export type Temp<T> = Partial<Record<keyof T, Data>>;
+// export type Scheme<T> = RequireOne<Record<keyof T, Data>>;
+// type RequireOne<T> = T & { [P in keyof T]: Required<Pick<T, P>> }[keyof T];
+
+// { [P in keyof Record<keyof T, Data>]?: Record<keyof T, Data>[P] | undefined; }
