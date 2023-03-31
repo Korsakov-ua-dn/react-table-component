@@ -14,7 +14,7 @@ export const TransactionPagination: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const select = useAppSelector((state) => ({
-    locale: state.lang.locale,
+    locale: state.language.locale,
     limit: state['transaction-pagination'].limit,
     page: state['transaction-pagination'].page,
   }));

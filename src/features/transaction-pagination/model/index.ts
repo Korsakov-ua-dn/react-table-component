@@ -1,5 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
+import { transactionSearchSetValue } from 'features/transaction-search';
+
 import { DEFAULT_LIMIT } from '../config';
 
 type TransactionPaginationState = {
@@ -21,6 +23,11 @@ const transactionPaginationSlice = createSlice({
     },
     setLimit(state, action: PayloadAction<number>) {
       state.limit = action.payload;
+      state.page = 0;
+    },
+  },
+  extraReducers: {
+    [transactionSearchSetValue]: (state) => {
       state.page = 0;
     },
   },

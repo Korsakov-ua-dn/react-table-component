@@ -5,7 +5,7 @@ import { sortArrayOfObjects } from '../lib';
 // Возвращает отфильтрованный массив транзакций согласно параметров поиска
 const getAllTransactions = (state: RootState) => state.transaction.data;
 const getSearchParams = (state: RootState) =>
-  state['search-transaction'].params;
+  state['transaction-search'].params;
 const getTransactionsBySearch = createSelector(
   [getAllTransactions, getSearchParams],
   (allTransactions, params) => {

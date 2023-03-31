@@ -7,7 +7,7 @@ import { getTransactionsByPage } from 'entities/transaction/model/selectors';
 import { scheme } from 'features/transaction-table/config';
 import { PdfDownload } from 'features/pdf-download';
 import { XlsDownload } from 'features/xls-download';
-import { SearchPanel } from 'features/searchTransaction/ui';
+import { SearchPanel } from 'features/transaction-search';
 
 import { ComponentLayout } from './component-layout';
 import { DownloadBlock } from './download-block';

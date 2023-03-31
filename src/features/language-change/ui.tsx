@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect } from 'react';
+import { FC, memo, useCallback, useLayoutEffect } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -6,22 +6,22 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import { Locale, locales } from 'shared/lib/intl';
 
-import { langActions } from './model';
+import { languageActions } from './model';
 
-export const LangSelect: React.FC = React.memo(() => {
+export const LanguageSelect: FC = memo(() => {
   const dispatch = useAppDispatch();
 
-  const locale = useAppSelector((state) => state.lang.locale);
+  const locale = useAppSelector((state) => state.language.locale);
 
   const onChangeLocale = useCallback(
     (event: SelectChangeEvent) => {
-      dispatch(langActions.setLocale(event.target.value as Locale));
+      dispatch(languageActions.setLocale(event.target.value as Locale));
     },
     [dispatch]
   );
 
   useLayoutEffect(() => {
-    dispatch(langActions.remindLocale());
+    dispatch(languageActions.remindLocale());
   }, [dispatch]);
 
   return (

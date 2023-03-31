@@ -2,16 +2,16 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { Locale } from 'shared/lib/intl';
 
-type LangState = {
+type LanguageState = {
   locale: Locale;
 };
 
-const initialState: LangState = {
+const initialState: LanguageState = {
   locale: 'ru',
 };
 
-const langSlice = createSlice({
-  name: 'lang',
+const languageSlice = createSlice({
+  name: 'language',
   initialState,
   reducers: {
     setLocale(state, action: PayloadAction<Locale>) {
@@ -27,5 +27,5 @@ const langSlice = createSlice({
   },
 });
 
-export const langActions = langSlice.actions;
-export const langReducer = langSlice.reducer;
+export const languageActions = languageSlice.actions;
+export const languageReducer = languageSlice.reducer;

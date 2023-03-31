@@ -1,11 +1,11 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { debounce } from 'lodash';
 import { SelectChangeEvent } from '@mui/material/Select';
 
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import { useTranslation } from 'shared/lib/intl';
 
-import { searchTransactionActions } from '../../model';
+import { transactionSearchActions } from '../../model';
 
 import FieldSelect from '../field-select';
 import SearchInput from '../search-input';
@@ -18,31 +18,46 @@ interface IProps {
   viewDataFormatScheme: Scheme<ITransaction>;
 }
 
-export const SearchPanel: React.FC<IProps> = React.memo(
+export const SearchPanel: React.FC<IProps> = memo(
   ({ viewDataFormatScheme }) => {
     const dispatch = useAppDispatch();
-    const locale = useAppSelector((state) => state.lang.locale);
+    const locale = useAppSelector((state) => state.language.locale);
     const translate = useTranslation('table', locale);
 
     const searchField = useAppSelector(
-      (state) => state['search-transaction'].params?.field
+      (state) => state['transaction-search'].params?.field
     );
+    const isField = !!searchField;
 
+    const [value, setValue] = useState('');
     const [error, setError] = useState(false);
 
+    const dispatchEventRef = useRef(
+      debounce(
+        (value: string) => dispatch(transactionSearchActions.setValue(value)),
+        300
+      )
+    );
+
     const cb = {
-      onSearch: useMemo(
-        () =>
-          debounce((value: string) => {
-            dispatch(searchTransactionActions.setValue(value));
-          }, 300),
-        [dispatch]
+      onSearchHandler: useCallback(
+        (value: string) => {
+          if (!isField) {
+            setError(true);
+          } else {
+            setError(false);
+            setValue(value);
+            dispatchEventRef.current(value);
+          }
+        },
+        [isField]
       ),
 
       onSelectField: useCallback(
         (event: SelectChangeEvent<unknown>) => {
+          setValue('');
           const field = event.target.value as keyof ITransaction;
-          dispatch(searchTransactionActions.setParams({ field, value: '' }));
+          dispatch(transactionSearchActions.setParams({ field, value: '' }));
         },
         [dispatch]
       ),
@@ -59,11 +74,10 @@ export const SearchPanel: React.FC<IProps> = React.memo(
         />
 
         <SearchInput
-          searchField={searchField}
+          value={value}
           error={error}
-          setError={setError}
-          onSearch={cb.onSearch}
-          translate={translate}
+          onSearch={cb.onSearchHandler}
+          label={translate('search')}
         />
         {error && (
           <span className="SearchTransactionPanel__error">

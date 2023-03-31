@@ -1,3 +1,5 @@
+@import 'shared/scss/mixines.scss';
+
 .SearchTransactionPanel {
     position: relative;
     display: flex;
@@ -9,4 +11,5 @@
     bottom: -18px;
     font-size: 12px;
     color: var(--color_error);
+    @include notBreakWord
 }

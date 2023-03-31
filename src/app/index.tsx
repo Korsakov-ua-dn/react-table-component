@@ -1,4 +1,4 @@
-import { LangSelect } from 'features/lang-select';
+import { LanguageSelect } from 'features/language-change';
 import { Routing } from 'pages';
 import { Header } from 'widgets/header';
 
@@ -10,7 +10,7 @@ export const App = withProviders(() => {
   return (
     <>
       <Header>
-        <LangSelect />
+        <LanguageSelect />
       </Header>
 
       <Routing />

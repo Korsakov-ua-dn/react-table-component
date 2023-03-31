@@ -2,15 +2,15 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import { transactionReducer } from 'entities/transaction';
 
-import { langReducer } from 'features/lang-select';
-import { searchTransactionReducer } from 'features/searchTransaction';
+import { languageReducer } from 'features/language-change';
+import { transactionSearchReducer } from 'features/transaction-search';
 import { transactionPaginationReducer } from 'features/transaction-pagination';
 import { transactionSortReducer } from 'features/transaction-table';
 
 const rootReducer = combineReducers({
-  lang: langReducer,
+  language: languageReducer,
   transaction: transactionReducer,
-  'search-transaction': searchTransactionReducer,
+  'transaction-search': transactionSearchReducer,
   'transaction-pagination': transactionPaginationReducer,
   'transaction-sort': transactionSortReducer,
 });
