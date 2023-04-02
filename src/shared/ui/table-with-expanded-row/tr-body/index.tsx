@@ -1,5 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+
+import { typedMemo } from 'shared/hocs';
 
 import Td from '../td';
 import ExpandedRow from '../expanded-row';
@@ -58,4 +60,4 @@ const TrBody = <T extends object>(props: IProps<T>): JSX.Element => {
   );
 };
 
-export default React.memo(TrBody) as typeof TrBody;
+export default typedMemo(TrBody);

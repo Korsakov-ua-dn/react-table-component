@@ -1,5 +1,7 @@
-import React, { MouseEvent, useCallback } from 'react';
+import { MouseEvent, useCallback } from 'react';
 import { v1 } from 'uuid';
+
+import { typedMemo } from 'shared/hocs';
 
 import Th from '../th';
 import Tr from '../tr';
@@ -19,7 +21,7 @@ const Thead = <T extends object>({
   direction,
   onSort,
   ...restProps
-}: IProps<T>): JSX.Element => {
+}: IProps<T>) => {
   // Один обработчик для всех полей
   const onSortHendler = useCallback(
     (e: MouseEvent<HTMLElement>) => {
@@ -61,4 +63,4 @@ const Thead = <T extends object>({
   );
 };
 
-export default React.memo(Thead) as typeof Thead;
+export default typedMemo(Thead);

@@ -1,4 +1,4 @@
-import React from 'react';
+import { typedMemo } from 'shared/hocs';
 
 import type { GetExpandedComponent } from '../types';
 
@@ -21,4 +21,4 @@ const ExpandedRow = <T extends object>(props: IProps<T>): JSX.Element => {
   );
 };
 
-export default React.memo(ExpandedRow) as typeof ExpandedRow;
+export default typedMemo(ExpandedRow);

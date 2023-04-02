@@ -5,6 +5,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import { Locale, locales } from 'shared/lib/intl';
+import { capitalizeFirstLetter } from 'shared/lib/capitalize-first-letter';
 
 import { languageActions } from './model';
 
@@ -29,7 +30,7 @@ export const LanguageSelect: FC = memo(() => {
       <Select value={locale} onChange={onChangeLocale}>
         {locales.map((locale) => (
           <MenuItem key={locale} value={locale}>
-            {locale}
+            {capitalizeFirstLetter(locale)}
           </MenuItem>
         ))}
       </Select>

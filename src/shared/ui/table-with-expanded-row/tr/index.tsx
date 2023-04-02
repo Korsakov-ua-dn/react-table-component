@@ -1,4 +1,4 @@
-import React from 'react';
+import { typedMemo } from 'shared/hocs';
 
 interface IProps extends React.HTMLAttributes<HTMLTableRowElement> {
   children: React.ReactNode[];
@@ -13,4 +13,4 @@ const Tr: React.FC<IProps> = ({ children, classN, ...restProps }) => {
   );
 };
 
-export default React.memo(Tr) as typeof Tr;
+export default typedMemo(Tr);

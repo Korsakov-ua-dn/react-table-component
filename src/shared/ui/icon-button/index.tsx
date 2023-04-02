@@ -1,19 +1,20 @@
-import React, { ButtonHTMLAttributes } from 'react';
+import { memo } from 'react';
 
 import './style.scss';
 
-type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
+type Props = JSX.IntrinsicElements['button'] & {
   iconHref: string;
   className?: string;
 };
 
-export const IconButton: React.FC<Props> = React.memo(
+export const IconButton: React.FC<Props> = memo(
   ({ iconHref, className, ...restProps }) => {
-    const classN = `IconButton ${className ? 'IconButton_' + className : ''}`;
-    const style = {
-      backgroundImage: `url(${iconHref})`,
+    const props = {
+      ...restProps,
+      className: `IconButton ${className ? 'IconButton_' + className : ''}`,
+      style: { backgroundImage: `url(${iconHref})` },
     };
 
-    return <button className={classN} style={style} {...restProps}></button>;
+    return <button {...props} />;
   }
 );

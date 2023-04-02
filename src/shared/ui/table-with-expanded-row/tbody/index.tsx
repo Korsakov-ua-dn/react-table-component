@@ -1,5 +1,6 @@
-import React from 'react';
 import { v1 } from 'uuid';
+
+import { typedMemo } from 'shared/hocs';
 
 import TrBody from '../tr-body';
 
@@ -37,4 +38,4 @@ const Tbody = <T extends object>({
   );
 };
 
-export default React.memo(Tbody) as typeof Tbody;
+export default typedMemo(Tbody);
