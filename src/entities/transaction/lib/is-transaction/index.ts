@@ -1,8 +1,8 @@
-import { IServerTransaction } from 'shared/api';
+import { ITransaction } from 'shared/api';
 import { isObject } from 'shared/type-guard';
 
 // type guard
-export function isTransaction(value: unknown): value is IServerTransaction {
+export function isTransaction(value: unknown): value is ITransaction {
   if (!isObject(value)) return false;
 
   if (

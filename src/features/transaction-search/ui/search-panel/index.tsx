@@ -12,7 +12,7 @@ import SearchInput from '../search-input';
 import { ComponentLayout } from '../component-layout';
 
 import type { Scheme } from 'shared/ui/table-with-expanded-row';
-import type { ITransaction } from 'entities/transaction';
+import type { ITransaction } from 'shared/api';
 
 interface IProps {
   scheme: Scheme<ITransaction>;

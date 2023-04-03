@@ -1,5 +1,7 @@
+import { dataTransferObject } from './lib';
+
+import type { ITransaction } from 'shared/api';
 import type { Scheme } from 'shared/ui/table-with-expanded-row';
-import type { ITransaction } from 'entities/transaction';
 
 // Порядок элементов в схеме и их параметры управляют дальнейшим отображением в таблице.
 export const scheme: Scheme<ITransaction> = {
@@ -11,6 +13,7 @@ export const scheme: Scheme<ITransaction> = {
   },
   date: {
     format: 'date',
+    formatDataFunction: dataTransferObject['date'],
     title: 'Дата',
     sort: true,
     width: 200,
@@ -40,12 +43,14 @@ export const scheme: Scheme<ITransaction> = {
   },
   fuelCount: {
     format: 'number',
+    formatDataFunction: dataTransferObject['fuelCount'],
     title: 'Количество',
     sort: true,
     width: 50,
   },
   coast: {
     format: 'price',
+    formatDataFunction: dataTransferObject['coast'],
     title: 'Стоимость',
     sort: true,
   },

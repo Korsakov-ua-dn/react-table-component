@@ -3,7 +3,7 @@ export { default as Thead } from './thead';
 export { default as Tbody } from './tbody';
 export type {
   Scheme,
-  DataFormatFunction,
+  FormatDataFunction,
   DataFormat,
   Direction,
 } from './types';

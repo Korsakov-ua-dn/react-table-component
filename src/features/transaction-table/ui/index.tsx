@@ -2,11 +2,8 @@ import { memo, useCallback } from 'react';
 
 import { Table, Tbody, Thead } from 'shared/ui/table-with-expanded-row';
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
-import {
-  ITransaction,
-  getTransactionsByPage,
-  scheme,
-} from 'entities/transaction';
+import { ITransaction } from 'shared/api';
+import { getTransactionsByPage, scheme } from 'entities/transaction';
 
 import { transactionSortActions } from '../model';
 import { getSortParams } from '../lib';

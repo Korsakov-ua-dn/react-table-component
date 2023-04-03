@@ -1,8 +1,8 @@
 import { AnyAction, PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { ITransaction } from '../lib';
-
 import { fetchAllTransactions } from './thunks';
+
+import type { ITransaction } from 'shared/api';
 
 type TransactionsState = {
   data: ITransaction[];

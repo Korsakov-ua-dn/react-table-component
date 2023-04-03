@@ -1,6 +1,6 @@
 import { axiosInstance } from '../base';
 
-import { IServerTransaction } from './models';
+import { ITransaction } from './models';
 
 import type { AxiosPromise } from 'axios';
 
@@ -9,6 +9,6 @@ const BASE_URL = '/api/transactions';
 export const getAll = (params?: {
   limit?: number;
   skip?: number;
-}): AxiosPromise<IServerTransaction[]> => {
+}): AxiosPromise<ITransaction[]> => {
   return axiosInstance.get(BASE_URL, { params });
 };

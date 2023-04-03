@@ -16,7 +16,7 @@ https://react-typescript-table-component.vercel.app/
 
 ## Технологический стек:
 
-React, TypeScript, Redux Toolkit, Axios, SCSS.
+Feature Sliced Design, React, TypeScript, Redux Toolkit, Reselect, Axios, Material UI, SCSS.
 
 ## Репозиторий с кодом API для получения данных о транзакциях из базы данных.
 

@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { transactionAPI } from 'shared/api';
+import { ITransaction, transactionAPI } from 'shared/api';
 import { isArray } from 'shared/type-guard';
 
-import { ITransaction, formatTransactionData, isTransaction } from '../lib';
+import { isTransaction } from '../lib';
 
 export const fetchAllTransactions = createAsyncThunk<
   ITransaction[],
@@ -17,9 +17,7 @@ export const fetchAllTransactions = createAsyncThunk<
       return rejectWithValue('Не корректный ответ сервера');
     }
 
-    return response.data.map((transaction) =>
-      formatTransactionData(transaction)
-    );
+    return response.data;
   } catch (err) {
     return rejectWithValue(
       'Произошла ошибка, попробуйте перезагрузить страницу'

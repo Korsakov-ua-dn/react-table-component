@@ -40,9 +40,15 @@ const TrBody = <T extends object>(props: IProps<T>): JSX.Element => {
 
   for (const key in props.scheme) {
     const width = props.scheme[key]?.width;
-    const value = props.row[key];
+    const formatDataFunction = props.scheme[key]?.formatDataFunction;
+    // если передана функция форматирования данных для отображения
+    const value = formatDataFunction
+      ? formatDataFunction(props.row[key])
+      : props.row[key];
 
-    td.push(<Td<T[keyof T]> key={key} width={width} value={value} />);
+    td.push(
+      <Td<string | number | T[keyof T]> key={key} width={width} value={value} />
+    );
   }
 
   return (

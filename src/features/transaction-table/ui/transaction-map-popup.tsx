@@ -1,6 +1,6 @@
 import { FC, memo } from 'react';
 
-import type { ITransaction } from 'entities/transaction';
+import type { ITransaction } from 'shared/api';
 
 interface IProps {
   info: ITransaction;
