@@ -13,9 +13,10 @@ const getTransactionsBySearch = createSelector(
     if (params?.field && params.value) {
       // Поиск не чувствительный к регистру
       const regex = new RegExp(`${params.value}`, 'i');
+      const formatDataFn = scheme[params.field]?.formatDataFunction;
+
       return allTransactions.filter((item) => {
         // для поля 'Дата' перед проверкой регуляркой выполняю приведение данных к единому формату
-        const formatDataFn = scheme[params.field]?.formatDataFunction;
         const value =
           formatDataFn && params.field === 'date'
             ? formatDataFn(item[params.field])
