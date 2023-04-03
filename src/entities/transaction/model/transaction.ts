@@ -1,6 +1,6 @@
 import { AnyAction, PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { ITransaction } from 'shared/api/axios/transaction';
+import { ITransaction } from '../lib';
 
 import { fetchAllTransactions } from './thunks';
 

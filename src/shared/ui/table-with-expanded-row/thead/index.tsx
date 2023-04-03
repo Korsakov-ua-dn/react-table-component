@@ -9,14 +9,14 @@ import Tr from '../tr';
 import type { Direction, Scheme } from '../types';
 
 interface IProps<T> extends React.HTMLAttributes<HTMLTableSectionElement> {
-  viewDataFormatScheme: Scheme<T>;
+  scheme: Scheme<T>;
   activeField: keyof T | undefined;
   direction?: Direction;
   onSort?: (field: keyof T) => void;
 }
 
 const Thead = <T extends object>({
-  viewDataFormatScheme,
+  scheme,
   activeField,
   direction,
   onSort,
@@ -32,15 +32,15 @@ const Thead = <T extends object>({
   );
 
   const renderTh = (key: keyof T) => {
-    const isSort = viewDataFormatScheme[key]?.sort!;
+    const isSort = scheme[key]?.sort;
     const id = v1();
     return (
       <Th
         key={id}
         value={key}
-        isSort={isSort}
-        width={viewDataFormatScheme[key]?.width}
-        viewDataFormatScheme={viewDataFormatScheme}
+        isSort={!!isSort}
+        width={scheme[key]?.width}
+        scheme={scheme}
         onSort={onSortHendler}
         isActiveField={activeField === key}
         direction={direction}
@@ -52,7 +52,7 @@ const Thead = <T extends object>({
      для развертывания дополнительной информации по строке */
   const trContent = [<th key={'FirstTH'}></th>];
 
-  for (const key in viewDataFormatScheme) {
+  for (const key in scheme) {
     trContent.push(renderTh(key));
   }
 

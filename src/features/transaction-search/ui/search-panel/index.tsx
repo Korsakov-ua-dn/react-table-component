@@ -12,79 +12,77 @@ import SearchInput from '../search-input';
 import { ComponentLayout } from '../component-layout';
 
 import type { Scheme } from 'shared/ui/table-with-expanded-row';
-import type { ITransaction } from 'shared/api/axios/transaction';
+import type { ITransaction } from 'entities/transaction';
 
 interface IProps {
-  viewDataFormatScheme: Scheme<ITransaction>;
+  scheme: Scheme<ITransaction>;
 }
 
-export const SearchPanel: React.FC<IProps> = memo(
-  ({ viewDataFormatScheme }) => {
-    const dispatch = useAppDispatch();
-    const locale = useAppSelector((state) => state.language.locale);
-    const translate = useTranslation('table', locale);
+export const SearchPanel: React.FC<IProps> = memo(({ scheme }) => {
+  const dispatch = useAppDispatch();
+  const locale = useAppSelector((state) => state.language.locale);
+  const translate = useTranslation('table', locale);
 
-    const searchField = useAppSelector(
-      (state) => state['transaction-search'].params?.field
-    );
-    const isField = !!searchField;
+  const searchField = useAppSelector(
+    (state) => state['transaction-search'].params?.field
+  );
+  const isField = !!searchField;
 
-    const [value, setValue] = useState('');
-    const [error, setError] = useState(false);
+  const [value, setValue] = useState('');
+  const [error, setError] = useState(false);
 
-    const dispatchEventRef = useRef(
-      debounce(
-        (value: string) => dispatch(transactionSearchActions.setValue(value)),
-        300
-      )
-    );
+  const dispatchEventRef = useRef(
+    debounce(
+      (value: string) => dispatch(transactionSearchActions.setValue(value)),
+      300
+    )
+  );
 
-    const cb = {
-      onSearchHandler: useCallback(
-        (value: string) => {
-          if (!isField) {
-            setError(true);
-          } else {
-            setError(false);
-            setValue(value);
-            dispatchEventRef.current(value);
-          }
-        },
-        [isField]
-      ),
+  const cb = {
+    onSearchHandler: useCallback(
+      (value: string) => {
+        if (!isField) {
+          setError(true);
+        } else {
+          setError(false);
+          setValue(value);
+          dispatchEventRef.current(value);
+        }
+      },
+      [isField]
+    ),
 
-      onSelectField: useCallback(
-        (event: SelectChangeEvent<unknown>) => {
-          setValue('');
-          const field = event.target.value as keyof ITransaction;
-          dispatch(transactionSearchActions.setParams({ field, value: '' }));
-        },
-        [dispatch]
-      ),
-    };
+    onSelectField: useCallback(
+      (event: SelectChangeEvent<unknown>) => {
+        setValue('');
+        const field = event.target.value as keyof ITransaction;
+        dispatch(transactionSearchActions.setParams({ field, value: '' }));
+      },
+      [dispatch]
+    ),
+  };
 
-    return (
-      <ComponentLayout>
-        <FieldSelect
-          viewDataFormatScheme={viewDataFormatScheme}
-          searchField={searchField}
-          setError={setError}
-          onSelectField={cb.onSelectField}
-          translate={translate}
-        />
+  return (
+    <ComponentLayout>
+      <FieldSelect
+        scheme={scheme}
+        searchField={searchField}
+        setError={setError}
+        onSelectField={cb.onSelectField}
+        translate={translate}
+      />
 
-        <SearchInput
-          value={value}
-          error={error}
-          onSearch={cb.onSearchHandler}
-          label={translate('search')}
-        />
-        {error && (
-          <span className="SearchTransactionPanel__error">
-            {translate('search-error')}
-          </span>
-        )}
-      </ComponentLayout>
-    );
-  }
-);
+      <SearchInput
+        value={value}
+        error={error}
+        onSearch={cb.onSearchHandler}
+        label={translate('search')}
+      />
+      {error && (
+        <span className="SearchTransactionPanel__error">
+          {translate('search-error')}
+        </span>
+      )}
+    </ComponentLayout>
+  );
+});

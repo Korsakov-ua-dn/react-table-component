@@ -1,4 +1,4 @@
-export interface ITransaction {
+export interface IServerTransaction {
   _id: string;
   name: string;
   date: string;

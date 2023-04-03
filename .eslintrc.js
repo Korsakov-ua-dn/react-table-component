@@ -43,7 +43,7 @@ module.exports = {
     ],
     '@typescript-eslint/no-non-null-assertion': 'warn',
     '@typescript-eslint/no-non-null-asserted-optional-chain': 'warn',
-    '@typescript-eslint/no-empty-function': 'warn',
+    '@typescript-eslint/no-empty-function': 'off',
     'import/namespace': ['error', { allowComputed: true }],
     'import/no-unresolved': 'off',
   },

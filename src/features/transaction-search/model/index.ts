@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import type { ITransaction } from 'shared/api/axios/transaction';
 import type { Scheme } from 'shared/ui/table-with-expanded-row';
+import type { ITransaction } from 'entities/transaction';
 
 export type Field = keyof Scheme<ITransaction>;
 export type Params = { field: Field; value: string } | null;

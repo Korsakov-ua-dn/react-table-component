@@ -1,2 +1,2 @@
 export * as transactionAPI from './transaction';
-export type { ITransaction } from './models';
+export type { IServerTransaction } from './models';

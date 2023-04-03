@@ -2,13 +2,14 @@ import { memo, useCallback } from 'react';
 
 import { Table, Tbody, Thead } from 'shared/ui/table-with-expanded-row';
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
-import { ITransaction } from 'shared/api';
+import {
+  ITransaction,
+  getTransactionsByPage,
+  scheme,
+} from 'entities/transaction';
 
-import { getTransactionsByPage } from 'entities/transaction/model/selectors';
-
-import { scheme } from '../config';
 import { transactionSortActions } from '../model';
-import { getSortParams } from '../lib/get-sort-params';
+import { getSortParams } from '../lib';
 
 import { TransactionMap } from './transaction-map';
 
@@ -44,14 +45,14 @@ export const TransactionTable: React.FC<IProps> = memo(
     return (
       <Table colorScheme="zebra" wrapRef={wrapRef} tableRef={tableRef}>
         <Thead
-          viewDataFormatScheme={scheme}
+          scheme={scheme}
           onSort={cb.onSort}
           activeField={params?.field}
           direction={params?.direction}
         />
         <Tbody
           items={transactionsByPage}
-          viewDataFormatScheme={scheme}
+          scheme={scheme}
           getExpandedComponent={cb.getExpandedComponent}
         />
       </Table>

@@ -12,7 +12,7 @@ import './style.scss';
 
 interface IProps<T> {
   row: T;
-  viewDataFormatScheme: Scheme<T>;
+  scheme: Scheme<T>;
   painted: boolean;
   getExpandedComponent: GetExpandedComponent<T>;
 }
@@ -38,12 +38,11 @@ const TrBody = <T extends object>(props: IProps<T>): JSX.Element => {
     </td>,
   ];
 
-  for (const key in props.viewDataFormatScheme) {
-    const width = props.viewDataFormatScheme[key]?.width;
-    const renderFunction = props.viewDataFormatScheme[key]?.renderFunction!;
-    const value = renderFunction(props.row[key]);
+  for (const key in props.scheme) {
+    const width = props.scheme[key]?.width;
+    const value = props.row[key];
 
-    td.push(<Td key={key} width={width} value={value} />);
+    td.push(<Td<T[keyof T]> key={key} width={width} value={value} />);
   }
 
   return (

@@ -8,13 +8,13 @@ import type { GetExpandedComponent, Scheme } from '../types';
 
 interface IProps<T> extends React.HTMLAttributes<HTMLTableSectionElement> {
   items: T[];
-  viewDataFormatScheme: Scheme<T>;
+  scheme: Scheme<T>;
   getExpandedComponent: GetExpandedComponent<T>;
 }
 
 const Tbody = <T extends object>({
   items,
-  viewDataFormatScheme,
+  scheme,
   getExpandedComponent,
   ...restProps
 }: IProps<T>): JSX.Element => {
@@ -25,7 +25,7 @@ const Tbody = <T extends object>({
         key={id}
         row={row}
         painted={i % 2 === 0} // покрасить зеброй
-        viewDataFormatScheme={viewDataFormatScheme}
+        scheme={scheme}
         getExpandedComponent={getExpandedComponent}
       />
     );

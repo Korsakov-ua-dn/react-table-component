@@ -1,7 +1,8 @@
 import { FC, memo, useLayoutEffect, useState } from 'react';
 
-import { ITransaction, geocode } from 'shared/api';
+import { geocode } from 'shared/api';
 import { LeafletMap } from 'shared/ui/leaflet-map';
+import { ITransaction } from 'entities/transaction';
 
 import { mapContainerStyle } from '../config';
 

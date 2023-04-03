@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import type { ITransaction } from 'shared/api';
 import type { DataFormat, Direction } from 'shared/ui/table-with-expanded-row';
+import type { ITransaction } from 'entities/transaction';
 
 export type Field = keyof ITransaction;
 export type SortParams = {

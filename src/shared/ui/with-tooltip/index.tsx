@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 
 import './style.scss';
@@ -13,8 +13,8 @@ const WithTooltip = (props: IProps) => {
 
   useEffect(() => {
     if (
-      ref.current?.scrollWidth! > ref.current?.offsetWidth! ||
-      ref.current?.scrollHeight! > ref.current?.offsetHeight!
+      (ref.current && ref.current.scrollWidth > ref.current.offsetWidth) ||
+      (ref.current && ref.current.scrollHeight > ref.current.offsetHeight)
     ) {
       setTooltip(true);
     }
@@ -37,4 +37,4 @@ const WithTooltip = (props: IProps) => {
   );
 };
 
-export default React.memo(WithTooltip) as typeof WithTooltip;
+export default memo(WithTooltip) as typeof WithTooltip;

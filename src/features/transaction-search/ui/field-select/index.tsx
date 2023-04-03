@@ -9,10 +9,10 @@ import './style.scss';
 
 import type { Translate } from 'shared/lib/intl';
 import type { Scheme } from 'shared/ui/table-with-expanded-row';
-import type { ITransaction } from 'shared/api/axios/transaction';
+import type { ITransaction } from 'entities/transaction';
 
 interface IProps {
-  viewDataFormatScheme: Scheme<ITransaction>;
+  scheme: Scheme<ITransaction>;
   searchField: keyof Scheme<ITransaction> | undefined;
   setError: (value: boolean) => void;
   onSelectField: (event: SelectChangeEvent<unknown>) => void;
@@ -20,7 +20,7 @@ interface IProps {
 }
 
 const FieldSelect = ({
-  viewDataFormatScheme,
+  scheme,
   searchField,
   setError,
   onSelectField,
@@ -37,17 +37,17 @@ const FieldSelect = ({
   const selectOptions = useMemo(() => {
     const menuItems = [];
 
-    for (const key in viewDataFormatScheme) {
-      if (hasOwn(viewDataFormatScheme, key)) {
+    for (const key in scheme) {
+      if (hasOwn(scheme, key)) {
         menuItems.push(
           <MenuItem style={{ fontStyle: 'normal' }} key={key} value={key}>
-            {viewDataFormatScheme[key]?.title}
+            {scheme[key]?.title}
           </MenuItem>
         );
       }
     }
     return menuItems;
-  }, [viewDataFormatScheme]);
+  }, [scheme]);
 
   return (
     <div className="FieldSelect">

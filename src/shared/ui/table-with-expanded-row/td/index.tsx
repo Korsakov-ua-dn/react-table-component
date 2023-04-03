@@ -1,22 +1,22 @@
-import React from 'react';
+import { typedMemo } from 'shared/hocs';
 
 import WithTooltip from 'shared/ui/with-tooltip';
 
 import './style.scss';
 
-interface IProps {
+interface IProps<A> {
   width: number | undefined;
-  value: string | number;
+  value: A;
 }
 
-const Td: React.FC<IProps> = (props) => {
+const Td = <A,>(props: IProps<A>) => {
   return (
     <td className="Table__body-item">
       <div style={props.width ? { maxWidth: `${props.width}px` } : {}}>
-        <WithTooltip>{props.value}</WithTooltip>
+        <WithTooltip>{String(props.value)}</WithTooltip>
       </div>
     </td>
   );
 };
 
-export default React.memo(Td) as typeof Td;
+export default typedMemo(Td);

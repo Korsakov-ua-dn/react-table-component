@@ -1,6 +1,6 @@
 import { DataFormat } from 'shared/ui/table-with-expanded-row';
 
-import { Field, SortParams } from '../model';
+import { Field, SortParams } from './model';
 
 export function getSortParams(
   prev: SortParams,

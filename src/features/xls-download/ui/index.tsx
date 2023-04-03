@@ -9,14 +9,14 @@ import xlsIcon from './xls-icon.svg';
 
 interface IProps<T> {
   items: T[];
-  viewDataFormatScheme: Scheme<T>;
+  scheme: Scheme<T>;
 }
 
 const XlsDownload = <T extends object>({
   items,
-  viewDataFormatScheme,
+  scheme,
 }: IProps<T>): JSX.Element => {
-  const onClickHandler = () => onDownloadXlsx(items, viewDataFormatScheme);
+  const onClickHandler = () => onDownloadXlsx(items, scheme);
 
   return (
     <IconButton
