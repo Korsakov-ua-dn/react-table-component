@@ -3,7 +3,9 @@ import { dataTransferObject } from './lib';
 import type { ITransaction } from 'shared/api';
 import type { Scheme } from 'shared/ui/table-with-expanded-row';
 
-// Порядок элементов в схеме и их параметры управляют дальнейшим отображением в таблице.
+/**
+ * Порядок элементов в схеме и их параметры управляют дальнейшим отображением в таблице.
+ */
 export const scheme: Scheme<ITransaction> = {
   name: {
     format: 'string',

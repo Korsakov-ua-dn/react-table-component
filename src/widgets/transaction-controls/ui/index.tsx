@@ -1,4 +1,4 @@
-import { FC, RefObject, memo } from 'react';
+import { memo } from 'react';
 
 import { useAppSelector } from 'shared/hooks';
 
@@ -12,21 +12,27 @@ import { ComponentLayout } from './component-layout';
 import { DownloadBlock } from './download-block';
 
 interface IProps {
-  wrapRef: RefObject<HTMLDivElement>;
-  tableRef: RefObject<HTMLTableElement>;
+  wrapRef: React.RefObject<HTMLDivElement>;
+  tableRef: React.RefObject<HTMLTableElement>;
 }
 
-export const TransactionControls: FC<IProps> = memo(({ wrapRef, tableRef }) => {
-  const transactionsByPage = useAppSelector(getTransactionsByPage);
+export const TransactionControls: React.FC<IProps> = memo(
+  ({ wrapRef, tableRef }) => {
+    const transactionsByPage = useAppSelector(getTransactionsByPage);
 
-  return (
-    <ComponentLayout>
-      <DownloadBlock>
-        <PdfDownload wrapRef={wrapRef} tableRef={tableRef} />
-        <XlsDownload items={transactionsByPage} scheme={scheme} />
-      </DownloadBlock>
+    return (
+      <ComponentLayout>
+        <DownloadBlock>
+          <PdfDownload wrapRef={wrapRef} tableRef={tableRef} />
+          <XlsDownload
+            items={transactionsByPage}
+            scheme={scheme}
+            title="transactions"
+          />
+        </DownloadBlock>
 
-      <SearchPanel scheme={scheme} />
-    </ComponentLayout>
-  );
-});
+        <SearchPanel scheme={scheme} />
+      </ComponentLayout>
+    );
+  }
+);

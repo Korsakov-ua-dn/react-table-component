@@ -9,6 +9,9 @@ import { capitalizeFirstLetter } from 'shared/lib/capitalize-first-letter';
 
 import { languageActions } from './model';
 
+/**
+ * Селект выбора языка локализации
+ */
 export const LanguageSelect: FC = memo(() => {
   const dispatch = useAppDispatch();
 

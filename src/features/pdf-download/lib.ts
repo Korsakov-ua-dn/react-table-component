@@ -4,15 +4,15 @@ import { RefObject } from 'react';
  * Строки таблицы разворачиваются по клику и меняют высоту таблицы.
  * Перед выполнением печати необходимо актуализировать высоту таблицы
  * и вмонтировать тег <style> со стилями для печати.
- * tableWrapperRef - содержит все css стили для корректного отображения pdf
+ * wrapRef - содержит все css стили для корректного отображения pdf
  * tableRef - дает информацию о полной ширине таблицы без внутреннего скролла
  */
 export function getPrintPdfSettings(
-  tableWrapperRef: RefObject<HTMLDivElement>,
+  wrapRef: RefObject<HTMLDivElement>,
   tableRef: RefObject<HTMLTableElement>
 ) {
   return {
-    content: () => tableWrapperRef.current,
+    content: () => wrapRef.current,
     documentTitle: 'table',
     onBeforeGetContent: () => {
       if (tableRef.current) {
@@ -21,12 +21,12 @@ export function getPrintPdfSettings(
           tableRef.current.offsetWidth,
           tableRef.current.offsetHeight
         );
-        tableWrapperRef.current?.appendChild(style); // вмонтирую <style> в DOM перед печатью
+        wrapRef.current?.appendChild(style); // вмонтирую <style> в DOM перед печатью
       }
     },
     onAfterPrint: () => {
-      if (tableWrapperRef.current?.lastChild) {
-        tableWrapperRef.current.removeChild(tableWrapperRef.current.lastChild); // удаляю <style> из DOM после печати
+      if (wrapRef.current?.lastChild) {
+        wrapRef.current.removeChild(wrapRef.current.lastChild); // удаляю <style> из DOM после печати
       }
     },
     removeAfterPrint: true,
@@ -34,8 +34,7 @@ export function getPrintPdfSettings(
 }
 
 function getPageStylesForPrint(width: number, height: number): string {
-  // Convert px to mm
-  const coefficient = 0.2636;
+  const coefficient = 0.2636; // Convert px to mm
   return `
       @media print {
         html, body {

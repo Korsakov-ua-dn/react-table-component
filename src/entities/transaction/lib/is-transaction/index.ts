@@ -1,7 +1,9 @@
 import { ITransaction } from 'shared/api';
 import { isObject } from 'shared/type-guard';
 
-// type guard
+/**
+ * Type guard для валидации server responce
+ */
 export function isTransaction(value: unknown): value is ITransaction {
   if (!isObject(value)) return false;
 

@@ -10,13 +10,15 @@ import xlsIcon from './xls-icon.svg';
 interface IProps<T> {
   items: T[];
   scheme: Scheme<T>;
+  title: string;
 }
 
 const XlsDownload = <T extends object>({
   items,
   scheme,
+  title,
 }: IProps<T>): JSX.Element => {
-  const onClickHandler = () => onDownloadXlsx(items, scheme);
+  const onClickHandler = () => onDownloadXlsx(items, scheme, title);
 
   return (
     <IconButton

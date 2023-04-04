@@ -37,7 +37,6 @@ const transactionSlice = createSlice({
   },
 });
 
-// export const transactionActions = transactionSlice.actions;
 export const transactionReducer = transactionSlice.reducer;
 
 function isError(action: AnyAction) {

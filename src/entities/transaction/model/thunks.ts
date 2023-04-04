@@ -5,6 +5,10 @@ import { isArray } from 'shared/type-guard';
 
 import { isTransaction } from '../lib';
 
+/**
+ * Thunk
+ * @returns Возвращает массив транзакций полученных из API или ошибку
+ */
 export const fetchAllTransactions = createAsyncThunk<
   ITransaction[],
   undefined,

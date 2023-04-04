@@ -3,10 +3,13 @@ import { createSelector } from '@reduxjs/toolkit';
 import { sortArrayOfObjects } from '../lib';
 import { scheme } from '../config';
 
-// Возвращает отфильтрованный массив транзакций согласно параметров поиска
 const getAllTransactions = (state: RootState) => state.transaction.data;
 const getSearchParams = (state: RootState) =>
   state['transaction-search'].params;
+/**
+ * Селектор выбора транзакций
+ * @returns Возвращает отфильтрованный массив транзакций согласно параметров поиска
+ */
 const getTransactionsBySearch = createSelector(
   [getAllTransactions, getSearchParams],
   (allTransactions, params) => {
@@ -28,8 +31,11 @@ const getTransactionsBySearch = createSelector(
   }
 );
 
-// Возвращает отсортированный массив транзакций согласно параметров сортировки
 const getSortParams = (state: RootState) => state['transaction-sort'].params;
+/**
+ * Селектор выбора транзакций
+ * @returns Возвращает отсортированный массив транзакций согласно параметров сортировки
+ */
 export const getSortTransactions = createSelector(
   [getTransactionsBySearch, getSortParams],
   (transactionsBySearch, params) => {
@@ -44,9 +50,12 @@ export const getSortTransactions = createSelector(
   }
 );
 
-// Возвращает отфильтрованный массив транзакций согласно параметров пагинации
 const getLimit = (state: RootState) => state['transaction-pagination'].limit;
 const getPage = (state: RootState) => state['transaction-pagination'].page;
+/**
+ * Селектор выбора транзакций
+ * @returns Возвращает отфильтрованный массив транзакций согласно параметров пагинации
+ */
 export const getTransactionsByPage = createSelector(
   [getSortTransactions, getLimit, getPage],
   (sortTransactions, limit, page) => {

@@ -1,6 +1,8 @@
 import type { DataFormat, Direction } from 'shared/ui/table-with-expanded-row';
 
-// Функция сортировки данных в зависимости от их типа и направления сортировки.
+/**
+ * Функция сортировки данных в зависимости от их типа и направления сортировки.
+ */
 export function sortArrayOfObjects<T extends object>(
   array: T[],
   field: keyof T,
@@ -31,7 +33,5 @@ export function sortArrayOfObjects<T extends object>(
           : new Date(String(b[field])).getTime() -
             new Date(String(a[field])).getTime()
       );
-    default:
-      return array;
   }
 }
