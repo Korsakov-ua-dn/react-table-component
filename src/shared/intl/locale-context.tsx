@@ -26,7 +26,7 @@ function createLocaleContext() {
   const useLocaleStore = () => {
     const localeStore = useContext(LocaleContext);
     if (!localeStore) {
-      throw new Error('Can not use `useStore` outside of the `Provider`');
+      throw new Error('Can not use `useLocaleStore` outside of the `Provider`');
     }
     return localeStore;
   };
