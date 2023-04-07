@@ -1,6 +1,6 @@
-import * as locales from './locales';
+import * as locales from '../../locales';
 
-import type { Locale } from './config';
+import type { Locale } from '../../config';
 
 /**
  * Type guard для валидации localstorage responce

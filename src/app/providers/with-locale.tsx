@@ -1,12 +1,17 @@
-import { useState } from 'react';
+import { useSyncExternalStore } from 'react';
 
-import { Provider } from 'shared/intl';
-import { isLocale } from 'shared/intl/lib';
+import {
+  DEFAULT_LOCALE,
+  Provider,
+  getSnapshot,
+  isLocale,
+  subscribe,
+} from 'shared/intl';
 
 export const withLocale = (component: () => React.ReactNode) => () => {
-  const [locale] = useState(() => localStorage.getItem('locale'));
+  const locale = useSyncExternalStore(subscribe, getSnapshot);
   return (
-    <Provider initialState={{ value: isLocale(locale) ? locale : 'ru' }}>
+    <Provider initialLocale={isLocale(locale) ? locale : DEFAULT_LOCALE}>
       {component()}
     </Provider>
   );

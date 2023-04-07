@@ -20,7 +20,6 @@ interface IProps {
 
 export const SearchPanel: React.FC<IProps> = memo(({ scheme }) => {
   const dispatch = useAppDispatch();
-  const locale = useAppSelector((state) => state.language.locale);
   const translate = useTranslation('table');
 
   const searchField = useAppSelector(

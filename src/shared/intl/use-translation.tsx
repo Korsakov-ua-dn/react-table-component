@@ -1,37 +1,35 @@
 import { useMemo } from 'react';
 
 import * as locales from './locales';
-import { useLocaleSelector } from './intl';
+import { useLocaleSelector } from './locale-context';
 
 import type { Wordbook } from './config';
 
 /**
- * A hook to access the redux store's state. This hook takes a selector function
- * as an argument. The selector is called with the store state.
+ * Хук для доступа к функции перевода
+ * В качестве параметра принимает главу словаря.
+ * Возвращает функцию которая в качестве параметра принимает ключ конкретной главы словаря
+ * и возвращает переведенное, в соответствии с текущим языком профиля, значение.
  *
- * This hook takes an optional equality comparison function as the second parameter
- * that allows you to customize the way the selected state is compared to determine
- * whether the component needs to be re-rendered.
+ * @param {keyof} chapter один из ключей json словаря
  *
- * @param {keyof} chapter ключ locale json
- *
- * @returns {function} функцию выбора значения из словаря
+ * @returns {function} функцию выбора значения из json словаря
  * @example
  *
- * import { useTranslation } from 'shared/lib/intl';
+ * import { useTranslation } from 'shared/intl';
  *
  * export const SomeComponent = () => {
- *   const translate = useTranslation('custom-chapter');
+ *   const translate = useTranslation(chapter);
  *   return <ChildrenComponent label={translate('custom-text')} />
  * }
  */
 export function useTranslation<T extends keyof Wordbook>(chapter: T) {
-  const value = useLocaleSelector((state) => state.value);
+  const locale = useLocaleSelector();
 
   const translate = useMemo(() => {
-    const wordbook: Wordbook = locales[value];
+    const wordbook: Wordbook = locales[locale];
     return (key: keyof Wordbook[T]) => wordbook[chapter][key];
-  }, [chapter, value]);
+  }, [chapter, locale]);
 
   return translate;
 }

@@ -7,8 +7,6 @@ import { withProviders } from './providers';
 import './index.scss';
 
 export const App = withProviders(() => {
-  console.log('Render APP');
-
   return (
     <>
       <Header>
