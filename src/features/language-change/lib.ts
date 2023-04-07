@@ -1,4 +1,4 @@
-import { Locale, locales } from 'shared/lib/intl';
+import { Locale, locales } from 'shared/intl';
 
 /**
  * Type guard для валидации localstorage responce
