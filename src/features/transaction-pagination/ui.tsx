@@ -1,11 +1,11 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { LabelDisplayedRowsArgs } from '@mui/material/TablePagination/TablePagination';
 
-import { useTranslation } from 'shared/lib/intl';
+import { useTranslation } from 'shared/intl';
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import TablePaginationMui from 'shared/ui/table-pagination-mui';
 
-import { getSortTransactions } from 'entities/transaction/model/selectors';
+import { getSortTransactions } from 'entities/transaction';
 
 import { OPTIONS } from './config';
 import { transactionPaginationActions } from './model';
@@ -14,13 +14,12 @@ export const TransactionPagination: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const select = useAppSelector((state) => ({
-    locale: state.language.locale,
     limit: state['transaction-pagination'].limit,
     page: state['transaction-pagination'].page,
   }));
 
   const sortTransactions = useAppSelector(getSortTransactions);
-  const translate = useTranslation('table', select.locale);
+  const translate = useTranslation('table');
 
   const cb = {
     changeRowsPerPage: useCallback(

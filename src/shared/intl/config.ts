@@ -10,3 +10,5 @@ export const keys = Object.keys(locales);
 export type Translate<T> = ReturnType<
   typeof useTranslation<T extends keyof Wordbook ? T : never>
 >;
+
+export const DEFAULT_LOCALE = 'ru';

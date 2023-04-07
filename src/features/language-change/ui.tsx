@@ -1,32 +1,25 @@
-import { FC, memo, useCallback, useLayoutEffect } from 'react';
+import { memo, useCallback } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-import { useAppDispatch, useAppSelector } from 'shared/hooks';
-import { Locale, locales } from 'shared/lib/intl';
-import { capitalizeFirstLetter } from 'shared/lib/capitalize-first-letter';
-
-import { languageActions } from './model';
+import { Locale, locales, useLocaleSelector, useSetLocale } from 'shared/intl';
+import { capitalizeFirstLetter } from 'shared/lib';
 
 /**
  * Селект выбора языка локализации
  */
-export const LanguageSelect: FC = memo(() => {
-  const dispatch = useAppDispatch();
-
-  const locale = useAppSelector((state) => state.language.locale);
+export const LanguageSelect: React.FC = memo(() => {
+  const locale = useLocaleSelector();
+  const setLocale = useSetLocale();
 
   const onChangeLocale = useCallback(
     (event: SelectChangeEvent) => {
-      dispatch(languageActions.setLocale(event.target.value as Locale));
+      setLocale(event.target.value as Locale);
+      localStorage.setItem('locale', event.target.value);
     },
-    [dispatch]
+    [setLocale]
   );
-
-  useLayoutEffect(() => {
-    dispatch(languageActions.remindLocale());
-  }, [dispatch]);
 
   return (
     <FormControl sx={{ m: 0 }} size="small">
