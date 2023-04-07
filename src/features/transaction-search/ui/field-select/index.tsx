@@ -7,7 +7,7 @@ import { hasOwn } from 'shared/lib';
 
 import './style.scss';
 
-import type { Translate } from 'shared/lib/intl';
+import type { Translate } from 'shared/intl';
 import type { Scheme } from 'shared/ui/table-with-expanded-row';
 import type { ITransaction } from 'shared/api';
 

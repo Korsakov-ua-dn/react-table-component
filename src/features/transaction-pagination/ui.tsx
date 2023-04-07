@@ -1,11 +1,11 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { LabelDisplayedRowsArgs } from '@mui/material/TablePagination/TablePagination';
 
-import { useTranslation } from 'shared/lib/intl';
+import { useTranslation } from 'shared/intl';
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import TablePaginationMui from 'shared/ui/table-pagination-mui';
 
-import { getSortTransactions } from 'entities/transaction/model/selectors';
+import { getSortTransactions } from 'entities/transaction';
 
 import { OPTIONS } from './config';
 import { transactionPaginationActions } from './model';
@@ -20,7 +20,7 @@ export const TransactionPagination: React.FC = () => {
   }));
 
   const sortTransactions = useAppSelector(getSortTransactions);
-  const translate = useTranslation('table', select.locale);
+  const translate = useTranslation('table');
 
   const cb = {
     changeRowsPerPage: useCallback(
@@ -41,8 +41,7 @@ export const TransactionPagination: React.FC = () => {
       (info: LabelDisplayedRowsArgs) =>
         `${translate('page')} ${info.page + 1} 
         ${translate('of')} ${Math.ceil(info.count / select.limit) || 1}`,
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [select.limit]
+      [select.limit, translate]
     ),
   };
 

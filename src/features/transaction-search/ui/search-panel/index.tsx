@@ -3,7 +3,7 @@ import { debounce } from 'lodash';
 import { SelectChangeEvent } from '@mui/material/Select';
 
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
-import { useTranslation } from 'shared/lib/intl';
+import { useTranslation } from 'shared/intl';
 
 import { transactionSearchActions } from '../../model';
 
@@ -21,7 +21,7 @@ interface IProps {
 export const SearchPanel: React.FC<IProps> = memo(({ scheme }) => {
   const dispatch = useAppDispatch();
   const locale = useAppSelector((state) => state.language.locale);
-  const translate = useTranslation('table', locale);
+  const translate = useTranslation('table');
 
   const searchField = useAppSelector(
     (state) => state['transaction-search'].params?.field

@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { Locale } from 'shared/lib/intl';
+import { Locale } from 'shared/intl';
 
 type LanguageState = {
   locale: Locale;

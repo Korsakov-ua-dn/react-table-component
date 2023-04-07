@@ -3,9 +3,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-import { useAppDispatch, useAppSelector } from 'shared/hooks';
-import { Locale, locales } from 'shared/lib/intl';
-import { capitalizeFirstLetter } from 'shared/lib/capitalize-first-letter';
+import { useAppDispatch } from 'shared/hooks';
+import { Locale, locales, useLocaleSelector, useUpdate } from 'shared/intl';
+import { capitalizeFirstLetter } from 'shared/lib';
+
+// import { useLocaleContext } from 'app/providers/with-locale';
 
 import { languageActions } from './model';
 
@@ -14,14 +16,19 @@ import { languageActions } from './model';
  */
 export const LanguageSelect: FC = memo(() => {
   const dispatch = useAppDispatch();
-
-  const locale = useAppSelector((state) => state.language.locale);
+  // const { setLocale } = useTranslation('table');
+  // const locale = useAppSelector((state) => state.language.locale);
+  // const { locale, setLocale } = useLocaleContext();
+  const value = useLocaleSelector((state) => state.value);
+  const updateValue = useUpdate();
 
   const onChangeLocale = useCallback(
     (event: SelectChangeEvent) => {
-      dispatch(languageActions.setLocale(event.target.value as Locale));
+      // dispatch(languageActions.setLocale(event.target.value as Locale));
+      updateValue({ value: event.target.value as Locale });
+      // setLocale(event.target.value as Locale);
     },
-    [dispatch]
+    [updateValue]
   );
 
   useLayoutEffect(() => {
@@ -30,7 +37,7 @@ export const LanguageSelect: FC = memo(() => {
 
   return (
     <FormControl sx={{ m: 0 }} size="small">
-      <Select value={locale} onChange={onChangeLocale}>
+      <Select value={value} onChange={onChangeLocale}>
         {locales.map((locale) => (
           <MenuItem key={locale} value={locale}>
             {capitalizeFirstLetter(locale)}
