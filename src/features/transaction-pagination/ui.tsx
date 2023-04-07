@@ -41,8 +41,7 @@ export const TransactionPagination: React.FC = () => {
       (info: LabelDisplayedRowsArgs) =>
         `${translate('page')} ${info.page + 1} 
         ${translate('of')} ${Math.ceil(info.count / select.limit) || 1}`,
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [select.limit]
+      [select.limit, translate]
     ),
   };
 

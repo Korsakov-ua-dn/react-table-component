@@ -2,6 +2,8 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { Locale } from 'shared/lib/intl';
 
+import { isLocale } from '../lib';
+
 type LanguageState = {
   locale: Locale;
 };
@@ -19,8 +21,9 @@ const languageSlice = createSlice({
       state.locale = action.payload;
     },
     remindLocale(state) {
-      const locale = localStorage.getItem('locale') as Locale;
-      if (locale) {
+      const locale = localStorage.getItem('locale');
+
+      if (isLocale(locale)) {
         state.locale = locale;
       }
     },
